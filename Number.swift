@@ -12,6 +12,7 @@ infix operator ~
 infix operator !~
 
 public class Number: CustomStringConvertible, Comparable {
+    internal static var approximations: [String: Double] = ["e": 2.71828_18284_59045_23536, "pi": Double.pi, "\\pi": Double.pi, "\u{03C0}": Double.pi]
     
     internal let coefficient: Int;
     internal let constant: String;
