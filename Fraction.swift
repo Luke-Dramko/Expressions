@@ -86,13 +86,18 @@ public class Fraction: Number {
         denominator = denominator.multiple(coefficient: denominator.coefficient / g)
         
         //TODO Make recalculating the numerator so many times unecessary.
-        if denominator == Number(1) {
+        if numeratorCoeff == 0 {
+            return Number(0)
+        } else if denominator == Number(1) {
             return numerator.multiple(coefficient: numeratorCoeff);
         } else {
             return Fraction(numeratorCoeff, numerator.multiple(coefficient: 1), denominator)
         }
     }
     
+    /**
+    Fraction + Number
+    */
     internal override func add(_ right: Number) -> Number {
         print("Fraction + Number")
         switch right {
@@ -100,6 +105,18 @@ public class Fraction: Number {
             return self.add(right as! Fraction)
         default:
             return self.add(Fraction(right.coefficient, right.multiple(coefficient: 1), Number(1)))
+        }
+    }
+    
+    /**
+    Fraction - Number
+    */
+    internal override func subtract(_ right: Number) -> Number {
+        switch right {
+        case is Fraction:
+            return self.add((right as! Fraction).multiple(coefficient: -right.coefficient))
+        default:
+            return self.add(Fraction(-right.coefficient, right.multiple(coefficient: 1), Number(1)))
         }
     }
     
