@@ -124,4 +124,31 @@ public class Fraction: Number {
         }
     }
     
+    /**
+     Fraction * Fraction
+     */
+    internal override func multiply(_ right: Fraction) -> Number {
+        let numerator = self.numerator * right.numerator;
+        let denominator = self.denominator * right.denominator;
+        
+        let g = gcd(self.coefficient * right.coefficient,  denominator.coefficient)
+        print(g)
+        print(numerator.coefficient / g)
+        
+        //TODO: Reduce common non coefficient factors.
+        
+        if (denominator ~ Number(1)) && (denominator.coefficient / g) == 1 {
+            return numerator;
+        } else {
+            return Fraction((self.coefficient * right.coefficient) / g, numerator.multiple(coefficient: 1), denominator.multiple(coefficient: denominator.coefficient / g))
+        }
+    }
+    
+    internal override func multiply(_ right: Number) -> Number {
+        switch right {
+        case is Fraction: return self.multiply(right as! Fraction)
+        default: return self.multiply(Fraction(right.coefficient, right.multiple(coefficient: 1), Number(1)))
+        }
+    }
+    
 }

@@ -9,10 +9,10 @@
 import Foundation
 typealias N = Number
 
-print("Division: \(Number(10) / Number(5, "a"))")
-print("Addition: \(Number(10) + Number(5, "a"))")
-print("Multiplication: \(Number(10) * Number(5, "a"))")
-print("Subtraction: \(Number(10) - Number(5, "a"))");
+//print("Division: \(Number(10) / Number(5, "a"))")
+//print("Addition: \(Number(10) + Number(5, "a"))")
+//print("Multiplication: \(Number(10) * Number(5, "a"))")
+//print("Subtraction: \(Number(10) - Number(5, "a"))");
 
 /**
 print();
@@ -24,5 +24,6 @@ print()
 print("Really adding fractions: \(Fraction(6, Number(1), Number(7)) + Fraction(2, Number(1), Number(3)))")
 */
 
-let x = Fraction(4, N(1), N(5)) - Fraction(2, N(1), N(5))
+let x = Fraction(4, N(1), N(5, "e")) * Fraction(2, N(1), N(5))
 print(x)
+print(try? x.approximate())

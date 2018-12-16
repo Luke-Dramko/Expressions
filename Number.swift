@@ -163,7 +163,7 @@ public class Number: CustomStringConvertible, Comparable {
      Adds a basic number to a fraction, done through the fraction class.
      */
     internal func add(_ right: Fraction) -> Number {
-        print("Fraction + Number")
+        print("Number + Fraction")
         
         return right.add(self);
     }
@@ -208,6 +208,11 @@ public class Number: CustomStringConvertible, Comparable {
         }
     }
     
+    internal func multiply(_ right: Fraction) -> Number {
+        print("Number + Fraction")
+        return multiply(right.multiply(self))
+    }
+    
     /**
      Number / Number
      */
@@ -249,11 +254,13 @@ public class Number: CustomStringConvertible, Comparable {
  Adds together two basic numbers.  Subclasses should have their own add functions.
  */
 public func + (left: Number, right: Number) -> Number {
-    print("In adding function")
-    print("Left is a fraction: \(left is Fraction)")
-    print("Right is a fraction: \(right is Fraction)")
-    
-    return left.add(right);
+    switch left {
+    case is Fraction: return (left as! Fraction).add(right)
+    case is Product: return (left as! Product).add(right)
+    case is Sum: return (left as! Sum).add(right)
+    case is Exponential: return (left as! Exponential).add(right)
+    default: return left.add(right)
+    }
 }
 
 /**
@@ -264,7 +271,13 @@ public func - (left: Number, right: Number) -> Number {
 }
 
 public func * (left: Number, right: Number) -> Number {
-    return left.multiply(right);
+    switch left {
+    case is Fraction: return (left as! Fraction).multiply(right)
+    case is Product: return (left as! Product).multiply(right)
+    case is Sum: return (left as! Sum).multiply(right)
+    case is Exponential: return (left as! Exponential).multiply(right)
+    default: return left.multiply(right)
+    }
 }
 
 public func / (left: Number, right: Number) -> Number {
