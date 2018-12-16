@@ -58,4 +58,16 @@ public class Sum: Number {
     internal override func multiple(coefficient c: Int) -> Number {
         return Sum(c, self.terms);
     }
+    
+    public override func approximate() throws -> Double {
+        var total: Double = 0.0;
+        
+        for term in terms {
+            //Each term has to be multiplied by coefficient, because coefficient is represented as
+            //coefficient(term + term + ... + term)
+            try total += term.approximate() * Double(self.coefficient);
+        }
+        
+        return total;
+    }
 }

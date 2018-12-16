@@ -24,4 +24,9 @@ public class Exponential: Number {
     }
     
     
+    public override func approximate() throws -> Double {
+        return try Double(coefficient) * pow(base.approximate(), exponent.approximate())
+    }
+    
+    
 }

@@ -36,6 +36,10 @@ public class Fraction: Number {
         return Fraction(c, self.numerator, self.denominator);
     }
     
+    public override func approximate() throws -> Double {
+        return try (Double(self.coefficient) * numerator.approximate()) / denominator.approximate()
+    }
+    
     //**************** Operator Methods ***************
     
     /**

@@ -36,6 +36,16 @@ public class Product: Number {
         return Product(coefficient: c, self.factors)
     }
     
+    public override func approximate() throws -> Double {
+        var total: Double = Double(coefficient);
+        
+        for factor in factors {
+            try total *= factor.approximate();
+        }
+        
+        return total;
+    }
+    
     
     
 }
