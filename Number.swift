@@ -12,7 +12,7 @@ infix operator ~
 infix operator !~
 
 public class Number: CustomStringConvertible, Comparable {
-    internal static var approximations: [String: Double] = ["e": 2.71828_18284_59045_23536, "pi": Double.pi, "\\pi": Double.pi, "\u{03C0}": Double.pi]
+    internal static var approximations: [String: Double] = ["": 1, "e": 2.71828_18284_59045_23536, "pi": Double.pi, "\\pi": Double.pi, "\u{03C0}": Double.pi]
     
     internal let coefficient: Int;
     internal let constant: String;
@@ -128,6 +128,14 @@ public class Number: CustomStringConvertible, Comparable {
     //************** Instance Methods *********
     internal func multiple(coefficient c: Int) -> Number {
         return Number(c, self.constant);
+    }
+    
+    public func approximate() throws -> Double {
+        if let c = Number.approximations[self.constant] {
+            return c * Double(self.coefficient)
+        } else {
+            throw ApproximationError.UndefinedConstantError("'\(self.constant)' does not have a defined approximate decimal value."); 
+        }
     }
     
     
