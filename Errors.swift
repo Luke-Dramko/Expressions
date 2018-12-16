@@ -9,5 +9,5 @@
 import Foundation
 
 enum ApproximationError: Error {
-    case ConstantDoesNotHaveApproximateValueError(String)
+    case UndefinedConstantError(String)
 }
