@@ -23,7 +23,11 @@ public class Fraction: Number {
         if numerator.description == "1" {
             return "\\frac{\(String(self.coefficient))}{\(denominator.LaTeX)}"
         } else {
-            return "\\frac{\(String(self.coefficient) + " " + numerator.LaTeX)}{\(denominator.LaTeX)}"
+            if self.coefficient == 1 {
+                return "\\frac{\(numerator.LaTeX)}{\(denominator.LaTeX)}"
+            } else {
+                return "\\frac{\(String(self.coefficient) + "*" + numerator.LaTeX)}{\(denominator.LaTeX)}"
+            }
         }
     }
     
