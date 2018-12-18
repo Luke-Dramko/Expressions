@@ -19,6 +19,7 @@ public class Fraction: Number {
         }
     };
     
+    //Returns a string interpretable with LaTeX typesetting engines.
     public override var LaTeX: String {
         if numerator.description == "1" {
             return "\\frac{\(String(self.coefficient))}{\(denominator.LaTeX)}"
