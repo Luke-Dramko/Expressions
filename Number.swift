@@ -30,6 +30,11 @@ public class Number: CustomStringConvertible, Comparable {
         }
     }
     
+    //Returns a version of the string renderable by LaTeX typesetting engines.
+    public var LaTeX: String {
+        return self.description
+    }
+    
     
     //**************** Constructors ****************
     //Public initializers

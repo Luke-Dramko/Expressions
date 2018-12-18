@@ -12,6 +12,13 @@ public class Exponential: Number {
     private var base: Number;
     private var exponent: Number;
     public override var description: String { return base.description + "^(" + exponent.description + ")"; }
+    public override var LaTeX: String {
+        if self.coefficient == 1 {
+            return "\(base.LaTeX)^{\(exponent.LaTeX)}"
+        } else {
+            return "\(self.coefficient)(\(base.LaTeX))^{\(exponent.LaTeX)}";
+        }
+    }
     
     required init(coefficient: Int, base: Number, exponent: Number) {
         self.base = base;

@@ -27,3 +27,9 @@ print("Really adding fractions: \(Fraction(6, Number(1), Number(7)) + Fraction(2
 let x = Fraction(4, N(1), N(5, "e")) * Fraction(2, N(1), N(5))
 print(x)
 print(try? x.approximate())
+print(x.LaTeX)
+
+var y = (x + Number(5, "\\pi")) / (Number(5, "e") + Number(10));
+print(y.description)
+print(y.LaTeX)
+print(try? y.approximate())

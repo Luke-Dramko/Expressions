@@ -18,6 +18,14 @@ public class Product: Number {
         return str + factors[factors.count - 1].description + ")";
     }
     
+    public override var LaTeX: String {
+        var str = "";
+        for factor in factors {
+            str += factor.LaTeX;
+        }
+        return str;
+    }
+    
     internal convenience init(coefficient: Int, _ n1: Number, _ n2: Number) {
         self.init(coefficient: coefficient, [n1, n2]);
     }

@@ -19,6 +19,14 @@ public class Fraction: Number {
         }
     };
     
+    public override var LaTeX: String {
+        if numerator.description == "1" {
+            return "\\frac{\(String(self.coefficient))}{\(denominator.LaTeX)}"
+        } else {
+            return "\\frac{\(String(self.coefficient) + " " + numerator.LaTeX)}{\(denominator.LaTeX)}"
+        }
+    }
+    
     internal init(_ numerator: Number, _ denominator: Number) {
         self.numerator = numerator;
         self.denominator = denominator;
