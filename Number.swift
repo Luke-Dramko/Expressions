@@ -153,6 +153,14 @@ public class Number: CustomStringConvertible, Comparable {
     */
     internal func add(_ right: Number) -> Number {
         print("Number + Number")
+        switch right {
+        case is Fraction: return (right as! Fraction).add(self)
+        case is Sum: return (right as! Sum).add(self)
+        case is Product: return (right as! Product).add(self)
+        case is Exponential: return (right as! Exponential).add(self)
+        default:
+            break;
+        }
         
         let left = self;
         if (left ~ right) {

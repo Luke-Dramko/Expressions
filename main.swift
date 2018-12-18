@@ -29,7 +29,7 @@ print(x)
 print(try? x.approximate())
 print(x.LaTeX)
 
-var y = (x + Number(5, "\\pi")) / (Number(5, "e") + Number(10));
+var y = (x + Number(5))
 print(y.description)
 print(y.LaTeX)
 print(try? y.approximate())
