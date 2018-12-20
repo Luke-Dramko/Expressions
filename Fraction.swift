@@ -57,12 +57,13 @@ public class Fraction: Number {
     
     /**
      Fraction + Fraction
+     
+     Adds two fractions together, no matter the type instance of the numerator and denominator.
+     
+     -Parameter right: The right member of the addition
+     -Return: The result of the addition
      */
     internal func add(_ right: Fraction) -> Number {
-        print("Fraction + Fraction")
-        print("-------------------")
-        print("Adding \(self) + \(right)")
-        
         let left = self;
         
         var denominator = left.denominator;
@@ -96,8 +97,6 @@ public class Fraction: Number {
         //step here.
         
         let g: Int = gcd(numerator.coefficient, denominator.coefficient);
-        
-        print("Calculating gcd = \(g)")
         
         let numeratorCoeff = numerator.coefficient / g;
         denominator = denominator.multiple(coefficient: denominator.coefficient / g)
