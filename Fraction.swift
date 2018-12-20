@@ -113,9 +113,15 @@ public class Fraction: Number {
     
     /**
     Fraction + Number
+     
+    This function handles the override of Number's multiply and determines the correct downcasted type of
+    the right term if necessary.  Symbolically, this function creates a fraction over one if the right
+    side is not a fraction.
+     
+     -Parameter right: the right term in the sum
+     -Retern: The result of the sum.
     */
     internal override func add(_ right: Number) -> Number {
-        print("Fraction + Number")
         switch right {
         case is Fraction:
             return self.add(right as! Fraction)
