@@ -5,6 +5,8 @@
 //  Created by Luke  Dramko on 11/26/18.
 //  Copyright © 2018 Luke Dramko. All rights reserved.
 //
+//  This program is for informal testing only.  It is not intended to be part of the final product.
+//
 
 import Foundation
 typealias N = Number
@@ -29,7 +31,11 @@ print(x)
 print(try? x.approximate())
 print(x.LaTeX)
 
-var y = (x + Number(5))
-print(y.description)
-print(y.LaTeX)
-print(try? y.approximate())
+var y = Fraction(2, N(1), N(5))
+var z = x / y
+print("z = \(z)")
+print("z's LaTeX = \(z.LaTeX)")
+
+z = z / Number(2);
+print("z = \(z)")
+print("z's LaTeX = \(z.LaTeX)")

@@ -164,4 +164,41 @@ public class Fraction: Number {
         }
     }
     
+    /**
+     Fraction / Number
+     
+     Divides two fractions by multiplying by the reciprocal.
+     As division is routed through the multiplication function,  and does the appropriate typecasting,
+     so no other overloaded division functions are necessary.
+     
+     -Parameter right: The number on the right of the division (i.e. self / right).
+     -Returns: the result of the division.
+     */
+    internal override func divide(_ right: Number) -> Number {
+        //Division is equivalent to multiplication by the inverse/reciprocal
+        switch right {
+        case is Fraction:
+            let r = (right as! Fraction);
+            let c = r.denominator.coefficient;
+            /*
+             Fractions in this module are represented as
+               1x
+             c----
+               dy
+             
+             where c and d are integer coefficients and x and y are instances of Number.
+             The goal is to get
+             
+               1y
+             d----
+               cx
+             
+             which is the reciprocal of the fraction.
+             */
+            return self.multiply(Fraction(c, r.denominator.multiple(coefficient: 1), r.numerator.multiple(coefficient: r.coefficient)))
+        default:
+            return self.multiply(Fraction(Number(1), right));
+        }
+    }
+    
 }
