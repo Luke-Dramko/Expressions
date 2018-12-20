@@ -58,7 +58,7 @@ public class Fraction: Number {
     /**
      Fraction + Fraction
      */
-    internal override func add(_ right: Fraction) -> Number {
+    internal func add(_ right: Fraction) -> Number {
         print("Fraction + Fraction")
         print("-------------------")
         print("Adding \(self) + \(right)")
@@ -140,7 +140,7 @@ public class Fraction: Number {
     /**
      Fraction * Fraction
      */
-    internal override func multiply(_ right: Fraction) -> Number {
+    internal func multiply(_ right: Fraction) -> Number {
         let numerator = self.numerator * right.numerator;
         let denominator = self.denominator * right.denominator;
         
@@ -157,6 +157,11 @@ public class Fraction: Number {
         }
     }
     
+    /**
+     Fraction * Number
+     
+     This helper function overrides the 
+     */
     internal override func multiply(_ right: Number) -> Number {
         switch right {
         case is Fraction: return self.multiply(right as! Fraction)

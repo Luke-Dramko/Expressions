@@ -171,17 +171,6 @@ public class Number: CustomStringConvertible, Comparable {
     }
     
     /**
-     Number + Fraction
-     
-     Adds a basic number to a fraction, done through the fraction class.
-     */
-    internal func add(_ right: Fraction) -> Number {
-        print("Number + Fraction")
-        
-        return right.add(self);
-    }
-    
-    /**
      Number - Number
      */
     internal func subtract(_ right: Number) -> Number {
@@ -219,11 +208,6 @@ public class Number: CustomStringConvertible, Comparable {
         } else {
             return Product(coefficient: left.coefficient * right.coefficient, Number(left.constant), Number(right.constant));
         }
-    }
-    
-    internal func multiply(_ right: Fraction) -> Number {
-        print("Number + Fraction")
-        return multiply(right.multiply(self))
     }
     
     /**
