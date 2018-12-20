@@ -132,6 +132,12 @@ public class Fraction: Number {
     
     /**
     Fraction - Number
+     
+     Subtraction is done through the addition function; the right coefficient is multiplied by negative one
+     first.
+     
+     -Parameter right: the number being subtracted.
+     -Return: The result of the subtraction.
     */
     internal override func subtract(_ right: Number) -> Number {
         switch right {
@@ -144,6 +150,18 @@ public class Fraction: Number {
     
     /**
      Fraction * Fraction
+     
+     Multiplies two Fraction objects together, and reduces the fraction as necessary.  Multiplication is
+     done as:
+    
+       a     b     ab
+      --- * --- = ----
+       c     d     cd
+
+     and is then reduced.
+     
+     -Parameter right: The right fraction in the product (b/d from above).
+     -Return: The result of the multiplication.
      */
     internal func multiply(_ right: Fraction) -> Number {
         let numerator = self.numerator * right.numerator;
@@ -165,7 +183,12 @@ public class Fraction: Number {
     /**
      Fraction * Number
      
-     This helper function overrides the 
+     This helper function overrides the multiply function from Number.  It downcasts as appropriate and
+     routs the actual multiplication operation through Fraction * Fraction.
+     
+     Non-Fraction numbers are converted to fractions over one before multiplication (x -> x/1).
+     
+     -Parameter right: the right number in the multiplication.
      */
     internal override func multiply(_ right: Number) -> Number {
         switch right {
