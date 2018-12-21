@@ -82,4 +82,10 @@ public class Sum: Number {
         
         return total;
     }
+    
+    //*************** Operator Methods **************
+    internal override func add(_ right: Number) -> Number {
+        
+        return Number(1) //Temporary
+    }
 }
