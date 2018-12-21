@@ -39,3 +39,8 @@ print("z's LaTeX = \(z.LaTeX)")
 z = z / Number(2);
 print("z = \(z)")
 print("z's LaTeX = \(z.LaTeX)")
+
+print(N(5, "e") + N(4))
+print(N(4, "e") + N(10))
+print(N(2, "e") + N(6))
+print(N(3, "e") + N(7))

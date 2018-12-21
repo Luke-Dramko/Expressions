@@ -14,18 +14,18 @@ public class Sum: Number {
         var str = "";
         for i in 0..<(terms.count - 1) {
             if terms[i + 1].coefficient < 0 {
-                str += terms[i].description + ""; //Makes the display a litter nicer if there's a minus sign.
+                str += terms[i].multiple(coefficient: self.coefficient * terms[i].coefficient).description + ""; //Makes the display a litter nicer if there's a minus sign.
             } else {
-                str += terms[i].description + " + ";
+                str += terms[i].multiple(coefficient: self.coefficient * terms[i].coefficient).description + " + ";
             }
             
         }
         
         //Returns a more sightly minus sign, properly spaced, instead of being attached to the
         //last term
-        str.append(terms[terms.count - 1].description)
         if terms.count > 0 {  //if terms.count > 0, there will be at least one character in the string.
-            return "\(self.coefficient)(" + str.replacingOccurrences(of: "-", with: " - ", options: [], range: str.index(str.startIndex, offsetBy: 1)..<str.index(str.endIndex, offsetBy: 0)) + ")";
+            str.append(terms[terms.count - 1].multiple(coefficient: self.coefficient * terms[terms.count - 1].coefficient).description)
+            return "(" + str.replacingOccurrences(of: "-", with: " - ", options: [], range: str.index(str.startIndex, offsetBy: 1)..<str.index(str.endIndex, offsetBy: 0)) + ")";
         } else {
             return "\(self.coefficient)()";
         }
