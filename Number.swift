@@ -245,6 +245,10 @@ public class Number: CustomStringConvertible, Comparable {
             return self.coefficient < right.coefficient;
         }
     }
+    
+    internal func like(_ right: Number) -> Bool {
+        return self.constant == right.constant;
+    }
 }
 
 /**
@@ -304,7 +308,13 @@ public func < (lhs: Number, rhs: Number) -> Bool {
 
 
 public func ~ (left: Number, right: Number) -> Bool {
-    return left.constant == right.constant;
+    switch left {
+    case is Fraction: return (left as! Fraction).like(right)
+    case is Sum: return (left as! Sum).like(right)
+    case is Product: return (left as! Product).like(right)
+    case is Exponential: return (left as! Exponential).like(right)
+    default: return left.like(right)
+    }
 }
 
 public func !~ (left: Number, right: Number) -> Bool {
