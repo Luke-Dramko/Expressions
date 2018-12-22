@@ -240,7 +240,11 @@ public class Number: CustomStringConvertible, Comparable {
         case is Sum: return (right as! Sum).equals(self);
         case is Product: return (right as! Product).equals(self);
         case is Exponential: return (right as! Exponential).equals(self);
-        default: return self.coefficient == right.coefficient && self.constant == right.constant
+        default:
+            if self.coefficient == 0 && right.coefficient == 0 {
+                return true;
+            }
+            return self.coefficient == right.coefficient && self.constant == right.constant
         }
     }
     
@@ -290,9 +294,6 @@ public func * (left: Number, right: Number) -> Number {
 public func / (left: Number, right: Number) -> Number {
     return left.divide(right)
 }
-
-
-
 
 /**
  Compares two basic numbers by comparing their constants and internal integer coefficients
