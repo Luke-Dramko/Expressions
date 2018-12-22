@@ -235,7 +235,13 @@ public class Number: CustomStringConvertible, Comparable {
     }
     
     internal func equals(_ right: Number) -> Bool {
-        return self.coefficient == right.coefficient && self.constant == right.constant
+        switch right {
+        case is Fraction: return (right as! Fraction).equals(self);
+        case is Sum: return (right as! Sum).equals(self);
+        case is Product: return (right as! Product).equals(self);
+        case is Exponential: return (right as! Exponential).equals(self);
+        default: return self.coefficient == right.coefficient && self.constant == right.constant
+        }
     }
     
     internal func lessthan(_ right: Number) -> Bool {
@@ -293,7 +299,13 @@ public func / (left: Number, right: Number) -> Number {
  Operates on two numbers.
  */
 public func == (left: Number, right: Number) -> Bool {
-    return left.coefficient == right.coefficient && left.constant == right.constant
+    switch left {
+    case is Fraction: return (left as! Fraction).equals(right);
+    case is Sum: return (left as! Sum).equals(right);
+    case is Product: return (left as! Product).equals(right);
+    case is Exponential: return (left as! Exponential).equals(right);
+    default: return left.equals(right)
+    }
 }
 
 /**
