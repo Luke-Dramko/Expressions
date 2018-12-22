@@ -234,4 +234,28 @@ public class Fraction: Number {
         }
     }
     
+    
+    /**
+     Compares a Fraction (self) and a Number and determines if they're equal.
+     
+     -Parameter right: the Number to compare to
+     -Return: true if the Numbers are equal and false otherwise.
+     */
+    internal override func equals(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0 {
+            return true;
+        }
+        
+        if let r = right as? Fraction {
+            return self.coefficient == r.coefficient && self.numerator == r.numerator && self.denominator == r.denominator;
+        } else {
+            //The module only allows Number subclasses to be created through operators or internal parsing
+            //functions.  Otherwise, users can create only Numbers.  The internal operator functions and
+            //the parsing functions ensure that special cases like x/1, a sum of just x, a product of
+            //just x, etc. don't happen.  Otherwise, these special cases whould have to be handled here
+            //and in every other overriden equals function.
+            return false;
+        }
+    }
+    
 }
