@@ -30,6 +30,12 @@ public class Exponential: Number {
         self.init(coefficient: 1, base: base, exponent: exponent);
     }
     
+    //**************** Instance methods
+    
+    internal override func multiple(coefficient c: Int) -> Number {
+        return Exponential(coefficient: c, base: self.base, exponent: self.exponent);
+    }
+    
     
     public override func approximate() throws -> Double {
         return try Double(coefficient) * pow(base.approximate(), exponent.approximate())
