@@ -35,7 +35,8 @@ public class Product: Number {
     }
     
     internal required init(coefficient: Int, _ inFactors: [Number]) {
-        factors = inFactors;
+        //factors are kept sorted for easy comparison and consistent display.
+        factors = inFactors.sorted();
         super.init(coefficient);
     }
     
