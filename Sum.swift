@@ -163,4 +163,29 @@ public class Sum: Number {
             return Sum(nt)
         }
     }
+    
+    /**
+     Compares two Sums, and returns true if all of their terms are equal, and false otherwise.
+     
+     Sums are kept sorted, so comparison in order is acceptable.
+     
+     -Parameter right: the Sum to compare this Sum to
+     -Return: true if all terms are equal and false otherwise.
+     */
+    internal override func equals(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0 {
+            return true;
+        }
+        
+        if let r = right as? Sum {
+            for i in 0..<terms.count {
+                if !(self.terms[i] == r.terms[i]) {
+                    return false
+                }
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
 }
