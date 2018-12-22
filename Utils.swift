@@ -30,7 +30,3 @@ fileprivate func gcd_helper(larger: Int, smaller: Int) -> Int {
 public func lcm(_ a: Int, _ b: Int) -> Int {
     return a * b / gcd(a, b)
 }
-
-internal func cast<T>(_ value: Any, to type: T) -> T? {
-    return value as? T
-}
