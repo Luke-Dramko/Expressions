@@ -55,6 +55,28 @@ public class Product: Number {
         return total;
     }
     
-    
-    
+    //********************** Operator Methods ***************
+    /**
+     Compares two products, and returns true if all of their factors are equal, and false otherwise.
+     
+     Products are kept sorted, so comparison in order is acceptable.
+     
+     -Parameter right: the Product to compare this Product to
+     -Return: true if all terms are equal and false otherwise.
+     */
+    internal override func equals(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0 {
+            return true;
+        }
+        
+        if let r = right as? Product {
+            for i in 0..<factors.count {
+                if !(self.factors[i] == r.factors[i]) {
+                    return false
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 }
