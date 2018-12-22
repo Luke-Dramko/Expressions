@@ -62,7 +62,10 @@ public class Sum: Number {
         for term in inTerms {
             newterms.append(term.multiple(coefficient: term.coefficient / g))
         }
-        terms = newterms;
+        
+        //sorting ensures that two sums can be compared term-wise for equality, and also ensures
+        //consistent display.
+        terms = newterms.sorted();
         super.init(c * g)
     }
     
