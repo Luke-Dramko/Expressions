@@ -35,5 +35,22 @@ public class Exponential: Number {
         return try Double(coefficient) * pow(base.approximate(), exponent.approximate())
     }
     
-    
+    //****************** Operator Methods *********************
+    /**
+     Compares two exponentials, and determines if they're equal (their base, coefficient, and exponent
+     are all equal).
+     
+     -Parameter right: the Exponential to compare this Exponential to
+     -Return: true if the exponentials are equal and false otherwise.
+     */
+    public override func equals(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0 {
+            return true;
+        }
+        
+        if let r = right as? Exponential {
+            return self.coefficient == r.coefficient && self.base == r.base && self.exponent == r.exponent;
+        }
+        return false;
+    }
 }
