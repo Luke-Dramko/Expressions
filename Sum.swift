@@ -184,8 +184,7 @@ public class Sum: Number {
                 }
                 return true;
             }
-        } else {
-            return false;
         }
+        return false;
     }
 }
