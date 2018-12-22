@@ -83,9 +83,81 @@ public class Sum: Number {
         return total;
     }
     
+    /**
+     Private helper function to assist in distributing the factored coefficient to each term.  This
+     form is more useful for individual calculations.  Essentailly does a(x + y + ...) -> ax + ay + ...,
+     where a is a constant and x and y are instances of Number.
+     
+     -Return a term array after the distribution process.
+     */
+    private func distribute() -> [Number] {
+        var nt = [Number]();
+        for term in self.terms {
+            nt.append(term.multiple(coefficient: self.coefficient * term.coefficient))
+        }
+        return nt;
+    }
+    
     //*************** Operator Methods **************
+    
+    /**
+     Sum + Number
+     
+     Prepares an operation for the Sum + Sum function.
+     
+     -Parameter right: The right term in the sum
+     -Return: The result of the operations.
+     */
     internal override func add(_ right: Number) -> Number {
+        //TODO Make fraction sum case consistent accross package.  Currently, fractions are
+        //only combined through the Fraction + Number (and thus through the Fraction + Fraction) function.
+        switch right {
+        case is Sum: return self.add(right as! Sum)
+        default: return self.add(Sum([right]))
+        }
+    }
+    
+    /**
+     Sum + Sum
+     
+     Adds two sets of terms to eachother.
+     */
+    internal func add(_ right: Sum) -> Number {
+        print("Sum + Sum")
+        var nt = self.distribute() + right.distribute(); //New terms
+        nt.sort();
         
-        return Number(1) //Temporary
+        print("self = \(self.coefficient) * \(self.terms)")
+        print("right = \(right.coefficient) * \(right.terms)")
+        print("nt \(nt)")
+        
+        //Based on the sorting order, like terms are always next to eachother.
+        var i: Int = 0;
+        while (i < nt.count) {
+            //Combine like terms
+            if ((i + 1 < nt.count) && (nt[i] ~ nt[i + 1])) {
+                nt[i] = nt[i].multiple(coefficient: nt[i].coefficient + nt[i + 1].coefficient)
+                nt.remove(at: i + 1) //Remove the extra copy after combining terms
+                
+                //If two numbers cancel out, we remove the zero from the sum - keeping an extra zero
+                //term is like righting (1 + e) as (1 + e + 0)
+                if nt[i] == Number(0) {
+                    nt.remove(at: i)
+                }
+            } else {
+                //If the current term and the next term aren't like terms, then we look at the next one.
+                i+=1;
+            }
+        }
+        
+        //Handle special cases or return the new sum.
+        if terms.count == 0 {
+            return Number(0)
+        } else if terms.count == 1 {
+            return nt[0] //If there's only one item in the sum, then we might as well return just that
+                         //item, not the item in a Sum 'wrapper'
+        } else {
+            return Sum(nt)
+        }
     }
 }

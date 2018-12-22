@@ -25,7 +25,7 @@ print("Result = \(v1 + v2)")
 print()
 print("Really adding fractions: \(Fraction(6, Number(1), Number(7)) + Fraction(2, Number(1), Number(3)))")
 */
-
+/*
 let x = Fraction(4, N(1), N(5, "e")) * Fraction(2, N(1), N(5))
 print(x)
 print(try? x.approximate())
@@ -39,8 +39,12 @@ print("z's LaTeX = \(z.LaTeX)")
 z = z / Number(2);
 print("z = \(z)")
 print("z's LaTeX = \(z.LaTeX)")
+*/
 
-print(N(5, "e") + N(4))
-print(N(4, "e") + N(10))
-print(N(2, "e") + N(6))
-print(N(3, "e") + N(7))
+let a = Sum([Number(4, "e"), Number(2), Number(-4, "a")])
+let b = Sum(Number(-3, "e"), Number(4, "a"))
+let c = a + b
+print(a)
+print(b)
+print(c.description)
+print(c.LaTeX)
