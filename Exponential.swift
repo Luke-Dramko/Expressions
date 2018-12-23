@@ -62,4 +62,22 @@ public class Exponential: Number {
         }
         return false;
     }
+    
+    /**
+     Compares two esponentials and determines if they're like terms (their base and exponent are equal).
+     
+     -Parameter right: the Exponential that this is being compared to
+     -Return: true if the Exponentials are like terms.
+     */
+    public override func like(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0 {
+            return true;
+        }
+        
+        if let r = right as? Exponential {
+            return self.base == r.base && self.exponent == r.exponent;
+        } else {
+            return false;
+        }
+    }
 }
