@@ -256,6 +256,15 @@ public class Number: CustomStringConvertible, Comparable {
         }
     }
     
+    /**
+     Returns true if self is a multiple of the right number and differ only in coefficient; that is,
+     they are like terms.
+     
+     Comparison is based on the string "constant" value.
+     
+     -Parameter right: The Number to compare to
+     -Return true if the Numbers are like terms and false otherwise.
+     */
     internal func like(_ right: Number) -> Bool {
         return self.constant == right.constant;
     }
