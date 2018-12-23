@@ -69,6 +69,10 @@ public class Product: Number {
             return true;
         }
         
+        if self.coefficient != right.coefficient {
+            return false;
+        }
+        
         if let r = right as? Product {
             for i in 0..<factors.count {
                 if !(self.factors[i] == r.factors[i]) {
@@ -88,4 +92,15 @@ public class Product: Number {
      -Parameter right: the Product to compare this product to
      -Return: true if all terms are equal and false otherwise.
      */
+    internal override func like(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0{
+            return true;
+        }
+        
+        if let r = right as? Product {
+            return self.factors == r.factors;
+        } else {
+            return false;
+        }
+    }
 }
