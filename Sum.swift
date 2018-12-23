@@ -179,6 +179,10 @@ public class Sum: Number {
             return true;
         }
         
+        if self.coefficient != right.coefficient {
+            return false;
+        }
+        
         if let r = right as? Sum {
             for i in 0..<terms.count {
                 if !(self.terms[i] == r.terms[i]) {
