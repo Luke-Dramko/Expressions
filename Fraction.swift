@@ -258,4 +258,25 @@ public class Fraction: Number {
         }
     }
     
+    /**
+     Determines if two Fractions are like terms or not.  To be like terms, the fractions must be like in
+     the numerator and denominator.
+     
+     5/6 and 2/3 are like terms, but 4a/3 and 2/3 are not, nor are 3/7 and 3/4e
+     
+     -Parameter right: the Number to compare to
+     -Return: true if Fractions are like and false otherwise.
+     */
+    internal override func like(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0 {
+            return true;
+        }
+        
+        if let r = right as? Fraction {
+            return (self.numerator ~ r.numerator) && (self.denominator ~ r.denominator);
+        } else {
+            return false;
+        }
+    }
+    
 }
