@@ -30,9 +30,12 @@ public class Exponential: Number {
         self.init(coefficient: 1, base: base, exponent: exponent);
     }
     
-    //**************** Instance methods
+    //**************** Instance methods *******************
     
     internal override func multiple(coefficient c: Int) -> Number {
+        if self.base == Number(c) {
+            return Exponential(coefficient: 1, base: self.base, exponent: self.exponent + Number(1))
+        }
         return Exponential(coefficient: c, base: self.base, exponent: self.exponent);
     }
     
