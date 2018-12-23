@@ -13,10 +13,15 @@ public class Exponential: Number {
     private var exponent: Number;
     public override var description: String { return base.description + "^(" + exponent.description + ")"; }
     public override var LaTeX: String {
-        if self.coefficient == 1 {
-            return "\(base.LaTeX)^{\(exponent.LaTeX)}"
+        var coeff = "";
+        if self.coefficient != 1 {
+            coeff = String(self.coefficient)
+        }
+        
+        if self.exponent == Fraction(Number(1), Number(2)) {
+            return "\(coeff)\\sqrt{\(base.LaTeX)}"
         } else {
-            return "\(self.coefficient)(\(base.LaTeX))^{\(exponent.LaTeX)}";
+            return "\(coeff)\(base.LaTeX)^{\(exponent.LaTeX)}"
         }
     }
     

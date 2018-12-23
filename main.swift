@@ -49,7 +49,4 @@ print(b)
 print(c.description)
 print(c.LaTeX)
 
-print("a ~ b \(a ~ b)")
-print("c == c \(c == c)")
-
-print(Sum(Number(4, "a"), Number(2)) == Sum(Number(6, "a"), Number(3)))
+print(Exponential(coefficient: 3, base: Product(coefficient: 4, N("a"), N("b")), exponent: Fraction(N(1), N(2))).LaTeX)
