@@ -57,12 +57,12 @@ public class Product: Number {
     
     //********************** Operator Methods ***************
     /**
-     Compares two products, and returns true if all of their factors are equal, and false otherwise.
+     Compares two products, and returns true if all of their factors and coefficients are equal, and false otherwise.
      
      Products are kept sorted, so comparison in order is acceptable.
      
      -Parameter right: the Product to compare this Product to
-     -Return: true if all terms are equal and false otherwise.
+     -Return: true if all terms and coefficients are equal and false otherwise.
      */
     internal override func equals(_ right: Number) -> Bool {
         if self.coefficient == 0 && right.coefficient == 0 {
@@ -79,4 +79,13 @@ public class Product: Number {
         }
         return false;
     }
+    
+    /**
+     Compares two Products, and returns true if all of their factors are equal, and false otherwise.
+     
+     Products are kept sorted, so comparison in order is acceptable.
+     
+     -Parameter right: the Product to compare this product to
+     -Return: true if all terms are equal and false otherwise.
+     */
 }
