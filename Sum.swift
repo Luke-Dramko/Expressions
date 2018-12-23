@@ -172,7 +172,7 @@ public class Sum: Number {
      Sums are kept sorted, so comparison in order is acceptable.
      
      -Parameter right: the Sum to compare this Sum to
-     -Return: true if all terms are equal and false otherwise.
+     -Return: true if all terms and the coefficients are equal and false otherwise.
      */
     internal override func equals(_ right: Number) -> Bool {
         if self.coefficient == 0 && right.coefficient == 0 {
@@ -188,5 +188,25 @@ public class Sum: Number {
             }
         }
         return false;
+    }
+    
+    /**
+     Compares two Sums, and returns true if they're the same within a coefficient of eachother.
+     
+     Sums are kept sorted, so comparison in order is acceptable.
+     
+     -Parameter right: Sum to compare this Sum to
+     -Return: true if all terms are equivalent and false otherwise.
+     */
+    internal override func like(_ right: Number) -> Bool {
+        if self.coefficient == 0 && right.coefficient == 0 {
+            return true;
+        }
+        
+        if let r = right as? Sum {
+            return self.terms == r.terms;
+        } else {
+            return false;
+        }
     }
 }
