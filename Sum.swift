@@ -138,8 +138,10 @@ public class Sum: Number {
         var i: Int = 0;
         while (i < nt.count) {
             //Combine like terms
+            //We want to make sure terms are like before adding them so we don't end up nesting
+            //Sum objects.
             if ((i + 1 < nt.count) && (nt[i] ~ nt[i + 1])) {
-                nt[i] = nt[i].multiple(coefficient: nt[i].coefficient + nt[i + 1].coefficient)
+                nt[i] = nt[i] + nt[i + 1]
                 nt.remove(at: i + 1) //Remove the extra copy after combining terms
                 
                 //If two numbers cancel out, we remove the zero from the sum - keeping an extra zero
