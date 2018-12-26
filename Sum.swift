@@ -87,6 +87,7 @@ public class Sum: Number {
             //We want to make sure terms are like before adding them so we don't end up nesting
             //Sum objects.
             if ((i + 1 < nt.count) && (nt[i] ~ nt[i + 1])) {
+                print("These terms are like: \(nt[i]) and \(nt[i + 1])")
                 nt[i] = nt[i] + nt[i + 1]
                 nt.remove(at: i + 1) //Remove the extra copy after combining terms
                 
@@ -169,12 +170,66 @@ public class Sum: Number {
         
         Sum.simplify(&nt)
         
+        print("After simplification, nt = \(nt)")
+        
         //Handle special cases or return the new sum.
         if terms.count == 0 {
             return Number(0)
         } else if terms.count == 1 {
             return nt[0] //If there's only one item in the sum, then we might as well return just that
                          //item, not the item in a Sum 'wrapper'
+        } else {
+            return Sum(nt)
+        }
+    }
+    
+    /**
+     Sum * Number
+     Sum * Sum
+     
+     Returns the result of multiplying two Numbers together.  The process is defined recursively.
+     
+     -Parameter right: The Number this Sum is being multiplied by
+     -Return: The result of the operation.
+     */
+    internal override func multiply(_ right: Number) -> Number {
+        if let r = right as? Sum {
+            var result = Number(0);
+            
+            //This is essentially the FOIL process taught in algebra.
+            var i = 0;
+            for term in r.distribute() {
+                i += 1;
+                print("---- Round \(i) ----")
+                print("self = \(self)")
+                print("term = \(term)")
+                let v = self * term
+                print("v = \(v)")
+                result = result + v
+                print("now, result = \(result)")
+                print("-------------------")
+            }
+            return result;
+        }
+        
+        var nt: [Number] = []; //This is distributing the coefficient.
+        for term in self.distribute() {
+            nt.append(right * term)
+        }
+        
+        //Terms must be sorted before simplification.
+        nt.sort()
+        
+        Sum.simplify(&nt);
+        
+        print("Before returning from multiply, nt = \(nt)")
+        
+        //Handle special cases or return the new sum.
+        if terms.count == 0 {
+            return Number(0)
+        } else if terms.count == 1 {
+            return nt[0] //If there's only one item in the sum, then we might as well return just that
+            //item, not the item in a Sum 'wrapper'
         } else {
             return Sum(nt)
         }

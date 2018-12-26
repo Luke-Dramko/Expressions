@@ -40,7 +40,7 @@ z = z / Number(2);
 print("z = \(z)")
 print("z's LaTeX = \(z.LaTeX)")
 */
-
+/*
 let a = Sum([Number(4, "e"), Number(2), Number(-4, "a")])
 let b = Sum(Number(-3, "e"), Number(4, "a"))
 let c = a + b
@@ -49,4 +49,16 @@ print(b)
 print(c.description)
 print(c.LaTeX)
 
-print(Exponential(coefficient: 3, base: Product(coefficient: 4, N("a"), N("b")), exponent: Fraction(N(1), N(2))).LaTeX)
+print(Exponential(coefficient: 3, base: Product(coefficient: 4, N("a"), N("b")), exponent: Fraction(N(1), N(2))).LaTeX) */
+
+print("Testing + 0")
+print(Number(0) + N("a"))
+
+
+let d = Sum([N("x"), N(2)]);
+let e = Sum(N("x"), N(3));
+let f = d * e;
+print("d = \(d)")
+print("e = \(e)")
+print("f = \(f)")
+print("d * 7/4 = \(d * (N(7) / N(4)))")
