@@ -274,6 +274,12 @@ public class Number: CustomStringConvertible, Comparable {
  Adds together two basic numbers.  Subclasses should have their own add functions.
  */
 public func + (left: Number, right: Number) -> Number {
+    if left == Number(0) {
+        return right;
+    } else if right == Number(0) {
+        return left;
+    }
+    
     switch left {
     case is Fraction: return (left as! Fraction).add(right)
     case is Product: return (left as! Product).add(right)
