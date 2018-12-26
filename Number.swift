@@ -266,7 +266,13 @@ public class Number: CustomStringConvertible, Comparable {
      -Return true if the Numbers are like terms and false otherwise.
      */
     internal func like(_ right: Number) -> Bool {
-        return self.constant == right.constant;
+        switch right {
+        case is Fraction: return (right as! Fraction).like(self);
+        case is Sum: return (right as! Sum).like(self);
+        case is Product: return (right as! Product).like(self);
+        case is Exponential: return (right as! Exponential).like(self);
+        default: return self.constant == right.constant;
+        }
     }
 }
 
