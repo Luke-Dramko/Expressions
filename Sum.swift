@@ -69,6 +69,39 @@ public class Sum: Number {
         super.init(c * g)
     }
     
+    //********************* Miscellaneous Helpers ***********************
+    
+    /**
+     Simplifys an array of Numbers by combining like terms.
+     Precondition: The array is sorted, so like terms are next to eachother.
+     
+     "Like Terms" are defined using the 'like' operator, ~
+     
+     -Parameter nt: "new terms" the array of terms to be simplified.
+     */
+    private static func simplify(_ nt: inout [Number]) {
+        //Based on the sorting order, like terms are always next to eachother.
+        var i: Int = 0;
+        while (i < nt.count) {
+            //Combine like terms
+            //We want to make sure terms are like before adding them so we don't end up nesting
+            //Sum objects.
+            if ((i + 1 < nt.count) && (nt[i] ~ nt[i + 1])) {
+                nt[i] = nt[i] + nt[i + 1]
+                nt.remove(at: i + 1) //Remove the extra copy after combining terms
+                
+                //If two numbers cancel out, we remove the zero from the sum - keeping an extra zero
+                //term is like righting (1 + e) as (1 + e + 0)
+                if nt[i] == Number(0) {
+                    nt.remove(at: i)
+                }
+            } else {
+                //If the current term and the next term aren't like terms, then we look at the next one.
+                i+=1;
+            }
+        }
+    }
+    
     //************** Instance methods *************
     internal override func multiple(coefficient c: Int) -> Number {
         return Sum(c, self.terms);
@@ -134,26 +167,7 @@ public class Sum: Number {
         print("right = \(right.coefficient) * \(right.terms)")
         print("nt \(nt)")
         
-        //Based on the sorting order, like terms are always next to eachother.
-        var i: Int = 0;
-        while (i < nt.count) {
-            //Combine like terms
-            //We want to make sure terms are like before adding them so we don't end up nesting
-            //Sum objects.
-            if ((i + 1 < nt.count) && (nt[i] ~ nt[i + 1])) {
-                nt[i] = nt[i] + nt[i + 1]
-                nt.remove(at: i + 1) //Remove the extra copy after combining terms
-                
-                //If two numbers cancel out, we remove the zero from the sum - keeping an extra zero
-                //term is like righting (1 + e) as (1 + e + 0)
-                if nt[i] == Number(0) {
-                    nt.remove(at: i)
-                }
-            } else {
-                //If the current term and the next term aren't like terms, then we look at the next one.
-                i+=1;
-            }
-        }
+        Sum.simplify(&nt)
         
         //Handle special cases or return the new sum.
         if terms.count == 0 {
