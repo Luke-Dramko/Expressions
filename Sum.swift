@@ -87,7 +87,6 @@ public class Sum: Number {
             //We want to make sure terms are like before adding them so we don't end up nesting
             //Sum objects.
             if ((i + 1 < nt.count) && (nt[i] ~ nt[i + 1])) {
-                print("These terms are like: \(nt[i]) and \(nt[i + 1])")
                 nt[i] = nt[i] + nt[i + 1]
                 nt.remove(at: i + 1) //Remove the extra copy after combining terms
                 
@@ -160,17 +159,10 @@ public class Sum: Number {
      Adds two sets of terms to eachother.
      */
     internal func add(_ right: Sum) -> Number {
-        print("Sum + Sum")
         var nt = self.distribute() + right.distribute(); //New terms
         nt.sort();
         
-        print("self = \(self.coefficient) * \(self.terms)")
-        print("right = \(right.coefficient) * \(right.terms)")
-        print("nt \(nt)")
-        
         Sum.simplify(&nt)
-        
-        print("After simplification, nt = \(nt)")
         
         //Handle special cases or return the new sum.
         if terms.count == 0 {
@@ -197,17 +189,8 @@ public class Sum: Number {
             var result = Number(0);
             
             //This is essentially the FOIL process taught in algebra.
-            var i = 0;
             for term in r.distribute() {
-                i += 1;
-                print("---- Round \(i) ----")
-                print("self = \(self)")
-                print("term = \(term)")
-                let v = self * term
-                print("v = \(v)")
-                result = result + v
-                print("now, result = \(result)")
-                print("-------------------")
+                result = result + (self * term)
             }
             return result;
         }
@@ -221,8 +204,6 @@ public class Sum: Number {
         nt.sort()
         
         Sum.simplify(&nt);
-        
-        print("Before returning from multiply, nt = \(nt)")
         
         //Handle special cases or return the new sum.
         if terms.count == 0 {
