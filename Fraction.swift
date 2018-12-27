@@ -272,10 +272,30 @@ public class Fraction: Number {
             return true;
         }
         
+        print("In the main body")
+        
         if let r = right as? Fraction {
+            
+            print("Right is a Fraction")
+            
             return (self.numerator ~ r.numerator) && (self.denominator ~ r.denominator);
-        } else {
+        } else if right is Exponential || right is Sum || right is Product {
+            //Values that could be better represented in a more simplified form (like a Sum of just
+            //(3) or a Fraction of 5x/1 are represented by that form (3, and 5x, which are Numbers,
+            //from the earlier examples).
             return false;
+        } else {
+            //right is just an instance of Number, not a subclass.
+            
+            //This if statement handles the special case of like terms where the denominator is
+            //a simple integer constant (decimal constants are impossible in this system).
+            //This includes cases like
+            // 6 - 4/5 (like terms) and 5x + 4x/7 (also like terms).
+            if (right ~ self.numerator) && (self.denominator ~ Number(1)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
     
