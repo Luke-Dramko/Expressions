@@ -176,6 +176,21 @@ public class Sum: Number {
     }
     
     /**
+     Sum - Number
+     
+     Subtracts two numbers.  In this module, subtraction is defined as addition with a negative coefficient.
+     
+     -Parameter right: The Number to subtract from this Sum.
+     -Return: The result of the operation.
+     */
+    internal override func subtract(_ right: Number) -> Number {
+        switch right {
+        case is Sum: return self.add(right.multiple(coefficient: -right.coefficient) as! Sum)
+        default: return self.add(Sum([right.multiple(coefficient: -right.coefficient)]))
+        }
+    }
+    
+    /**
      Sum * Number
      Sum * Sum
      
