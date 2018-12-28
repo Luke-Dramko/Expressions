@@ -152,7 +152,6 @@ public class Number: CustomStringConvertible, Comparable {
      Adds two basic numbers together
     */
     internal func add(_ right: Number) -> Number {
-        print("Number + Number")
         switch right {
         case is Fraction: return (right as! Fraction).add(self)
         case is Sum: return (right as! Sum).add(self)
@@ -186,6 +185,8 @@ public class Number: CustomStringConvertible, Comparable {
      Number * Number
      */
     internal func multiply(_ right: Number) -> Number {
+        
+        
         let left = self;
         
         //This case covers situations like 2 * 4, 2 * 4e, and 2e * 4
