@@ -53,7 +53,9 @@ print(Exponential(coefficient: 3, base: Product(coefficient: 4, N("a"), N("b")),
 let d = Sum([N("x"), N(2)]);
 let e = Sum(N("x"), N(3));
 let f = d * e;
+let g = Sum(N(4, "x"), N(5))
 print("d = \(d)")
 print("e = \(e)")
 print("f = \(f)")
-print("f - 5x = \(f - Sum(Number(5, "x"), Fraction(4, N(1), N(5))))")
+//print("f = \(f / Sum(Number(5, "x"), Fraction(4, N(1), N(5))))")
+print(g / Number(8, "x"))

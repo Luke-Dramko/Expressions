@@ -194,7 +194,7 @@ public class Sum: Number {
      Sum * Number
      Sum * Sum
      
-     Returns the result of multiplying two Numbers together.  The process is defined recursively.
+     Returns the result of multiplying two Sums together.  The process is defined recursively.
      
      -Parameter right: The Number this Sum is being multiplied by
      -Return: The result of the operation.
@@ -229,6 +229,23 @@ public class Sum: Number {
         } else {
             return Sum(nt)
         }
+    }
+    
+    /**
+     Divides a Sum by another number.
+     
+     This function actually sets up a Fraction for multiplication.  The call is routed through
+     Fraction.multiply(), which actually does the work.
+     
+     -Parameter right: The denominator in the division
+     -Return: The result of the division operation
+     */
+    internal override func divide(_ right: Number) -> Number {
+        //Because the call is intended to be routed through Fraction.multiply anyway, we want the
+        //Fraction to be first to potentially avoid an extra call.  It's best practice to always
+        //use the symbolic operators (+, -, *, etc.) instead of the instance methods.
+        print("In Sum.divide, self = \(self)")
+        return Fraction(1, Number(1), right) * self
     }
     
     /**
