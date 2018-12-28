@@ -185,7 +185,14 @@ public class Number: CustomStringConvertible, Comparable {
      Number * Number
      */
     internal func multiply(_ right: Number) -> Number {
-        
+        switch right {
+        case is Fraction: return (right as! Fraction).multiply(self)
+        case is Sum: return (right as! Sum).multiply(self)
+        case is Product: return (right as! Product).multiply(self)
+        case is Exponential: return (right as! Exponential).multiply(self)
+        default:
+            break;
+        }
         
         let left = self;
         
