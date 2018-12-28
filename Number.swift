@@ -173,6 +173,14 @@ public class Number: CustomStringConvertible, Comparable {
      Number - Number
      */
     internal func subtract(_ right: Number) -> Number {
+        switch right {
+        case is Fraction: return (right.multiple(coefficient: -right.coefficient) as! Fraction).add(self)
+        case is Sum: return (right.multiple(coefficient: -right.coefficient) as! Sum).add(self)
+        case is Product: return (right.multiple(coefficient: -right.coefficient) as! Product).add(self)
+        case is Exponential: return (right.multiple(coefficient: -right.coefficient) as! Exponential).add(self)
+        default:
+            break;
+        }
         let left = self;
         if left ~ right {
             return Number(left.coefficient - right.coefficient, left.constant);
@@ -222,6 +230,35 @@ public class Number: CustomStringConvertible, Comparable {
      Number / Number
      */
     internal func divide(_ right: Number) -> Number {
+        switch right {
+        case is Fraction:
+            //self / right = (1/right * self)
+            
+            let r = (right as! Fraction);
+            let c = r.denominator.coefficient;
+            /*
+             Fractions in this module are represented as
+               1x
+             c----
+               dy
+             
+             where c and d are integer coefficients and x and y are instances of Number.
+             The goal is to get
+             
+               1y
+             d----
+               cx
+             
+             which is the reciprocal of the fraction.
+             */
+            return Fraction(c, r.denominator.multiple(coefficient: 1), r.numerator.multiple(coefficient: r.coefficient)).multiply(self)
+        case is Sum: return Fraction(Number(1), right).multiply(self)
+        case is Product: return Fraction(Number(1), right).multiply(self)
+        case is Exponential: return Fraction(Number(1), right).multiply(self)
+        default:
+            break;
+        }
+        
         let left = self;
         let g = gcd(left.coefficient, right.coefficient);
         let n: Int = left.coefficient / g; //numerator
