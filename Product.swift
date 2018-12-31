@@ -11,7 +11,7 @@ import Foundation
 public class Product: Number {
     private let factors: [Number];
     public override var description: String {
-        var str = "(";
+        var str = "\(self.coefficient)(";
         for i in 0..<(factors.count - 1) {
             str += factors[i].description + "*";
         }
@@ -101,6 +101,26 @@ public class Product: Number {
             return self.factors == r.factors;
         } else {
             return false;
+        }
+    }
+    
+    /**
+     Product + Number
+     
+     Returns the sum of a Product and a Number.  If the Product and Number are like, terms are combined;
+     otherwise,
+     */
+    internal override func add(_ right: Number) -> Number {
+        if self ~ right {
+            let result = self.multiple(coefficient: self.coefficient + right.coefficient)
+            
+            if result == Number(0) {
+                return Number(0)
+            } else {
+                return result
+            }
+        } else {
+            return Sum(self, right)
         }
     }
 }
