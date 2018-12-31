@@ -19,7 +19,7 @@ public class Product: Number {
     }
     
     public override var LaTeX: String {
-        var str = "";
+        var str = String(self.coefficient);
         for factor in factors {
             str += factor.LaTeX;
         }
