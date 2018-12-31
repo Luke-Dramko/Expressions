@@ -108,7 +108,10 @@ public class Product: Number {
      Product + Number
      
      Returns the sum of a Product and a Number.  If the Product and Number are like, terms are combined;
-     otherwise,
+     otherwise, they are packaged into a Sum.
+     
+     -Parameter right: The right term of the product.
+     -Return: The result of the operation.
      */
     internal override func add(_ right: Number) -> Number {
         if self ~ right {
