@@ -205,43 +205,24 @@ public class Number: CustomStringConvertible, Comparable {
         default:
             break;
         }
-        
-        print("In the main case.  self = \(self) and right = \(right)")
-        
         //This case covers situations like 2 * 4, 2 * 4e, and 2e * 4
         if self.constant == "" || right.constant == "" {
-            
-            print("In the basic case. self.constant = \(self.constant)")
-            
             //Left's constant is the e, a, etc.
             if (self.constant != "") {
-                
-                print("self's constant is blank")
-                
                 return Number(self.coefficient * right.coefficient, self.constant);
                 
                 //right's constant is the e, a, etc. or they're both "".
             } else {
-                
-                print("right's constant is blank, or they're both blank.")
-                print("We're returning \(Number(self.coefficient * right.coefficient, right.constant))")
-                
                 return Number(self.coefficient * right.coefficient, right.constant);
             }
             
             
             //This case covers situations like 4e * e or 3a * 5a
         } else if self ~ right {
-            
-            print("In the like terms case.")
-            
             return Exponential(coefficient: self.coefficient * right.coefficient, base: Number(self.constant), exponent: Number(2));
             
             //This case cover situations like 4e * 7b
         } else {
-            
-            print("In the Product case.")
-            
             return Product(coefficient: self.coefficient * right.coefficient, Number(self.constant), Number(right.constant));
         }
     }

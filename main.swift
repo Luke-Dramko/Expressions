@@ -50,6 +50,8 @@ print(c.description)
 print(c.LaTeX)
 
 print(Exponential(coefficient: 3, base: Product(coefficient: 4, N("a"), N("b")), exponent: Fraction(N(1), N(2))).LaTeX) */
+
+/*
 let d = Sum([N("x"), N(2)]);
 let e = Sum(N("x"), N(3));
 let f = d * e;
@@ -59,3 +61,10 @@ print("e = \(e)")
 print("f = \(f)")
 //print("f = \(f / Sum(Number(5, "x"), Fraction(4, N(1), N(5))))")
 print(g / Number(8, "x"))
+print("-----------------------------") */
+
+let h = (Number(3) * Number("x")) * Number("a")
+print("h = \(h)")
+let i = Product(coefficient: 4, Number("x"), Number("a"))
+print(h + i)
+print((h + i).LaTeX)
