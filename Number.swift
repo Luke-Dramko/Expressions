@@ -202,27 +202,25 @@ public class Number: CustomStringConvertible, Comparable {
             break;
         }
         
-        let left = self;
-        
         //This case covers situations like 2 * 4, 2 * 4e, and 2e * 4
-        if left.constant == "" || right.constant == "" {
+        if self.constant == "" || right.constant == "" {
             //Left's constant is the e, a, etc.
-            if (left.constant != "") {
-                return Number(left.coefficient * right.coefficient, left.constant);
+            if (self.constant != "") {
+                return Number(self.coefficient * right.coefficient, self.constant);
                 
                 //right's constant is the e, a, etc. or they're both "".
             } else {
-                return Number(left.coefficient * right.coefficient, right.constant);
+                return Number(self.coefficient * right.coefficient, right.constant);
             }
             
             
             //This case covers situations like 4e * e or 3a * 5a
-        } else if left ~ right {
-            return Exponential(coefficient: left.coefficient * right.coefficient, base: Number(left.constant), exponent: Number(2));
+        } else if self ~ right {
+            return Exponential(coefficient: self.coefficient * right.coefficient, base: Number(self.constant), exponent: Number(2));
             
             //This case cover situations like 4e * 7b
         } else {
-            return Product(coefficient: left.coefficient * right.coefficient, Number(left.constant), Number(right.constant));
+            return Product(coefficient: self.coefficient * right.coefficient, Number(self.constant), Number(right.constant));
         }
     }
     
