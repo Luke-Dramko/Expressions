@@ -120,6 +120,46 @@ public class Sum: Number {
     }
     
     /**
+     Returns the sum in its factored form.  A sum in this module is represented by
+     
+     c(ax + by), where c is the coefficient, an integer.
+     
+     This function returns the Sum itself factored, including the terms inside of it.
+     The Sum
+     3(4ax + x) would be factored as 3x(4a + 1), and returned as a tuple of (3x, (4a + 1)).
+     
+     */
+    public func factored() -> (Number, Sum) {
+        if terms.count == 0 {
+            return (Number.one, Sum([Number.one]));
+        }
+        
+        var commonFactors: Array<Number>;
+        
+        if let p = terms[0] as? Product {
+            commonFactors = p.factors;
+        } else {
+            commonFactors = [terms[0].multiple(coefficient: 1)]
+        }
+        
+        for i in 1..<terms.count {
+            if let p = terms[i] as? Product { //(Number) throws -> Bool
+                commonFactors = commonFactors.filter({ num in !p.factors.contains(where: { $0 ~ num }) })
+            } else {
+                commonFactors = commonFactors.filter( { $0 ~ terms[i]} )
+            }
+        }
+        
+        if commonFactors.count == 0 {
+            return (Number.one, self)
+        } else if commonFactors.count == 1 {
+            return (commonFactors[0], self)
+        } else {
+            return (Product(coefficient: 1, commonFactors), self)
+        }
+    }
+    
+    /**
      Private helper function to assist in distributing the factored coefficient to each term.  This
      form is more useful for individual calculations.  Essentailly does a(x + y + ...) -> ax + ay + ...,
      where a is a constant and x and y are instances of Number.
