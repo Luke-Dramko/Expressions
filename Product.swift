@@ -9,7 +9,7 @@
 import Foundation
 
 public class Product: Number {
-    private let factors: [Number];
+    internal let factors: [Number];
     public override var description: String {
         var str = "\(self.coefficient)(";
         for i in 0..<(factors.count - 1) {
