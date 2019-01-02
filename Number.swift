@@ -11,7 +11,7 @@ import Foundation
 infix operator ~
 infix operator !~
 
-public class Number: CustomStringConvertible, Comparable {
+public class Number: CustomStringConvertible, Comparable, Hashable {
     internal static var approximations: [String: Double] = ["": 1, "e": 2.71828_18284_59045_23536, "pi": Double.pi, "\\pi": Double.pi, "\u{03C0}": Double.pi]
     
     internal let coefficient: Int;
@@ -26,6 +26,10 @@ public class Number: CustomStringConvertible, Comparable {
      */
     public static let zero = Number(0)
     public static let one = Number(1)
+    
+    public var hashValue: Int {
+        return constant.hashValue ^ coefficient.hashValue;
+    }
     
     //Computed properties
     public var description: String {
