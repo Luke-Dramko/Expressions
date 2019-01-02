@@ -10,6 +10,16 @@ import Foundation
 
 public class Product: Number {
     internal let factors: [Number];
+    
+    public override var hashValue: Int {
+        var hash = coefficient;
+        for factor in factors {
+            hash = hash ^ factor.hashValue //xor used instead of multiplication
+        }
+        return hash
+    }
+    
+    
     public override var description: String {
         var str = "\(self.coefficient)(";
         for i in 0..<(factors.count - 1) {
