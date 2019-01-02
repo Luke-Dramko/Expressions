@@ -11,6 +11,9 @@ import Foundation
 public class Exponential: Number {
     private var base: Number;
     private var exponent: Number;
+    
+    public override var hashValue: Int { return coefficient &* (base.hashValue ^ exponent.hashValue) }
+    
     public override var description: String { return base.description + "^(" + exponent.description + ")"; }
     public override var LaTeX: String {
         var coeff = "";
