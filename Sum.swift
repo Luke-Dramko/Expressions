@@ -10,6 +10,16 @@ import Foundation
 
 public class Sum: Number {
     private let terms: [Number];
+    
+    public override var hashValue: Int {
+        var hash = self.coefficient;
+        for term in terms {
+            //Overflow operator used as overflow doesn't particularly matter, and number operands are
+            hash = hash &+ term.hashValue  //expected to be large.
+        }
+        return hash;
+    }
+    
     public override var description: String {
         var str = "";
         for i in 0..<(terms.count - 1) {
