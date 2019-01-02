@@ -11,6 +11,12 @@ import Foundation
 public class Fraction: Number {
     internal let numerator: Number;
     internal let denominator: Number;
+    
+    
+    public override var hashValue: Int {
+        return (coefficient * numerator.hashValue) / denominator.hashValue
+    }
+    
     public override var description: String {
         if numerator.description == "1" {
             return String(coefficient) + "/" + denominator.description

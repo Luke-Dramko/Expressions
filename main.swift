@@ -63,12 +63,6 @@ print("f = \(f)")
 print(g / Number(8, "x"))
 print("-----------------------------") */
 
-let str1 = readLine()
-let str2 = readLine()
-
-let overflow = Int(str1!)! * Int(str2!)!
-print(overflow)
-
 let h = (Number(3) * Number("x")) * Number("a")
 print("h = \(h)")
 let i = Product(coefficient: 4, Number("x"), Number("a"))
