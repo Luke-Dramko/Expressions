@@ -120,8 +120,8 @@ public class Product: Number {
      Returns the sum of a Product and a Number.  If the Product and Number are like, terms are combined;
      otherwise, they are packaged into a Sum.
      
-     -Parameter right: The right term of the product.
-     -Return: The result of the operation.
+     -Parameter right: The right term of the sum.
+     -Return: The result of the addition.
      */
     internal override func add(_ right: Number) -> Number {
         if self ~ right {
@@ -134,6 +134,20 @@ public class Product: Number {
             }
         } else {
             return Sum(self, right)
+        }
+    }
+    
+    /**
+     Product * Number
+     
+     Returns the product of a Number with another Number, including another poduct.
+     
+     -Parameter right: The right term of the product
+     -Return: The result of the multiplication.
+     */
+    internal override func multiply(_ right: Number) -> Number {
+        if let r = right as? Product {
+            
         }
     }
 }
