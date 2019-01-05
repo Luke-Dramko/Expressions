@@ -19,13 +19,14 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
     
     /*
      These static variables exist so a new "1" Number doesn't have to be initialized every time the
-     number 1 is needed, which is quite often.  The same goes for zero.  Numbers are immutable and
-     thus the same one can be used any time Number(1) or Number(0) is needed.
+     number 1 is needed, which is quite often.  The same goes for 0 and -1.  Numbers are immutable and
+     thus the same one can be used any time Number(1), Number(0), or Number(-1) is needed.
      
-     These are public so they can be called outside the module.
+     These are public so they can be called outside the module if the user wishes to reduce memory footprint.
      */
-    public static let zero = Number(0)
     public static let one = Number(1)
+    public static let zero = Number(0)
+    public static let negative_one = Number(-1)
     
     public var hashValue: Int {
         return constant.hashValue ^ coefficient.hashValue;
