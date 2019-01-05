@@ -59,6 +59,29 @@ public class Fraction: Number {
         return try (Double(self.coefficient) * numerator.approximate()) / denominator.approximate()
     }
     
+    /**
+     Returns the reciprocal of this fraction
+     */
+    public func reciprocal() -> Fraction {
+        let c = self.denominator.coefficient;
+        /*
+         Fractions in this module are represented as
+           1x
+         c----
+           dy
+         
+         where c and d are integer coefficients and x and y are instances of Number.
+         The goal is to get
+         
+           1y
+         d----
+           cx
+         
+         which is the reciprocal of the fraction.
+         */
+        return Fraction(c, self.denominator.multiple(coefficient: 1), self.numerator.multiple(coefficient: self.coefficient))
+    }
+    
     //**************** Operator Methods ***************
     
     /**
@@ -223,24 +246,7 @@ public class Fraction: Number {
         //Division is equivalent to multiplication by the inverse/reciprocal
         switch right {
         case is Fraction:
-            let r = (right as! Fraction);
-            let c = r.denominator.coefficient;
-            /*
-             Fractions in this module are represented as
-               1x
-             c----
-               dy
-             
-             where c and d are integer coefficients and x and y are instances of Number.
-             The goal is to get
-             
-               1y
-             d----
-               cx
-             
-             which is the reciprocal of the fraction.
-             */
-            return self.multiply(Fraction(c, r.denominator.multiple(coefficient: 1), r.numerator.multiple(coefficient: r.coefficient)))
+            return self.multiply((right as! Fraction).reciprocal())
         default:
             return self.multiply(Fraction(Number(1), right));
         }
