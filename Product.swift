@@ -21,7 +21,7 @@ public class Product: Number {
     
     
     public override var description: String {
-        var str = "\(self.coefficient)(";
+        var str = self.coefficient == 1 ? "\(self.coefficient)(" : "(";
         for i in 0..<(factors.count - 1) {
             str += factors[i].description + "*";
         }
