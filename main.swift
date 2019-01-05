@@ -62,9 +62,17 @@ print("f = \(f)")
 //print("f = \(f / Sum(Number(5, "x"), Fraction(4, N(1), N(5))))")
 print(g / Number(8, "x"))
 print("-----------------------------") */
-
+/*
 let h = (Number(3) * Number("x")) * Number("a")
 print("h = \(h)")
 let i = Product(coefficient: 4, Number("x"), Number("a"))
 print(h + i)
 print((h + i).LaTeX)
+*/
+
+let j = Number(4) * Number("x")
+let k = Number("x") * Number("y")
+let l = Product(coefficient: 7, [Number("y"), Number("z"), Exponential(base: Number("x"), exponent: Fraction(1, Number.one, Number("2")))])
+print("l = \(l)")
+print(j * k)
+print("jkl = \((j * k) * l)")

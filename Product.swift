@@ -146,8 +146,53 @@ public class Product: Number {
      -Return: The result of the multiplication.
      */
     internal override func multiply(_ right: Number) -> Number {
+        //self is a product; right is also a product.
         if let r = right as? Product {
+            //dictionary nf relates the base of an exponent to its exponent.
+            //For example, xy^2 is represented as [x:1, y:2]
+            //nfh stands for "new factors hash"
+            var nfh = Dictionary<Number, Number>();
             
+            for f in self.factors {
+                if let e = f as? Exponential {
+                    nfh[e.base] = e.exponent
+                } else {
+                    nfh[f] = Number.one;
+                }
+            }
+            
+            for f in r.factors {
+                if let e = f as? Exponential {
+                    if let val = nfh[e.base] {
+                        nfh[e.base] = val + e.exponent
+                    } else {
+                        nfh[e.base] = e.exponent
+                    }
+                } else { //f is not an Exponential
+                    if let val = nfh[f] {
+                        nfh[f] = val + Number.one
+                    } else {
+                        nfh[f] = Number.one
+                    }
+                }
+            }
+            
+            //Stands for "new factors"
+            var nf = Array<Number>();
+            
+            for (base, exponent) in nfh {
+                if exponent == Number.one {
+                    nf.append(base)
+                } else {
+                    nf.append(Exponential(base: base, exponent: exponent))
+                }
+            }
+            
+            return Product(coefficient: self.coefficient * r.coefficient, nf)
         }
+        
+        //right is not a product.
+        
+        return self.multiply(Product(coefficient: right.coefficient, [right.multiple(coefficient: 1)]))
     }
 }
