@@ -95,10 +95,6 @@ public class Fraction: Number {
     internal func add(_ right: Fraction) -> Number {
         let left = self;
         
-        print("-------------------------------")
-        print("left = \(left)")
-        print("right = \(right)")
-        
         var denominator = left.denominator;
         var numerator: Number;
         if left.denominator != right.denominator {
@@ -118,10 +114,6 @@ public class Fraction: Number {
              numerator = (a*d).multiple(left.coefficient, d.coefficient) + (b*c).multiple(right.coefficient, c.coefficient)
             */
             numerator = (left.numerator * right.denominator).multiple(coefficient: left.coefficient * right.denominator.coefficient) + (left.denominator * right.numerator).multiple(coefficient: right.coefficient * left.denominator.coefficient)
-            print("First multiplication: \(left.numerator * right.denominator)")
-            print("Second multiplication: \(right.numerator * left.denominator)")
-            print("Numerator = \(numerator)");
-            print("Denominator = \(denominator)")
         } else {
             numerator = left.numerator + right.numerator;
         }
@@ -133,8 +125,6 @@ public class Fraction: Number {
         
         let numeratorCoeff = numerator.coefficient / g;
         denominator = denominator.multiple(coefficient: denominator.coefficient / g)
-        
-        print("-------------------------")
         
         //TODO Make recalculating the numerator so many times unecessary.
         if numeratorCoeff == 0 {
@@ -203,8 +193,6 @@ public class Fraction: Number {
         let denominator = self.denominator * right.denominator;
         
         let g = gcd(self.coefficient * right.coefficient,  denominator.coefficient)
-        print(g)
-        print(numerator.coefficient / g)
         
         //TODO: Reduce common non coefficient factors.
         
