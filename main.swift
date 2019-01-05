@@ -70,10 +70,11 @@ print(h + i)
 print((h + i).LaTeX)
 */
 
-let j = Number(4) * Number("x")
-let k = Number("x") * Number("y")
+let j = Number(15) * Number("x")
+let k = Number("x") * Number(3, "y")
 let l = Product(coefficient: 7, [Number("y"), Number("z"), Exponential(base: Number("x"), exponent: Fraction(1, Number.one, Number(2)))])
 print("l = \(l)")
-print(j * k)
-print("jk - l = \((j * k) - l)")
-print("l - jk = \(l - (j * k))")
+let jk = j * k;
+print("jk = \(jk)")
+print("k = \(k)")
+print("jk / k = \((jk / k).LaTeX)")

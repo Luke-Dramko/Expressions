@@ -207,15 +207,4 @@ public class Product: Number {
         
         return self.multiply(Product(coefficient: right.coefficient, [right.multiple(coefficient: 1)]))
     }
-    
-    /**
-     Product / Number
-     */
-    internal override func divide(_ right: Number) -> Number {
-        if let r = right as? Fraction {
-            return r.reciprocal().multiply(self)
-        } else {
-            return Fraction(1, Number.one, right).multiply(self)
-        }
-    }
 }
