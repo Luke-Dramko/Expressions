@@ -29,7 +29,12 @@ public class Product: Number {
     }
     
     public override var LaTeX: String {
-        var str = String(self.coefficient);
+        var str: String;
+        if self.coefficient == 1 {
+            str = "";
+        } else {
+            str = String(self.coefficient);
+        }
         for factor in factors {
             str += factor.LaTeX;
         }
