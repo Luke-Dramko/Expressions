@@ -23,7 +23,7 @@ public class Sum: Number {
     public override var description: String {
         var str = "";
         for i in 0..<(terms.count - 1) {
-            if terms[i + 1].coefficient < 0 {
+            if terms[i + 1].coefficient * terms[i].coefficient < 0 {
                 str += terms[i].multiple(coefficient: self.coefficient * terms[i].coefficient).description + ""; //Makes the display a litter nicer if there's a minus sign.
             } else {
                 str += terms[i].multiple(coefficient: self.coefficient * terms[i].coefficient).description + " + ";
