@@ -205,6 +205,10 @@ public class Product: Number {
         
         //right is not a product.
         
+        if right ~ Number.one {
+            return self.multiple(coefficient: self.coefficient * right.coefficient)
+        }
+        
         return self.multiply(Product(coefficient: right.coefficient, [right.multiple(coefficient: 1)]))
     }
 }
