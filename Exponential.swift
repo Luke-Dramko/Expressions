@@ -9,8 +9,8 @@
 import Foundation
 
 public class Exponential: Number {
-    private var base: Number;
-    private var exponent: Number;
+    internal let base: Number;
+    internal let exponent: Number;
     
     public override var hashValue: Int { return coefficient &* (base.hashValue ^ exponent.hashValue) }
     
