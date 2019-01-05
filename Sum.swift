@@ -82,7 +82,7 @@ public class Sum: Number {
     //********************* Miscellaneous Helpers ***********************
     
     /**
-     Simplifys an array of Numbers by combining like terms.
+     Simplifies an array of Numbers by combining like terms.
      Precondition: The array is sorted, so like terms are next to eachother.
      
      "Like Terms" are defined using the 'like' operator, ~
