@@ -138,6 +138,18 @@ public class Product: Number {
     }
     
     /**
+     Product - Number
+     
+     Returns the difference of a product and any Number.  The call is routed through add()
+     
+     -Parameter right: The left term of the difference (the one being subtracted)
+     -Return: the result of the difference.
+     */
+    internal override func subtract(_ right: Number) -> Number {
+        return self.add(right.multiple(coefficient: -right.coefficient))
+    }
+    
+    /**
      Product * Number
      
      Returns the product of a Number with another Number, including another poduct.
