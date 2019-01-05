@@ -33,7 +33,7 @@ public class Fraction: Number {
             if self.coefficient == 1 {
                 return "\\frac{\(numerator.LaTeX)}{\(denominator.LaTeX)}"
             } else {
-                return "\\frac{\(String(self.coefficient) + "*" + numerator.LaTeX)}{\(denominator.LaTeX)}"
+                return "\\frac{\(String(self.coefficient) + numerator.LaTeX)}{\(denominator.LaTeX)}"
             }
         }
     }
@@ -72,6 +72,10 @@ public class Fraction: Number {
     internal func add(_ right: Fraction) -> Number {
         let left = self;
         
+        print("-------------------------------")
+        print("left = \(left)")
+        print("right = \(right)")
+        
         var denominator = left.denominator;
         var numerator: Number;
         if left.denominator != right.denominator {
@@ -106,6 +110,8 @@ public class Fraction: Number {
         
         let numeratorCoeff = numerator.coefficient / g;
         denominator = denominator.multiple(coefficient: denominator.coefficient / g)
+        
+        print("-------------------------")
         
         //TODO Make recalculating the numerator so many times unecessary.
         if numeratorCoeff == 0 {
