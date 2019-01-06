@@ -280,10 +280,6 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
         let n: Int = left.coefficient / g; //numerator
         let d: Int = right.coefficient / g; //denominator
         
-        if n == 0 {
-            return Number.zero
-        }
-        
         //Handles cases such as 5/4, e/e, 1/2, and 6e/7e
         if left ~ right {
             if d == 1 {
@@ -368,6 +364,9 @@ public func - (left: Number, right: Number) -> Number {
 }
 
 public func * (left: Number, right: Number) -> Number {
+    if left.coefficient == 0 || right.coefficient == 0 {
+        return Number.zero;
+    }
     switch left {
     case is Fraction: return (left as! Fraction).multiply(right)
     case is Product: return (left as! Product).multiply(right)

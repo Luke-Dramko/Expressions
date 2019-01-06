@@ -276,10 +276,6 @@ public class Fraction: Number {
      -Return: The result of the multiplication.
      */
     internal func multiply(_ right: Fraction) -> Number {
-        if self.coefficient == 0 || right.coefficient == 0 {
-            return Number.zero;
-        }
-        
         let numerator = self.numerator * right.numerator;
         let denominator = self.denominator * right.denominator;
         
