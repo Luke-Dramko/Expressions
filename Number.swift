@@ -361,7 +361,7 @@ public func + (left: Number, right: Number) -> Number {
  Subtracts two Numbers.  The call is routed through the subtract() function in Number.
  */
 public func - (left: Number, right: Number) -> Number {
-    return left.subtract(right)
+    return left + right.multiple(coefficient: -right.coefficient)
 }
 
 /**
