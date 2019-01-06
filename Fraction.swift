@@ -253,24 +253,6 @@ public class Fraction: Number {
     }
     
     /**
-    Fraction - Number
-     
-     Subtraction is done through the addition function; the right coefficient is multiplied by negative one
-     first.
-     
-     -Parameter right: the number being subtracted.
-     -Return: The result of the subtraction.
-    */
-    internal override func subtract(_ right: Number) -> Number {
-        switch right {
-        case is Fraction:
-            return self.add((right as! Fraction).multiple(coefficient: -right.coefficient))
-        default:
-            return self.add(Fraction(-right.coefficient, right.multiple(coefficient: 1), Number(1)))
-        }
-    }
-    
-    /**
      Fraction * Fraction
      
      Multiplies two Fraction objects together, and reduces the fraction as necessary.  Multiplication is
@@ -317,27 +299,6 @@ public class Fraction: Number {
         default: return self.multiply(Fraction(right.coefficient, right.multiple(coefficient: 1), Number(1)))
         }
     }
-    
-    /**
-     Fraction / Number
-     
-     Divides two fractions by multiplying by the reciprocal.
-     As division is routed through the multiplication function,  and does the appropriate typecasting,
-     so no other overloaded division functions are necessary.
-     
-     -Parameter right: The number on the right of the division (i.e. self / right).
-     -Returns: the result of the division.
-     */
-    internal override func divide(_ right: Number) -> Number {
-        //Division is equivalent to multiplication by the inverse/reciprocal
-        switch right {
-        case is Fraction:
-            return self.multiply((right as! Fraction).reciprocal())
-        default:
-            return self.multiply(Fraction(Number(1), right));
-        }
-    }
-    
     
     /**
      Compares a Fraction (self) and a Number and determines if they're equal.
