@@ -280,6 +280,10 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
         let n: Int = left.coefficient / g; //numerator
         let d: Int = right.coefficient / g; //denominator
         
+        if n == 0 {
+            return Number.zero
+        }
+        
         //Handles cases such as 5/4, e/e, 1/2, and 6e/7e
         if left ~ right {
             if d == 1 {

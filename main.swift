@@ -69,7 +69,7 @@ let i = Product(coefficient: 4, Number("x"), Number("a"))
 print(h + i)
 print((h + i).LaTeX)
 */
-
+/*
 let j = Number(15) * Number("x")
 let k = Number("x") * Number(4, "y")
 let l = Product(coefficient: 7, [Number("y"), Number("z"), Exponential(base: Number("x"), exponent: Fraction(1, Number.one, Number(2)))])
@@ -77,4 +77,6 @@ print("l = \(l)")
 let jk = j * k;
 print("jk = \(jk)")
 print("k = \(k)")
-print("jk / k = \((jk / k).LaTeX)")
+print("jk / k = \((jk / k).LaTeX)") */
+
+print("\(Number(0) / Number(3, "x"))")
