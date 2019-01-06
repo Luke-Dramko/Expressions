@@ -60,6 +60,25 @@ public class Exponential: Number {
     }
     
     //****************** Operator Methods *********************
+    
+    /**
+    Exponential + Number
+     
+     Adds an exponential to a Number.  Unless 'right' is an Exponential both the base and exponent are equal,
+     this function just returns a Sum.
+     */
+    public override func add(_ right: Number) -> Number {
+        if let r = right as? Exponential {
+            //x^5 and x^5 can be combined into 2x^5, but x^5 and x^3 really can't be.
+            if self.base == r.base && self.exponent == r.exponent {
+                return self.coefficient + r.coefficient == 0 ? Number.zero : self.multiple(coefficient: self.coefficient + r.coefficient)
+            }
+        }
+        
+        //All other cases must be represented by a Sum.
+        return Sum(self, right)
+    }
+
     /**
      Compares two exponentials, and determines if they're equal (their base, coefficient, and exponent
      are all equal).

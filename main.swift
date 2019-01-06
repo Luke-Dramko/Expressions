@@ -79,4 +79,6 @@ print("jk = \(jk)")
 print("k = \(k)")
 print("jk / k = \((jk / k).LaTeX)") */
 
-print("\(Number(4, "x") * Product(coefficient: 3, [Number("x"), Number("y")]))")
+let m = Exponential(base: Number(3), exponent: Number("x"))
+let n = Exponential(base: Number(3), exponent: Number("x"))
+print(m + n)
