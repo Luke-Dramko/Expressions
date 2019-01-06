@@ -79,4 +79,4 @@ print("jk = \(jk)")
 print("k = \(k)")
 print("jk / k = \((jk / k).LaTeX)") */
 
-print("\(Number(0) / Number(3, "x"))")
+print("\(Number(0) / Product(coefficient: 3, [Number("x"), Number("y")]))")
