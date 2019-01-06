@@ -84,6 +84,7 @@ let n = Exponential(coefficient: 2, base: Number(3), exponent: Number("x"))
 let o = Number(3)
 print((m * n) * o) */
 
-print((Number(3, "x") * Number("y")) / Number("x"))
-
+let x = Number(4) * Number("x") * Number("y") * Number("y") * Exponential(coefficient: 3, base: Number("z"), exponent: Number("a"))
+let y = Number(5) * Exponential(coefficient: 6, base: Number("z"), exponent: Number(4)) * Exponential(base: Number("x"), exponent: Number(-2))
+print(x / y)
 
