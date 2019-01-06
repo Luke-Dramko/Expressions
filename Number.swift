@@ -377,6 +377,9 @@ public func * (left: Number, right: Number) -> Number {
 }
 
 public func / (left: Number, right: Number) -> Number {
+    if left.coefficient == 0 {
+        return Number.zero
+    }
     return left.divide(right)
 }
 
