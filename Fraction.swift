@@ -271,9 +271,6 @@ public class Fraction: Number {
         let numerator = self.numerator * right.numerator;
         let denominator = self.denominator * right.denominator;
         
-        print("self = \(self)")
-        print("right = \(right)")
-        
         let g = gcd(self.coefficient * right.coefficient,  denominator.coefficient)
         
         if (denominator ~ Number(1)) && (denominator.coefficient / g) == 1 {
