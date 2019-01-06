@@ -14,7 +14,14 @@ public class Exponential: Number {
     
     public override var hashValue: Int { return coefficient &* (base.hashValue ^ exponent.hashValue) }
     
-    public override var description: String { return base.description + "^(" + exponent.description + ")"; }
+    public override var description: String {
+        if coefficient == 1 {
+            return base.description + "^(" + exponent.description + ")";
+        } else {
+            return "\(self.coefficient)(\(base.coefficient))^(\(exponent.description))"
+        }
+    }
+        
     public override var LaTeX: String {
         var coeff = "";
         if self.coefficient != 1 {
