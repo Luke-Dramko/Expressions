@@ -358,7 +358,7 @@ public func + (left: Number, right: Number) -> Number {
 }
 
 /**
- Subtracts two Numbers.  The call is routed through the subtract() function in Number.
+ Subtracts two Numbers.  The call is routed through the + function.
  */
 public func - (left: Number, right: Number) -> Number {
     return left + right.multiple(coefficient: -right.coefficient)
@@ -390,13 +390,14 @@ public func * (left: Number, right: Number) -> Number {
 }
 
 /**
- Divides two Numbers.  The call is routed through the divide() function in Number.
+ Divides two Numbers. The call is routed through the / function.
  */
 public func / (left: Number, right: Number) -> Number {
-    if left.coefficient == 0 {
-        return Number.zero
+    if let r = right as? Fraction {
+        return r.reciprocal().multiply(left)
+    } else {
+        return Fraction(Number(1), right).multiply(left)
     }
-    return left.divide(right)
 }
 
 /**
