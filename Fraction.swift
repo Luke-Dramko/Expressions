@@ -50,6 +50,93 @@ public class Fraction: Number {
         super.init(coefficient);
     }
     
+    //********************* Miscellaneous Helpers ***********************
+    
+    /**
+     Simplifies the Number portion of a Fraction. (the coefficient are reduced in fraction * fraction).
+     
+     -Parameter fraction: the fraction to be reduced.
+     */
+    public static func reduce(_ fraction: Fraction) -> Number {
+        var nfh = Dictionary<Number, Number>();
+        
+        let numer = fraction.numerator is Product ? (fraction.numerator as! Product).factors : [fraction.numerator];
+        
+        //All terms in a Prodduct are unique, and terms are combined with the appropriate exponent.
+        //For example, x^5 and x will never both be in the same product; they'll be combined into x^6.
+        //Of course, if numer is not a product and simply a single Number in an array packaging, the
+        //"duplicate" scenario described above can't occur.
+        for factor in numer {
+            if let e = factor as? Exponential {
+                nfh[e.base] = e.exponent
+            } else {
+                nfh[factor] = Number.one
+            }
+        }
+        
+        let denom = fraction.denominator is Product ? (fraction.denominator as! Product).factors : [fraction.numerator];
+        
+        for factor in denom {
+            if let e = factor as? Exponential {
+                if let val = nfh[e.base] {
+                    nfh[e.base] = val - e.exponent
+                } else {
+                    nfh[e.base] = e.exponent.multiple(coefficient: -e.coefficient)
+                }
+            } else {
+                if let val = nfh[factor] {
+                    nfh[factor] = val + Number.negative_one;
+                } else {
+                    nfh[factor] = Number.negative_one
+                }
+            }
+        }
+        
+        var nt: [Number] = []; //numerator terms
+        var dt: [Number] = []; //denominator terms
+        
+        for (base, exponent) in nfh {
+            //Exponent is negative, so the Number is in the denominator
+            if (exponent.coefficient < 0) {
+                if exponent == Number.negative_one {
+                    dt.append(base)
+                } else {
+                    //We have to flip the sign on the exponent; putting it in the denominator "erases"
+                    //the negative.
+                    dt.append(Exponential(base: base, exponent: exponent.multiple(coefficient: -exponent.coefficient)))
+                }
+                
+            //Exponent is positive, so Number is in the numerator
+            } else if exponent.coefficient > 0 {
+                if exponent == Number.one {
+                    nt.append(base)
+                } else {
+                    nt.append(Exponential(base: base, exponent: exponent))
+                }
+            }
+            //Note that exponent.coefficient == 0 is excluded, because anything to the zero power is 1,
+            //which is redundant.
+        }
+        
+        let reducedNumer: Number;
+        
+        if nt.count == 0 {
+            reducedNumer = Number.one;
+        } else if nt.count == 1 {
+            reducedNumer = nt[0]
+        } else {
+            reducedNumer = Product(coefficient: 1, nt)
+        }
+        
+        if dt.count == 0 {
+            return reducedNumer;
+        } else if dt.count == 1 {
+            return Fraction(fraction.coefficient, reducedNumer, dt[0].multiple(coefficient: fraction.denominator.coefficient))
+        } else {
+            return Fraction(fraction.coefficient, reducedNumer, Product(coefficient: fraction.denominator.coefficient, dt))
+        }
+    }
+    
     //**************** Instance methods ***************
     internal override func multiple(coefficient c: Int) -> Number {
         return Fraction(c, self.numerator, self.denominator);
