@@ -219,7 +219,7 @@ public class Fraction: Number {
         } else if denominator == Number(1) {
             return numerator.multiple(coefficient: numeratorCoeff);
         } else {
-            return Fraction(numeratorCoeff, numerator.multiple(coefficient: 1), denominator)
+            return Fraction.reduce(Fraction(numeratorCoeff, numerator.multiple(coefficient: 1), denominator))
         }
     }
     
@@ -281,12 +281,10 @@ public class Fraction: Number {
         
         let g = gcd(self.coefficient * right.coefficient,  denominator.coefficient)
         
-        //TODO: Reduce common non coefficient factors.
-        
         if (denominator ~ Number(1)) && (denominator.coefficient / g) == 1 {
             return numerator;
         } else {
-            return Fraction((self.coefficient * right.coefficient) / g, numerator.multiple(coefficient: 1), denominator.multiple(coefficient: denominator.coefficient / g))
+            return Fraction.reduce(Fraction((self.coefficient * right.coefficient) / g, numerator.multiple(coefficient: 1), denominator.multiple(coefficient: denominator.coefficient / g)))
         }
     }
     
