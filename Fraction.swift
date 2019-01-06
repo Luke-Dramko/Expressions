@@ -365,12 +365,7 @@ public class Fraction: Number {
             return true;
         }
         
-        print("In the main body")
-        
         if let r = right as? Fraction {
-            
-            print("Right is a Fraction")
-            
             return (self.numerator ~ r.numerator) && (self.denominator ~ r.denominator);
         } else if right is Exponential || right is Sum || right is Product {
             //Values that could be better represented in a more simplified form (like a Sum of just
