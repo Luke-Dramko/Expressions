@@ -226,21 +226,6 @@ public class Sum: Number {
     }
     
     /**
-     Sum - Number
-     
-     Subtracts two numbers.  In this module, subtraction is defined as addition with a negative coefficient.
-     
-     -Parameter right: The Number to subtract from this Sum.
-     -Return: The result of the operation.
-     */
-    internal override func subtract(_ right: Number) -> Number {
-        switch right {
-        case is Sum: return self.add(right.multiple(coefficient: -right.coefficient) as! Sum)
-        default: return self.add(Sum([right.multiple(coefficient: -right.coefficient)]))
-        }
-    }
-    
-    /**
      Sum * Number
      Sum * Sum
      
@@ -279,23 +264,6 @@ public class Sum: Number {
         } else {
             return Sum(nt)
         }
-    }
-    
-    /**
-     Divides a Sum by another number.
-     
-     This function actually sets up a Fraction for multiplication.  The call is routed through
-     Fraction.multiply(), which actually does the work.
-     
-     -Parameter right: The denominator in the division
-     -Return: The result of the division operation
-     */
-    internal override func divide(_ right: Number) -> Number {
-        //Because the call is intended to be routed through Fraction.multiply anyway, we want the
-        //Fraction to be first to potentially avoid an extra call.  It's best practice to always
-        //use the symbolic operators (+, -, *, etc.) instead of the instance methods.
-        print("In Sum.divide, self = \(self)")
-        return Fraction(1, Number(1), right) * self
     }
     
     /**
