@@ -189,26 +189,6 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
     }
     
     /**
-     Number - Number
-     */
-    internal func subtract(_ right: Number) -> Number {
-        switch right {
-        case is Fraction: return (right.multiple(coefficient: -right.coefficient) as! Fraction).add(self)
-        case is Sum: return (right.multiple(coefficient: -right.coefficient) as! Sum).add(self)
-        case is Product: return (right.multiple(coefficient: -right.coefficient) as! Product).add(self)
-        case is Exponential: return (right.multiple(coefficient: -right.coefficient) as! Exponential).add(self)
-        default:
-            break;
-        }
-        let left = self;
-        if left ~ right {
-            return Number(left.coefficient - right.coefficient, left.constant);
-        } else {
-            return Sum(left, Number(-right.coefficient, right.constant));
-        }
-    }
-    
-    /**
      Number * Number
      */
     internal func multiply(_ right: Number) -> Number {
@@ -239,59 +219,6 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
             //This case cover situations like 4e * 7b
         } else {
             return Product(coefficient: self.coefficient * right.coefficient, Number(self.constant), Number(right.constant));
-        }
-    }
-    
-    /**
-     Number / Number
-     */
-    internal func divide(_ right: Number) -> Number {
-        switch right {
-        case is Fraction:
-            //self / right = (1/right * self)
-            
-            let r = (right as! Fraction);
-            let c = r.denominator.coefficient;
-            /*
-             Fractions in this module are represented as
-               1x
-             c----
-               dy
-             
-             where c and d are integer coefficients and x and y are instances of Number.
-             The goal is to get
-             
-               1y
-             d----
-               cx
-             
-             which is the reciprocal of the fraction.
-             */
-            return Fraction(c, r.denominator.multiple(coefficient: 1), r.numerator.multiple(coefficient: r.coefficient)).multiply(self)
-        case is Sum: return Fraction(Number(1), right).multiply(self)
-        case is Product: return Fraction(Number(1), right).multiply(self)
-        case is Exponential: return Fraction(Number(1), right).multiply(self)
-        default:
-            break;
-        }
-        
-        let left = self;
-        let g = gcd(left.coefficient, right.coefficient);
-        let n: Int = left.coefficient / g; //numerator
-        let d: Int = right.coefficient / g; //denominator
-        
-        //Handles cases such as 5/4, e/e, 1/2, and 6e/7e
-        if left ~ right {
-            if d == 1 {
-                return Number(n);
-            } else {
-                return Fraction(n, Number(1), Number(d));
-            }
-            
-            //Handles any case in which the numerator and denominator have different symbolic constants,
-            //such as 3/a 2t/x, etc.
-        } else {
-            return Fraction(n, Number(left.constant), Number(d, right.constant))
         }
     }
     
