@@ -364,9 +364,17 @@ public func - (left: Number, right: Number) -> Number {
 }
 
 public func * (left: Number, right: Number) -> Number {
+    //Handle special cases of zero and one.
     if left.coefficient == 0 || right.coefficient == 0 {
         return Number.zero;
     }
+    
+    if left == Number.one {
+        return right
+    } else if right == Number.one {
+        return left
+    }
+    
     switch left {
     case is Fraction: return (left as! Fraction).multiply(right)
     case is Product: return (left as! Product).multiply(right)
