@@ -338,7 +338,8 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
 }
 
 /**
- Adds together two basic numbers.  Subclasses should have their own add functions.
+ Adds together to Numbers.  This function handles the special case of 0, and does the appropriate downcasting
+ to rout the call through the polymorphic add() function.
  */
 public func + (left: Number, right: Number) -> Number {
     if left == Number(0) {
@@ -357,12 +358,16 @@ public func + (left: Number, right: Number) -> Number {
 }
 
 /**
- Adds together two numbers.  The number class is polymorphic, so the right subtract should be called.
+ Subtracts two Numbers.  The call is routed through the subtract() function in Number.
  */
 public func - (left: Number, right: Number) -> Number {
     return left.subtract(right)
 }
 
+/**
+ Multiplies together two Numbers. This function handles the special cases of zero and one, and does appropriate
+ downcasting to rout the call through the polymorphic multiply() function.
+ */
 public func * (left: Number, right: Number) -> Number {
     //Handle special cases of zero and one.
     if left.coefficient == 0 || right.coefficient == 0 {
@@ -384,6 +389,9 @@ public func * (left: Number, right: Number) -> Number {
     }
 }
 
+/**
+ Divides two Numbers.  The call is routed through the divide() function in Number.
+ */
 public func / (left: Number, right: Number) -> Number {
     if left.coefficient == 0 {
         return Number.zero
@@ -392,8 +400,7 @@ public func / (left: Number, right: Number) -> Number {
 }
 
 /**
- Compares two basic numbers by comparing their constants and internal integer coefficients
- Operates on two numbers.
+ Determines if two instances of Number or their subclasses are equal.
  */
 public func == (left: Number, right: Number) -> Bool {
     switch left {
@@ -406,16 +413,33 @@ public func == (left: Number, right: Number) -> Bool {
 }
 
 /**
- Compares Numbers lexicographically.
- Numbers are compared first by constant value, then coefficient value.
+ Does an "expression comparison" for the two Numbers.  Because this module represents symbolic constants, such
+ as x and y, which may not have a value, doing a traditional numeric comparison doesn't make sense in many cases.
+ Instead, this compares expressions lexiographically, so if used for sorting, like terms are next to eachother.
  
- Operates on two numbers.
+ When there is an obvious and deterministic way to compare two Numbers (i.e. Number(2) < Number(4)), the correct
+ result is returned, but this function does NOT take into consideration the values of constants set as
+ approximateions, such as e and pi.
+ 
+ A way to do a true numeric comparison would be the following:
+ if let lessThan = try? m.approximate() < n.approximate() {
+    if lessThan {
+       //code
+    } else {
+       //code
+    }
+ } else {
+    //code
+ }
  */
 public func < (lhs: Number, rhs: Number) -> Bool {
     return lhs.lessthan(rhs)
 }
 
-
+/**
+ The ~ operator is the "like" operator, which returns true if the left and right are like terms and false
+ otherwise.  Like terms are within a constant factor of eachother.
+ */
 public func ~ (left: Number, right: Number) -> Bool {
     switch left {
     case is Fraction: return (left as! Fraction).like(right)
@@ -426,6 +450,9 @@ public func ~ (left: Number, right: Number) -> Bool {
     }
 }
 
+/**
+ Negates the result of the "like" operator.
+ */
 public func !~ (left: Number, right: Number) -> Bool {
     return !(left ~ right);
 }
