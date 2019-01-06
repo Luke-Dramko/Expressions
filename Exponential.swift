@@ -82,6 +82,43 @@ public class Exponential: Number {
         //All other cases must be represented by a Sum.
         return Sum(self, right)
     }
+    
+    //Subtract function unnecessary.
+    
+    /**
+     Exponential * Number
+     
+     Multiplies an Exponential and a Number.  Combines them into a single exponential when possible; this
+     can happen only when the bases are the same.  For example,
+     x^4 * x^2 == x^6, and x^y * x = x^(y + 1)
+     However,
+     x^4 * y^4 can't be symplified any further, and a Product is returned instead.
+     
+     -Parameter right: The right term in multiplication
+     -Return: The result of the multiplication
+     */
+    public override func multiply(_ right: Number) -> Number {
+        //This will force the fraction's multiply and thus Fraction.reduce() function to be called to handle additional simplification.
+        if right is Fraction {
+            return right * self;
+        }
+        
+        if let r = right as? Exponential {
+            
+            //bases are equal, can combine exponents
+            if self.base == r.base {
+                return Exponential(coefficient: self.coefficient * r.coefficient, base: self.base, exponent: self.exponent + r.exponent)
+            }
+            
+            //bases are not equal; must return a Product
+            return Product(coefficient: self.coefficient * r.coefficient, [self.multiple(coefficient: 1), r.multiple(coefficient: 1)])
+        } else if self.base == right {
+            return Exponential(coefficient: self.coefficient, base: self.base, exponent: self.exponent + Number.one)
+        }
+        
+        //Bases are not the same.
+        return Product(coefficient: self.coefficient * right.coefficient, [self.multiple(coefficient: 1), right.multiple(coefficient: 1)])
+    }
 
     /**
      Compares two exponentials, and determines if they're equal (their base, coefficient, and exponent

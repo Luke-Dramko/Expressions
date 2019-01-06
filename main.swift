@@ -80,5 +80,6 @@ print("k = \(k)")
 print("jk / k = \((jk / k).LaTeX)") */
 
 let m = Exponential(base: Number(3), exponent: Number("x"))
-let n = Exponential(base: Number(-3), exponent: Number("x"))
-print(m + n)
+let n = Exponential(coefficient: 2, base: Number(-3), exponent: Number("x"))
+let o = Number(1)
+print(m * o)
