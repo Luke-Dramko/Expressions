@@ -16,9 +16,13 @@ public class Exponential: Number {
     
     public override var description: String {
         if coefficient == 1 {
-            return base.description + "^(" + exponent.description + ")";
+            if base.coefficient < 0 {
+                return "(\(base.description))^(\(exponent.description))"
+            } else {
+                return base.description + "^(" + exponent.description + ")";
+            }
         } else {
-            return "\(self.coefficient)(\(base.coefficient))^(\(exponent.description))"
+            return "\(self.coefficient)(\(base.description))^(\(exponent.description))"
         }
     }
         
