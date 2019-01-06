@@ -53,13 +53,22 @@ public class Fraction: Number {
     //********************* Miscellaneous Helpers ***********************
     
     /**
-     Simplifies the Number portion of a Fraction. (the coefficient are reduced in fraction * fraction).
+     Simplifies the Number portion of a Fraction. (the coefficient are reduced in fraction * fraction and
+     fraction + fraction).
      
      -Parameter fraction: the fraction to be reduced.
      */
     public static func reduce(_ fraction: Fraction) -> Number {
+        //nfh, "new factors hash" relates a number to its exponent.  For example (x^2 * y) / z^a
+        //would be represented as [x: 2, y: 1, z: -a]
         var nfh = Dictionary<Number, Number>();
         
+        //In this function, all terms in the numerator are brought as negative exponents into the denominator,
+        //and like terms are then combined.
+        
+        //To create the hash described above, we must iterate over each factor that makes up the numerator.
+        //If the numerator is not of type Product, it's just packaged in an array to it can be processed
+        //by the same loop.
         let numer = fraction.numerator is Product ? (fraction.numerator as! Product).factors : [fraction.numerator];
         
         //All terms in a Prodduct are unique, and terms are combined with the appropriate exponent.
@@ -74,8 +83,9 @@ public class Fraction: Number {
             }
         }
         
-        let denom = fraction.denominator is Product ? (fraction.denominator as! Product).factors : [fraction.numerator];
+        let denom = fraction.denominator is Product ? (fraction.denominator as! Product).factors : [fraction.denominator];
         
+        //Exponents in the denominator are negative exponents in terms of the numerator.
         for factor in denom {
             if let e = factor as? Exponential {
                 if let val = nfh[e.base] {
@@ -129,7 +139,7 @@ public class Fraction: Number {
         }
         
         if dt.count == 0 {
-            return reducedNumer;
+            return reducedNumer.multiple(coefficient: fraction.coefficient);
         } else if dt.count == 1 {
             return Fraction(fraction.coefficient, reducedNumer, dt[0].multiple(coefficient: fraction.denominator.coefficient))
         } else {
@@ -278,6 +288,9 @@ public class Fraction: Number {
     internal func multiply(_ right: Fraction) -> Number {
         let numerator = self.numerator * right.numerator;
         let denominator = self.denominator * right.denominator;
+        
+        print("self = \(self)")
+        print("right = \(right)")
         
         let g = gcd(self.coefficient * right.coefficient,  denominator.coefficient)
         
