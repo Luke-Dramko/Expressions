@@ -84,7 +84,11 @@ let n = Exponential(coefficient: 2, base: Number(3), exponent: Number("x"))
 let o = Number(3)
 print((m * n) * o) */
 
-let x = Number(4) * Number("x") * Number("y") * Number("y") * Exponential(coefficient: 3, base: Number("z"), exponent: Number("a"))
-let y = Number(5) * Exponential(coefficient: 6, base: Number("z"), exponent: Number(4)) * Exponential(base: Number("x"), exponent: Number(-2))
+var x = Number(4) * Number("x") * Number("y") * Number("y") * Exponential(coefficient: 3, base: Number("z"), exponent: Number("a"))
+var y = Number(5) * Exponential(coefficient: 6, base: Number("z"), exponent: Number(4)) * Exponential(base: Number("x"), exponent: Number(-2))
 print(x / y)
 
+print("------------------------")
+x = Number(2, "x") + Fraction(6, Number(1), Number(4))
+y = Number(2, "y")
+print((x / y).LaTeX)
