@@ -21,11 +21,20 @@ public class Product: Number {
     
     
     public override var description: String {
-        var str = self.coefficient == 1 ? "(" : "\(self.coefficient)(";
+        var str = self.coefficient == 1 ? "" : "\(self.coefficient)(";
         for i in 0..<(factors.count - 1) {
-            str += factors[i].description + "*";
+            if factors[i] is Sum {
+                str += "(\(factors[i].description))"
+            } else {
+                
+            }
         }
-        return str + factors[factors.count - 1].description + ")";
+        
+        if factors[factors.count - 1] is Sum {
+            return "(" + str + factors[factors.count - 1].description + ")";
+        } else {
+            return str + factors[factors.count - 1].description;
+        }
     }
     
     public override var LaTeX: String {
@@ -36,7 +45,11 @@ public class Product: Number {
             str = String(self.coefficient);
         }
         for factor in factors {
-            str += factor.LaTeX;
+            if factor is Sum {
+                str += "(\(factor.LaTeX))"
+            } else {
+                str += factor.LaTeX;
+            }
         }
         return str;
     }
