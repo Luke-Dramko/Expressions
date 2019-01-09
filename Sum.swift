@@ -43,15 +43,15 @@ public class Sum: Number {
     }
     
     public override var LaTeX: String {
-        var str = self.coefficient == 1 ? "(" : "\(self.coefficient)(";
+        var str = self.coefficient == 1 ? "" : "\(self.coefficient)";
         for i in 0..<(terms.count - 1) {
             if terms[i + 1].coefficient < 0 {
-                str += terms[i].LaTeX + ""; //Makes the display a litter nicer if there's a minus sign.
+                str += terms[i].LaTeX + "";
             } else {
                 str += terms[i].LaTeX + " + ";
             }
         }
-        return str + terms[terms.count - 1].LaTeX + ")";
+        return str + terms[terms.count - 1].LaTeX;
     }
     
     internal convenience init(_ n1: Number, _ n2: Number) {
