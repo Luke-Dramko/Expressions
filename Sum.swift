@@ -35,7 +35,7 @@ public class Sum: Number {
         //last term
         if terms.count > 0 {  //if terms.count > 0, there will be at least one character in the string.
             str.append(terms[terms.count - 1].multiple(coefficient: self.coefficient * terms[terms.count - 1].coefficient).description)
-            return "(" + str.replacingOccurrences(of: "-", with: " - ", options: [], range: str.index(str.startIndex, offsetBy: 1)..<str.index(str.endIndex, offsetBy: 0)) + ")";
+            return str.replacingOccurrences(of: "-", with: " - ", options: [], range: str.index(str.startIndex, offsetBy: 1)..<str.index(str.endIndex, offsetBy: 0));
         } else {
             return "\(self.coefficient)()";
         }

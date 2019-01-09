@@ -86,9 +86,10 @@ print((m * n) * o) */
 
 var x = Number(4) * Number("x") * Number("y") * Number("y") * Exponential(coefficient: 3, base: Number("z"), exponent: Number("a"))
 var y = Number(5) * Exponential(coefficient: 6, base: Number("z"), exponent: Number(4)) * Exponential(base: Number("x"), exponent: Number(-2))
-print(x / y)
+print((x / y).LaTeX)
 
 print("------------------------")
-x = Number(2, "x") + Fraction(6, Number(1), Number(4))
-y = Number(2, "y")
+x = Number(2, "x") + Fraction(6, Number(1, "y"), Number(4, "z"))
+print(x)
+y = Number(2, "a")
 print((x / y).LaTeX)
