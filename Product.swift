@@ -26,7 +26,7 @@ public class Product: Number {
             if factors[i] is Sum {
                 str += "(\(factors[i].description))"
             } else {
-                
+                str += factors[i].description
             }
         }
         
