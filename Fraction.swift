@@ -21,7 +21,11 @@ public class Fraction: Number {
         if numerator.description == "1" {
             return String(coefficient) + "/" + denominator.description
         } else {
-            return String(coefficient) + "(" + numerator.description + ")/" + denominator.description;
+            if numerator is Sum {
+                return "(" + (numerator * Number(self.coefficient)).description + ")/" + denominator.description;
+            } else {
+                return (numerator * Number(self.coefficient)).description + "/" + denominator.description;
+            }
         }
     };
     
@@ -33,7 +37,7 @@ public class Fraction: Number {
             if self.coefficient == 1 {
                 return "\\frac{\(numerator.LaTeX)}{\(denominator.LaTeX)}"
             } else {
-                return "\\frac{\(String(self.coefficient) + numerator.LaTeX)}{\(denominator.LaTeX)}"
+                return "\\frac{\((numerator * Number(self.coefficient)).LaTeX)}{\(denominator.LaTeX)}"
             }
         }
     }
