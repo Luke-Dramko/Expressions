@@ -416,10 +416,10 @@ public func < (left: Number, right: Number) -> Bool {
                 
                 return l.coefficient < r.coefficient
             } else {
-                
+                return false
             }
         } else {
-            
+            return true;
         }
     }
     
