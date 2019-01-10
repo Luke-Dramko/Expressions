@@ -387,12 +387,39 @@ public func < (left: Number, right: Number) -> Bool {
                         return l.factors[i] < r.factors[i]
                     }
                 }
+                
+                return l.coefficient < r.coefficient;
             } else {
                 //All Products are considered greater than alternatives at this point.
                 return false
             }
-        } else { //else to
+        } else { //else to let l = left as? Product
             return true;
+        }
+    }
+    
+    if left is Sum || right is Sum {
+        if let l = left as? Sum {
+            if let r = right as? Sum {
+                
+                if l.terms.count < r.terms.count {
+                    return true;
+                } else if l.terms.count > r.terms.count {
+                    return false;
+                }
+                
+                for i in 0..<r.terms.count {
+                    if l.terms[i] != r.terms[i] {
+                        return l.terms[i] < r.terms[i]
+                    }
+                }
+                
+                return l.coefficient < r.coefficient
+            } else {
+                
+            }
+        } else {
+            
         }
     }
     
