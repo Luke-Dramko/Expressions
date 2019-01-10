@@ -369,6 +369,32 @@ public func < (left: Number, right: Number) -> Bool {
         }
     }
     
+    if left is Product || right is Product {
+        if let l = left as? Product {
+            if let r = right as? Product {
+                
+                //Products may have different numbers of coefficients; if so, the larger group of coefficients is sorted first.
+                if l.factors.count < r.factors.count {
+                    return true
+                } else if l.factors.count > r.factors.count {
+                    return false
+                }
+                
+                //Compares each term in a coefficient; if the terms are the same; then the coefficients
+                //are compared.
+                for i in 0..<r.factors.count { //based on above if statement, arrays are the same length
+                    if l.factors[i] != r.factors[i] {
+                        return l.factors[i] < r.factors[i]
+                    }
+                }
+            } else {
+                //All Products are considered greater than alternatives at this point.
+                return false
+            }
+        } else { //else to
+            return true;
+        }
+    }
     
     //comparison for basic Number.
     //Note that integers are compared only if constants are the same.
