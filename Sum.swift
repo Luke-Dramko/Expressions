@@ -9,7 +9,7 @@
 import Foundation
 
 public class Sum: Number {
-    private let terms: [Number];
+    internal let terms: [Number];
     
     public override var hashValue: Int {
         var hash = self.coefficient;
