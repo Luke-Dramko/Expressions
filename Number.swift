@@ -342,12 +342,8 @@ public func == (left: Number, right: Number) -> Bool {
 
 /**
  Does an "expression comparison" for the two Numbers.  Because this module represents symbolic constants, such
- as x and y, which may not have a value, doing a traditional numeric comparison doesn't make sense in many cases.
+ as x and y, which may not have a real value, doing a traditional numeric comparison doesn't make sense in many cases.
  Instead, this compares expressions lexiographically, so if used for sorting, like terms are next to eachother.
- 
- When there is an obvious and deterministic way to compare two Numbers (i.e. Number(2) < Number(4)), the correct
- result is returned, but this function does NOT take into consideration the values of constants set as
- approximateions, such as e and pi.
  
  A way to do a true numeric comparison would be the following:
  if let lessThan = try? m.approximate() < n.approximate() {
@@ -357,11 +353,30 @@ public func == (left: Number, right: Number) -> Bool {
        //code
     }
  } else {
-    //code
+    //code to handle UndefinedConstantError thrown by approximate.
  }
  */
-public func < (lhs: Number, rhs: Number) -> Bool {
-    return lhs.lessthan(rhs)
+public func < (left: Number, right: Number) -> Bool {
+    if left is Exponential || right is Exponential {
+        if let l = left as? Exponential {
+            if let r = right as? Exponential {
+                return l.base == r.base ? l.exponent < r.exponent : l.base < r.base;
+            } else {
+                return false;
+            }
+        } else if right is Exponential { //else to left as? Exponential
+            return true;
+        }
+    }
+    
+    
+    //comparison for basic Number.
+    //Note that integers are compared only if constants are the same.
+    if left.constant == right.constant {
+        return left.coefficient < right.coefficient
+    } else {
+        return left.constant < right.constant
+    }
 }
 
 /**

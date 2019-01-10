@@ -83,7 +83,7 @@ let m = Exponential(base: Number(3), exponent: Number("x"))
 let n = Exponential(coefficient: 2, base: Number(3), exponent: Number("x"))
 let o = Number(3)
 print((m * n) * o) */
-
+/*
 var x = Number(4) * Number("x") * Number("y") * Number("y") * Exponential(coefficient: 3, base: Number("z"), exponent: Number("a"))
 var y = Number(5) * Exponential(coefficient: 6, base: Number("z"), exponent: Number(4)) * Exponential(base: Number("x"), exponent: Number(-2))
 print((x / y).LaTeX)
@@ -92,4 +92,11 @@ print("------------------------")
 x = Number(2, "x") + Fraction(6, Number(1, "y"), Number(4, "z"))
 print(x)
 y = Number(2, "a")
-print((x / y).LaTeX)
+print((x / y).LaTeX) */
+
+var array: [Number] = [Exponential(base: Number("x"), exponent: Number(2)), Number("x"), Number("x") * Number(3), Exponential(base: Number("x"), exponent: Number(3)), Exponential(base: Number("x"), exponent: Number("y")), Number("x")]
+print("array[5] is Product = \(array[5] is Product)")
+print("x < 3x = \(Number("x") < Number(3, "x"))")
+print("before sorting, array = \(array)")
+array.sort()
+print("after sorting, array = \(array)")
