@@ -94,6 +94,7 @@ print(x)
 y = Number(2, "a")
 print((x / y).LaTeX) */
 
+let one = Number.one;
 let two = Number(2)
 let x = Number("x")
 let y = Number("y")
@@ -101,7 +102,13 @@ let z = Number("z")
 
 var array: [Number] = [Exponential(base: Number("x"), exponent: Number(2)), Number("x"), Number("x") * Number(3), Exponential(base: Number("x"), exponent: Number(3)), Exponential(base: Number("x"), exponent: Number("y")), Number("x"), Exponential(base: Number("y"), exponent: Number(2)), Exponential(base: Number("y"), exponent: Number("x")), Exponential(base: Number("x"), exponent: Number(2))]
 var additions: [Number] = [Product(coefficient: 4, [x, y, z]), Product(coefficient: 2, [z, y, x]), x, Product(coefficient: 2, [z, x]), Product(coefficient: 3, [x, y]), Product(coefficient: 7, [y, z]), Product(coefficient: 5, [x, z])]
+
 array = array + additions
+
+additions = [Fraction(1, two, x), Fraction(1, x, two), Fraction(1, x, two), Fraction(3, Product(coefficient: 1, [x, y, z]), two)]
+
+array = array + additions
+
 print("array[5] is Product = \(array[5] is Product)")
 print("x < 3x = \(Number("x") < Number(3, "x"))")
 print("before sorting, array = \(array)")

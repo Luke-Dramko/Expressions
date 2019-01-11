@@ -364,7 +364,7 @@ public func < (left: Number, right: Number) -> Bool {
             } else {
                 return false;
             }
-        } else if right is Exponential { //else to left as? Exponential
+        } else if right is Exponential { //else to left as? Exponential.  Entered only if left is not an exponential and right is.
             return true;
         }
     }
@@ -393,7 +393,7 @@ public func < (left: Number, right: Number) -> Bool {
                 //All Products are considered greater than alternatives at this point.
                 return false
             }
-        } else { //else to let l = left as? Product
+        } else { //else to let l = left as? Product.  Entered only if right is a Product and left is not.
             return true;
         }
     }
@@ -418,7 +418,45 @@ public func < (left: Number, right: Number) -> Bool {
             } else {
                 return false
             }
-        } else {
+        } else { //This will only be entered if right is a Sum and left is not.
+            return true;
+        }
+    }
+    
+    if left is Fraction || right is Fraction {
+        print("comparing \(left) and \(right)")
+        
+        if let l = left as? Fraction {
+            if let r = right as? Fraction {
+                //The fraction is only divided by an integer.  These should be treated as if they were
+                //their numerator.
+                if (l.denominator ~ Number.one) && (r.denominator ~ Number.one) {
+                    return l.numerator.multiple(coefficient: l.coefficient) < r.numerator.multiple(coefficient: r.coefficient)
+                }
+                
+                //Compare by denominator
+                if l.denominator != r.denominator {
+                    return l.denominator < r.denominator
+                }
+                
+                //Compare by numerator
+                return l.numerator.multiple(coefficient: l.coefficient) < r.numerator.multiple(coefficient: r.coefficient)
+            } else {
+                //left is a fraction, right is not
+                //Fractions with integer denominators are allowed to be compared with the numerator:
+                //It makes sense that 2/5 and 3 should be considered like terms.
+                if (l.denominator ~ Number.one) {
+                    return l.numerator.multiple(coefficient: l.coefficient) < right
+                }
+                return false;
+            }
+        } else { //This will only be entered if right is a Fraction and left is not.
+            if let r = right as? Fraction {
+                if r.denominator ~ Number.one {
+                    return left < r.numerator.multiple(coefficient: r.coefficient)
+                }
+            }
+            
             return true;
         }
     }
