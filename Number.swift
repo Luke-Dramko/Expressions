@@ -356,7 +356,10 @@ public func == (left: Number, right: Number) -> Bool {
     //code to handle UndefinedConstantError thrown by approximate.
  }
  */
-public func < (left: Number, right: Number) -> Bool {
+public func < (lhs: Number, rhs: Number) -> Bool {
+    let left = lhs is Fraction && ((lhs as! Fraction).denominator ~ Number.one) ? (lhs as! Fraction).numerator.multiple(coefficient: lhs.coefficient) : lhs;
+    let right = rhs is Fraction && ((rhs as! Fraction).denominator ~ Number.one) ? (rhs as! Fraction).numerator.multiple(coefficient: rhs.coefficient) : rhs;
+    
     if left is Exponential || right is Exponential {
         if let l = left as? Exponential {
             if let r = right as? Exponential {
@@ -424,14 +427,18 @@ public func < (left: Number, right: Number) -> Bool {
     }
     
     if left is Fraction || right is Fraction {
-        print("comparing \(left) and \(right)")
         
         if let l = left as? Fraction {
+            
             if let r = right as? Fraction {
                 //The fraction is only divided by an integer.  These should be treated as if they were
                 //their numerator.
                 if (l.denominator ~ Number.one) && (r.denominator ~ Number.one) {
                     return l.numerator.multiple(coefficient: l.coefficient) < r.numerator.multiple(coefficient: r.coefficient)
+                } else if l.denominator ~ Number.one {
+                    return l.numerator.multiple(coefficient: l.coefficient) < right
+                } else if r.denominator ~ Number.one {
+                    return left < r.numerator.multiple(coefficient: r.coefficient)
                 }
                 
                 //Compare by denominator
@@ -456,7 +463,6 @@ public func < (left: Number, right: Number) -> Bool {
                     return left < r.numerator.multiple(coefficient: r.coefficient)
                 }
             }
-            
             return true;
         }
     }

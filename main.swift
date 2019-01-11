@@ -99,6 +99,15 @@ let two = Number(2)
 let x = Number("x")
 let y = Number("y")
 let z = Number("z")
+let xyz = Product(coefficient: 1, [x, y, z])
+let two_over_x = Fraction(2, Number.one, x)
+
+let product = Fraction(3, xyz, two)
+
+print(product < two_over_x)
+print("----------------------")
+print(two_over_x < product)
+print("----------------------")
 
 var array: [Number] = [Exponential(base: Number("x"), exponent: Number(2)), Number("x"), Number("x") * Number(3), Exponential(base: Number("x"), exponent: Number(3)), Exponential(base: Number("x"), exponent: Number("y")), Number("x"), Exponential(base: Number("y"), exponent: Number(2)), Exponential(base: Number("y"), exponent: Number("x")), Exponential(base: Number("x"), exponent: Number(2))]
 var additions: [Number] = [Product(coefficient: 4, [x, y, z]), Product(coefficient: 2, [z, y, x]), x, Product(coefficient: 2, [z, x]), Product(coefficient: 3, [x, y]), Product(coefficient: 7, [y, z]), Product(coefficient: 5, [x, z])]
