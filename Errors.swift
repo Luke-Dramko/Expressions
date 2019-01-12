@@ -8,6 +8,12 @@
 
 import Foundation
 
+//For approximation() function in Number and subclasses
 enum ApproximationError: Error {
     case UndefinedConstantError(String)
+}
+
+//For the parser
+enum ParseError: Error {
+    case EmptyExpression
 }
