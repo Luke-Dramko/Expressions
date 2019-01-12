@@ -13,8 +13,17 @@ struct ExpressionTokenizer {
     var expression: String
     var current: Token = .empty
     
+    //Regular expressions
+    let add_sign = try! NSRegularExpression(pattern: "^\\+")
+    let minus_sign = try! NSRegularExpression(pattern: "^-")
+    let multiplication_sign = try! NSRegularExpression(pattern: "^\\*")
+    let division_sign = try! NSRegularExpression(pattern: "^/")
+    let symbol = try! NSRegularExpression(pattern: "^[a-zA-Z]|\\\\[a-zA-Z]+")
+    let integer = try! NSRegularExpression(pattern: "^[0-9]+")
+    let whitespace = try! NSRegularExpression(pattern: "^\\s")
+    
     init(_ e: String) throws {
-        if e.count == 0 { //empty string can't be parsed and doesn't make sense as an expression.
+        if e.count == 0 { //empty string doesn't make sense as an expression.
             throw ParseError.EmptyExpression
         }
         self.expression = e;
