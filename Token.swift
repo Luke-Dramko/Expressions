@@ -10,9 +10,13 @@ import Foundation
 
 //Represents a token from a string representing a mathematical expression.
 internal enum Token {
-    case addition
-    case division
-    case subtraction
-    case multiplication
-    //more to come
+    case addition  //matches +
+    case division  //matches /
+    case subtraction  //matches -
+    case multiplication  //matches *
+    case power //matches ^
+    case symbol(String) //matches an symbolic constant: a, e, \pi, \lambda, etc.
+    case integer(Int) //Matches an integer.  4, -2, 7, etc.
+    case error //matches an invalid piece of input.
+    case empty //describes an empty string.
 }
