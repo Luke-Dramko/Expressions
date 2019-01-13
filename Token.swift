@@ -17,6 +17,6 @@ internal enum Token {
     case power //matches ^
     case symbol(String) //matches an symbolic constant: a, e, \pi, \lambda, etc.
     case integer(Int) //Matches an integer.  4, -2, 7, etc.
-    case error //matches an invalid piece of input.
+    case error(remainder: String) //matches an invalid piece of input.
     case empty //describes an empty string.
 }
