@@ -50,11 +50,13 @@ struct ExpressionTokenizer {
             expression.remove(at: expression.startIndex)
             return .power
         } else if let s = symbol.firstMatch(in: expression) {
-            expression.remove(at: expression.startIndex)
+            expression = String(expression.dropFirst(s.count))
             return .symbol(s)
         } else if let i = integer.firstMatch(in: expression) {
+            expression = String(expression.dropFirst(i.count))
             return .integer(Int(i)!) //force-unwrap is okay because regular expression ensures it's an int.
-        } else if let _ = whitespace.firstMatch(in: expression) {
+        } else if let w = whitespace.firstMatch(in: expression) {
+            expression = String(expression.dropFirst(w.count))
             return self.next()
         } else if let _ = lparen.firstMatch(in: expression) {
             expression.remove(at: expression.startIndex)
