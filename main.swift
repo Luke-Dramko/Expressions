@@ -120,5 +120,7 @@ array.sort()
 print("after sorting, array = \(array)") */
 
 var tokenizer = try! ExpressionTokenizer("+abc")
-var item = tokenizer.pop()
+while let t = tokenizer.pop() {
+    print(t)
+}
 

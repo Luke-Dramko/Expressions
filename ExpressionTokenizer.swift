@@ -18,7 +18,7 @@ struct ExpressionTokenizer {
     private let minus_sign = try! NSRegularExpression(pattern: "^-")
     private let multiplication_sign = try! NSRegularExpression(pattern: "^\\*")
     private let division_sign = try! NSRegularExpression(pattern: "^/")
-    private let exponentiation_sign = try! NSRegularExpression(pattern: "^^")
+    private let exponentiation_sign = try! NSRegularExpression(pattern: "^\\^")
     private let symbol = try! NSRegularExpression(pattern: "^[a-zA-Z]|\\\\[a-zA-Z]+")
     private let integer = try! NSRegularExpression(pattern: "^[0-9]+")
     private let whitespace = try! NSRegularExpression(pattern: "^\\s*")
@@ -34,7 +34,9 @@ struct ExpressionTokenizer {
     }
     
     private mutating func next() -> Token? {
-        if let _ = add_sign.firstMatch(in: expression) {
+        if expression == "" {
+            return nil
+        } else if let _ = add_sign.firstMatch(in: expression) {
             expression.remove(at: expression.startIndex)
             return .addition
         } else if let _ = minus_sign.firstMatch(in: expression) {
@@ -64,8 +66,6 @@ struct ExpressionTokenizer {
         } else if let _ = rparen.firstMatch(in: expression) {
             expression.remove(at: expression.startIndex)
             return .rparen
-        } else if expression == "" {
-            return nil
         }
         
         return .error(remainder: expression)
