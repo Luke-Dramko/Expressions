@@ -331,11 +331,38 @@ public func / (left: Number, right: Number) -> Number {
 /**
  Raises the first Number to the power of the second Number.
  */
-public func ^ (base: Number, exponent: Number) -> Number {
-    if exponent == Number.zero {
+public func ^ (left: Number, right: Number) -> Number {
+    if right.coefficient == 0 {
         return Number.one;
-    } else if exponent == Number.one {
-        return base;
+    } else if right == Number.one {
+        return left;
+    } else if left.coefficient == 0 {
+        return Number.zero
+    }
+    
+    var base: Number;
+    var exp: Number;
+    
+    //This simulates raising an exponential to a power, such as
+    // (x^2)^3
+    if let e = left as? Exponential {
+        base = e.base
+        exp = e.base * right
+        
+    //This simulates normally raising something to a power (e.g. (x)^3
+    } else {
+        base = left
+        exp = right
+    }
+    
+    if exp ~ Number.one { //Exponent is an integer
+        
+    } else {
+        if exp.coefficient < 0 {
+            return Fraction(Number.one, Exponential(coefficient: base.coefficient, base: base.multiple(coefficient: 1), exponent: exp.multiple(coefficient: -exp.coefficient)))
+        } else {
+            return Exponential(coefficient: base.coefficient, base: base.multiple(coefficient: 1), exponent: exp)
+        }
     }
 }
 
