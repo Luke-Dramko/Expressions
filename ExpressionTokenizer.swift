@@ -11,7 +11,7 @@ import Foundation
 
 struct ExpressionTokenizer {
     var expression: String
-    var current: Token = .empty //placeholder value
+    var current: Token?
     
     //Regular expressions
     private let add_sign = try! NSRegularExpression(pattern: "^\\+")
@@ -30,10 +30,10 @@ struct ExpressionTokenizer {
             throw ParseError.EmptyExpression
         }
         self.expression = e;
-        self.current = next();
+        self.current = next()!; //We can't get an empty expression because of the check earlier.
     }
     
-    private mutating func next() -> Token {
+    private mutating func next() -> Token? {
         if let _ = add_sign.firstMatch(in: expression) {
             expression.remove(at: expression.startIndex)
             return .addition
@@ -65,17 +65,17 @@ struct ExpressionTokenizer {
             expression.remove(at: expression.startIndex)
             return .rparen
         } else if expression == "" {
-            return .empty
+            return nil
         }
         
         return .error(remainder: expression)
     }
     
-    internal func peek() -> Token {
+    internal func peek() -> Token? {
         return current
     }
     
-    internal mutating func pop() -> Token {
+    internal mutating func pop() -> Token? {
         let temp = current;
         current = next()
         return temp

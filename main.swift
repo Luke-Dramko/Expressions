@@ -119,6 +119,6 @@ print("before sorting, array = \(array)")
 array.sort()
 print("after sorting, array = \(array)") */
 
-let tokenizer = try! ExpressionTokenizer("+abc")
-//print(tokenizer.next())
+var tokenizer = try! ExpressionTokenizer("+abc")
+var item = tokenizer.pop()
 
