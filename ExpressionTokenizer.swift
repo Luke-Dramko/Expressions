@@ -14,16 +14,16 @@ struct ExpressionTokenizer {
     var current: Token = .empty //placeholder value
     
     //Regular expressions
-    let add_sign = try! NSRegularExpression(pattern: "^\\+")
-    let minus_sign = try! NSRegularExpression(pattern: "^-")
-    let multiplication_sign = try! NSRegularExpression(pattern: "^\\*")
-    let division_sign = try! NSRegularExpression(pattern: "^/")
-    let exponentiation_sign = try! NSRegularExpression(pattern: "^^")
-    let symbol = try! NSRegularExpression(pattern: "^[a-zA-Z]|\\\\[a-zA-Z]+")
-    let integer = try! NSRegularExpression(pattern: "^[0-9]+")
-    let whitespace = try! NSRegularExpression(pattern: "^\\s*")
-    let lparen = try! NSRegularExpression(pattern: "^\\(")
-    let rparen = try! NSRegularExpression(pattern: "^\\)")
+    private let add_sign = try! NSRegularExpression(pattern: "^\\+")
+    private let minus_sign = try! NSRegularExpression(pattern: "^-")
+    private let multiplication_sign = try! NSRegularExpression(pattern: "^\\*")
+    private let division_sign = try! NSRegularExpression(pattern: "^/")
+    private let exponentiation_sign = try! NSRegularExpression(pattern: "^^")
+    private let symbol = try! NSRegularExpression(pattern: "^[a-zA-Z]|\\\\[a-zA-Z]+")
+    private let integer = try! NSRegularExpression(pattern: "^[0-9]+")
+    private let whitespace = try! NSRegularExpression(pattern: "^\\s*")
+    private let lparen = try! NSRegularExpression(pattern: "^\\(")
+    private let rparen = try! NSRegularExpression(pattern: "^\\)")
     
     init(_ e: String) throws {
         if e.count == 0 { //empty string doesn't make sense as an expression.
