@@ -119,7 +119,7 @@ print("before sorting, array = \(array)")
 array.sort()
 print("after sorting, array = \(array)") */
 
-var tokenizer = try! ExpressionTokenizer("+abc")
+var tokenizer = try! ExpressionTokenizer("a + b * c^d^f/4 (a + b)^(b - a) \\pi\\pi a\\lambda 4 4000 20 -9 500")
 while let t = tokenizer.pop() {
     print(t)
 }

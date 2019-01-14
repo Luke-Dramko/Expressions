@@ -19,7 +19,7 @@ struct ExpressionTokenizer {
     private let multiplication_sign = try! NSRegularExpression(pattern: "^\\*")
     private let division_sign = try! NSRegularExpression(pattern: "^/")
     private let exponentiation_sign = try! NSRegularExpression(pattern: "^\\^")
-    private let symbol = try! NSRegularExpression(pattern: "^[a-zA-Z]|\\\\[a-zA-Z]+")
+    private let symbol = try! NSRegularExpression(pattern: "^[a-zA-Z]|^\\\\[a-zA-Z]+")
     private let integer = try! NSRegularExpression(pattern: "^[0-9]+")
     private let whitespace = try! NSRegularExpression(pattern: "^\\s*")
     private let lparen = try! NSRegularExpression(pattern: "^\\(")
