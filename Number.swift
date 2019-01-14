@@ -10,6 +10,7 @@ import Foundation
 
 infix operator ~
 infix operator !~
+infix operator ^
 
 public class Number: CustomStringConvertible, Comparable, Hashable {
     internal static var approximations: [String: Double] = ["": 1, "e": 2.71828_18284_59045_23536, "pi": Double.pi, "\\pi": Double.pi, "\u{03C0}": Double.pi]
@@ -324,6 +325,17 @@ public func / (left: Number, right: Number) -> Number {
         return r.reciprocal().multiply(left)
     } else {
         return Fraction(Number(1), right).multiply(left)
+    }
+}
+
+/**
+ Raises the first Number to the power of the second Number.
+ */
+public func ^ (base: Number, exponent: Number) -> Number {
+    if exponent == Number.zero {
+        return Number.one;
+    } else if exponent == Number.one {
+        return base;
     }
 }
 
