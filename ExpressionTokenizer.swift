@@ -33,26 +33,34 @@ struct ExpressionTokenizer {
         self.current = next();
     }
     
-    private func next() -> Token {
+    private mutating func next() -> Token {
         if let _ = add_sign.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .addition
         } else if let _ = minus_sign.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .subtraction
         } else if let _ = division_sign.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .division
         } else if let _ = multiplication_sign.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .multiplication
         } else if let _ = exponentiation_sign.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .power
         } else if let s = symbol.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .symbol(s)
         } else if let i = integer.firstMatch(in: expression) {
             return .integer(Int(i)!) //force-unwrap is okay because regular expression ensures it's an int.
         } else if let _ = whitespace.firstMatch(in: expression) {
             return self.next()
         } else if let _ = lparen.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .lparen
         } else if let _ = rparen.firstMatch(in: expression) {
+            expression.remove(at: expression.startIndex)
             return .rparen
         } else if expression == "" {
             return .empty
