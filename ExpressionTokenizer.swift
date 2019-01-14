@@ -72,7 +72,7 @@ struct ExpressionTokenizer {
     }
     
     internal func peek() -> Token {
-        return .empty //temporary placeholder
+        return current
     }
     
     internal mutating func pop() -> Token {
