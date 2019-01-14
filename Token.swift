@@ -20,5 +20,4 @@ internal enum Token {
     case lparen
     case rparen
     case error(remainder: String) //matches an invalid piece of input.
-    case empty //describes an empty string.
 }
