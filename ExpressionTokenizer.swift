@@ -75,8 +75,10 @@ struct ExpressionTokenizer {
         return .empty //temporary placeholder
     }
     
-    internal func pop() -> Token {
-        return .empty //temporary placeholder
+    internal mutating func pop() -> Token {
+        let temp = current;
+        current = next()
+        return temp
     }  
     
 }
