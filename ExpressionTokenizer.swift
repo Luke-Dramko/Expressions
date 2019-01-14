@@ -20,7 +20,7 @@ struct ExpressionTokenizer {
     private let division_sign = try! NSRegularExpression(pattern: "^/")
     private let exponentiation_sign = try! NSRegularExpression(pattern: "^\\^")
     private let symbol = try! NSRegularExpression(pattern: "^[a-zA-Z]|^\\\\[a-zA-Z]+")
-    private let integer = try! NSRegularExpression(pattern: "^[0-9]+")
+    private let integer = try! NSRegularExpression(pattern: "^-?[0-9]+")
     private let whitespace = try! NSRegularExpression(pattern: "^\\s+")
     private let lparen = try! NSRegularExpression(pattern: "^\\(")
     private let rparen = try! NSRegularExpression(pattern: "^\\)")
@@ -36,6 +36,9 @@ struct ExpressionTokenizer {
     private mutating func next() -> Token? {
         if expression == "" {
             return nil
+        } else if let i = integer.firstMatch(in: expression) {
+            expression = String(expression.dropFirst(i.count))
+            return .integer(Int(i)!) //force-unwrap is okay because regular expression ensures it's an int.
         } else if let _ = add_sign.firstMatch(in: expression) {
             expression.remove(at: expression.startIndex)
             return .addition
@@ -54,9 +57,6 @@ struct ExpressionTokenizer {
         } else if let s = symbol.firstMatch(in: expression) {
             expression = String(expression.dropFirst(s.count))
             return .symbol(s)
-        } else if let i = integer.firstMatch(in: expression) {
-            expression = String(expression.dropFirst(i.count))
-            return .integer(Int(i)!) //force-unwrap is okay because regular expression ensures it's an int.
         } else if let w = whitespace.firstMatch(in: expression) {
             expression = String(expression.dropFirst(w.count))
             return self.next()
