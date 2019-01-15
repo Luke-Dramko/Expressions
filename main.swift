@@ -123,5 +123,5 @@ print("after sorting, array = \(array)") */
 //while let t = tokenizer.pop() {
 //    print(t)
 //}
-print(Sum(Number("x"), Number.one) ^ Number.one)
+print(Sum(Number("x"), Number.one) ^ Number(-2))
 

@@ -18,13 +18,14 @@ public class Fraction: Number {
     }
     
     public override var description: String {
+        let denom_description = denominator is Sum ? "(\(denominator))" : denominator.description
         if numerator.description == "1" {
-            return String(coefficient) + "/" + denominator.description
+            return String(coefficient) + "/" + denom_description
         } else {
             if numerator is Sum {
-                return "(" + (numerator * Number(self.coefficient)).description + ")/" + denominator.description;
+                return "(" + (numerator * Number(self.coefficient)).description + ")/" + denom_description;
             } else {
-                return (numerator * Number(self.coefficient)).description + "/" + denominator.description;
+                return (numerator * Number(self.coefficient)).description + "/" + denom_description;
             }
         }
     };
