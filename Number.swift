@@ -355,7 +355,18 @@ public func ^ (left: Number, right: Number) -> Number {
         exp = right
     }
     
-    if exp ~ Number.one { //Exponent is an integer
+    if (exp ~ Number.one) && !(exp is Fraction) { //Exponent is an integer (nonzero integer gauranteed by above checks and properties of Number and subclasses
+        let times = exp.coefficient < 0 ? -exp.coefficient : exp.coefficient;
+        var result = base;
+        for _ in 1..<times {
+            result = result * base;
+        }
+        
+        if exp.coefficient < 0 {
+            return Fraction(Number.one, result)
+        } else {
+            return result;
+        }
         
     } else {
         if exp.coefficient < 0 {
