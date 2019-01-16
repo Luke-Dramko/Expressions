@@ -14,13 +14,13 @@ public func simplify(_ exp: String) throws -> Number {
 }
 
 fileprivate func expression(_ t: ExpressionTokenizer) throws -> Number {
-    var x = try term(t)
+    let x = try term(t)
     if addition(t) {
-        x = try x + expression(t)
+        return try x + expression(t)
     }
     
     if subtraction(t) {
-        x = try x + expression(t)
+        return try x + expression(t)
     }
     
     return x;
