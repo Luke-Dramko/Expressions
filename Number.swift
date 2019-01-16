@@ -98,58 +98,6 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
         constant = "";
     }
     
-    
-    //Parsing functions for initialization
-    
-    /**
-     Parses text into a string of constants.  Throws and exception if there's an invalid character.
-     Constants are interpreted as single characters, unless they're escaped with \.  A word escaped
-     with \ is a single constant.  \ words are delimited by whitespace.
-     
-     Valid string: a \lambda \pi\stringConst abc
-     Invalid string: a*NG
-     
-     Parameter text: to parse
-     
-     */
-    internal static func parseConstants(_ text: String) -> [String] {
-        var cons = [String]();
-        let letters = CharacterSet.letters;
-        let whitespace = CharacterSet.whitespaces;
-        
-        var current: String = "\\";
-        var largeConst = false;
-        
-        for char in text.unicodeScalars {
-            if char == "\\" {
-                if largeConst {
-                    cons.append(current);
-                    current = "\\";
-                } else {
-                    largeConst = true;
-                }
-                
-            } else if letters.contains(char) {
-                if (largeConst) {
-                    current += String(char);
-                } else {
-                    cons.append(String(char));
-                }
-            } else if whitespace.contains(char) {
-                if (largeConst) {
-                    largeConst = false;
-                    cons.append(current);
-                    current += "\\";
-                }
-            } else {
-                
-            }
-        }
-        
-        return cons;
-    }
-    
-    
     //************** Instance Methods *********
     internal func multiple(coefficient c: Int) -> Number {
         return Number(c, self.constant);
