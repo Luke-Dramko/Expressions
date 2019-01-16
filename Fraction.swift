@@ -230,7 +230,7 @@ public class Fraction: Number {
         
         //TODO Make recalculating the numerator so many times unecessary.
         if numeratorCoeff == 0 {
-            return Number(0)
+            return Number.zero
         } else if denominator == Number(1) {
             return numerator.multiple(coefficient: numeratorCoeff);
         } else {

@@ -145,8 +145,8 @@ public class Product: Number {
         if self ~ right {
             let result = self.multiple(coefficient: self.coefficient + right.coefficient)
             
-            if result == Number(0) {
-                return Number(0)
+            if result == Number.zero {
+                return Number.zero
             } else {
                 return result
             }

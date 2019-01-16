@@ -218,9 +218,9 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
  to rout the call through the polymorphic add() function.
  */
 public func + (left: Number, right: Number) -> Number {
-    if left == Number(0) {
+    if left == Number.zero {
         return right;
-    } else if right == Number(0) {
+    } else if right == Number.zero {
         return left;
     }
     
