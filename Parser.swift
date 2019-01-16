@@ -56,3 +56,13 @@ fileprivate func subtraction(_ tokenizer: ExpressionTokenizer) -> Bool {
         return false;
     }
 }
+
+fileprivate func multiplication(_ tokenizer: ExpressionTokenizer) -> Bool {
+    var t = tokenizer;
+    if let token = t.peek(), case .multiplication = token {
+        t.pop()
+        return true;
+    } else {
+        return false;
+    }
+}
