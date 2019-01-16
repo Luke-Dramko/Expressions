@@ -26,3 +26,12 @@ fileprivate func symbol(_ tokenizer: ExpressionTokenizer) -> Number? {
         return nil;
     }
 }
+
+fileprivate func integer(_ tokenizer: ExpressionTokenizer) -> Number? {
+    var t = tokenizer;
+    if let token = t.peek(), case .integer(let constant) = token {
+        return Number(constant)
+    } else {
+        return nil
+    }
+}
