@@ -96,3 +96,13 @@ fileprivate func lparen(_ tokenizer: ExpressionTokenizer) -> Bool {
         return false;
     }
 }
+
+fileprivate func rparen(_ tokenizer: ExpressionTokenizer) -> Bool {
+    var t = tokenizer;
+    if let token = t.peek(), case .rparen = token {
+        t.pop()
+        return true;
+    } else {
+        return false;
+    }
+}
