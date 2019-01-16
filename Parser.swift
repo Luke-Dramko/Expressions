@@ -49,7 +49,22 @@ fileprivate func product(_ t: ExpressionTokenizer) throws -> Number {
 }
 
 fileprivate func factor(_ t: ExpressionTokenizer) throws -> Number {
+    if lparen(t) {
+        let x = try expression(t)
+        if rparen(t) {
+            return x
+        } else {
+            throw ParseError.ExpectedToken(")")
+        }
+    }
     
+    if let n = integer(t) {
+        return n;
+    } else if let s = symbol(t) {
+        return s
+    } else {
+        throw ParseError.ExpectedToken("Integer of Symbol")
+    }
 }
 
 
