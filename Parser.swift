@@ -30,8 +30,19 @@ fileprivate func symbol(_ tokenizer: ExpressionTokenizer) -> Number? {
 fileprivate func integer(_ tokenizer: ExpressionTokenizer) -> Number? {
     var t = tokenizer;
     if let token = t.peek(), case .integer(let constant) = token {
+        t.pop()
         return Number(constant)
     } else {
         return nil
+    }
+}
+
+fileprivate func addition(_ tokenizer: ExpressionTokenizer) -> Bool {
+    var t = tokenizer;
+    if let token = t.peek(), case .addition = token {
+        t.pop()
+        return true;
+    } else {
+        return false;
     }
 }
