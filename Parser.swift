@@ -46,3 +46,13 @@ fileprivate func addition(_ tokenizer: ExpressionTokenizer) -> Bool {
         return false;
     }
 }
+
+fileprivate func subtraction(_ tokenizer: ExpressionTokenizer) -> Bool {
+    var t = tokenizer;
+    if let token = t.peek(), case .subtraction = token {
+        t.pop()
+        return true;
+    } else {
+        return false;
+    }
+}
