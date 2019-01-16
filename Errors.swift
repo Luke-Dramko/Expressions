@@ -16,4 +16,5 @@ enum ApproximationError: Error {
 //For the parser
 enum ParseError: Error {
     case EmptyExpression
+    case ExpectedToken(String)
 }
