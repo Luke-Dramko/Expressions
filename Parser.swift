@@ -16,8 +16,11 @@ public func simplify(_ exp: String) throws -> Number {
 
 
 //*********** Token identifying functions ***************
-fileprivate func symbol(_ t: ExpressionTokenizer) -> Number? {
+fileprivate func symbol(_ tokenizer: ExpressionTokenizer) -> Number? {
+    var t = tokenizer;
     if let token = t.peek(), case .symbol(let constant) = token {
+        t.pop(); //Unused call is fine here, the result of peek and pop are the same, and so we don't need
+                 //to do anything else with it.
         return Number(constant);
     } else {
         return nil;
