@@ -10,8 +10,27 @@ import Foundation
 
 public func simplify(_ exp: String) throws -> Number {
     let tokenizer = try ExpressionTokenizer(exp)
+    return try expression(tokenizer)
+}
+
+fileprivate func expression(_ t: ExpressionTokenizer) throws -> Number {
     
-    return Number.one //placeholder
+}
+
+fileprivate func term(_ t: ExpressionTokenizer) throws -> Number {
+    
+}
+
+fileprivate func term_tail(_ t: ExpressionTokenizer) throws -> Number {
+    
+}
+
+fileprivate func product(_ t: ExpressionTokenizer) throws -> Number {
+    
+}
+
+fileprivate func factor(_ t: ExpressionTokenizer) throws -> Number {
+    
 }
 
 
