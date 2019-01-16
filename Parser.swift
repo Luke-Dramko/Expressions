@@ -16,10 +16,17 @@ public func simplify(_ exp: String) throws -> Number {
 
 
 //*********** Token identifying functions ***************
+
+/**
+ The token identification functions below all follow a similar pattern.  They interact directly with the
+ tokenizer.  If the next token is the same as the name of the function, the function returns the appropriate
+ Number or true; otherwise, the function returns nil or false.  This abstracts away the necessity of handling
+ the tokenizer on this level in the recursive descent parser functions above.
+ */
 fileprivate func symbol(_ tokenizer: ExpressionTokenizer) -> Number? {
     var t = tokenizer;
     if let token = t.peek(), case .symbol(let constant) = token {
-        t.pop(); //Unused call is fine here, the result of peek and pop are the same, and so we don't need
+        t.pop(); //Unused call is fine here; the result of peek and pop are the same, and so we don't need
                  //to do anything else with it.
         return Number(constant);
     } else {
