@@ -27,6 +27,16 @@ fileprivate func expression(_ t: ExpressionTokenizer) throws -> Number {
 }
 
 fileprivate func term(_ t: ExpressionTokenizer) throws -> Number {
+    if subtraction(t) {
+        return try Number.negative_one * term(t)
+    }
+    
+    if addition(t) {
+        return try term(t)
+    }
+    
+    
+    
     
 }
 
