@@ -66,3 +66,13 @@ fileprivate func multiplication(_ tokenizer: ExpressionTokenizer) -> Bool {
         return false;
     }
 }
+
+fileprivate func division(_ tokenizer: ExpressionTokenizer) -> Bool {
+    var t = tokenizer;
+    if let token = t.peek(), case .division = token {
+        t.pop()
+        return true;
+    } else {
+        return false;
+    }
+}
