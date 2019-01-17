@@ -117,7 +117,11 @@ public class Exponential: Number {
         }
         
         //Bases are not the same.
-        return Product(coefficient: self.coefficient * right.coefficient, [self.multiple(coefficient: 1), right.multiple(coefficient: 1)])
+        if right ~ Number.one {
+            return self.multiple(coefficient: self.coefficient * right.coefficient)
+        } else {
+            return Product(coefficient: self.coefficient * right.coefficient, [self.multiple(coefficient: 1), right.multiple(coefficient: 1)])
+        }
     }
 
     /**
