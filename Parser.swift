@@ -10,7 +10,14 @@ import Foundation
 
 public func simplify(_ exp: String) throws -> Number {
     var tokenizer = try ExpressionTokenizer(exp)
-    return try expression(&tokenizer)
+    let result = try expression(&tokenizer)
+    if tokenizer.peek() == nil {
+        return result;
+    } else if let err = tokenizer.peek(), case .error(let message) = err {
+        throw ParseError.InvalidToken(message)
+    } else {
+        throw ParseError.ExpressionEndExpected
+    }
 }
 
 /*
