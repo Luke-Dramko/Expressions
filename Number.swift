@@ -272,7 +272,7 @@ public func / (left: Number, right: Number) -> Number {
     if let r = right as? Fraction {
         return r.reciprocal().multiply(left)
     } else {
-        return Fraction(Number(1), right).multiply(left)
+        return Fraction(Number.one, right).multiply(left)
     }
 }
 

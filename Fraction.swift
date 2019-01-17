@@ -231,7 +231,7 @@ public class Fraction: Number {
         //TODO Make recalculating the numerator so many times unecessary.
         if numeratorCoeff == 0 {
             return Number.zero
-        } else if denominator == Number(1) {
+        } else if denominator == Number.one {
             return numerator.multiple(coefficient: numeratorCoeff);
         } else {
             return Fraction.reduce(Fraction(numeratorCoeff, numerator.multiple(coefficient: 1), denominator))
@@ -253,7 +253,7 @@ public class Fraction: Number {
         case is Fraction:
             return self.add(right as! Fraction)
         default:
-            return self.add(Fraction(right.coefficient, right.multiple(coefficient: 1), Number(1)))
+            return self.add(Fraction(right.coefficient, right.multiple(coefficient: 1), Number.one))
         }
     }
     
@@ -278,7 +278,7 @@ public class Fraction: Number {
         
         let g = gcd(self.coefficient * right.coefficient,  denominator.coefficient)
         
-        if (denominator ~ Number(1)) && (denominator.coefficient / g) == 1 {
+        if (denominator ~ Number.one) && (denominator.coefficient / g) == 1 {
             return numerator;
         } else {
             return Fraction.reduce(Fraction((self.coefficient * right.coefficient) / g, numerator.multiple(coefficient: 1), denominator.multiple(coefficient: denominator.coefficient / g)))
@@ -298,7 +298,7 @@ public class Fraction: Number {
     internal override func multiply(_ right: Number) -> Number {
         switch right {
         case is Fraction: return self.multiply(right as! Fraction)
-        default: return self.multiply(Fraction(right.coefficient, right.multiple(coefficient: 1), Number(1)))
+        default: return self.multiply(Fraction(right.coefficient, right.multiple(coefficient: 1), Number.one))
         }
     }
     
@@ -353,7 +353,7 @@ public class Fraction: Number {
             //a simple integer constant (decimal constants are impossible in this system).
             //This includes cases like
             // 6 - 4/5 (like terms) and 5x + 4x/7 (also like terms).
-            if (right ~ self.numerator) && (self.denominator ~ Number(1)) {
+            if (right ~ self.numerator) && (self.denominator ~ Number.one) {
                 return true;
             } else {
                 return false;

@@ -32,7 +32,7 @@ public class Exponential: Number {
             coeff = String(self.coefficient)
         }
         
-        if self.exponent == Fraction(Number(1), Number(2)) {
+        if self.exponent == Fraction(Number.one, Number(2)) {
             return "\(coeff)\\sqrt{\(base.LaTeX)}"
         } else {
             return "\(coeff)\(base is Sum ? "(\(base.LaTeX))" : base.LaTeX)^{\(exponent.LaTeX)}"
@@ -53,7 +53,7 @@ public class Exponential: Number {
     
     internal override func multiple(coefficient c: Int) -> Number {
         if self.base == Number(c) {
-            return Exponential(coefficient: 1, base: self.base, exponent: self.exponent + Number(1))
+            return Exponential(coefficient: 1, base: self.base, exponent: self.exponent + Number.one)
         }
         return Exponential(coefficient: c, base: self.base, exponent: self.exponent);
     }

@@ -125,5 +125,5 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
-print(try? simplify("3 + 4 + 5"))
+print(try? simplify("2 * (x + y)^(3/2)/(x + y)^(1/2)"))
 
