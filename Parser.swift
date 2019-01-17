@@ -13,25 +13,38 @@ public func simplify(_ exp: String) throws -> Number {
     return try expression(&tokenizer)
 }
 
+/*
+ Grammar used for this parser:
+ 
+ expression: term + expression | term - expression | term
+ term: -term | +term | product / factor | product / factor * term | product
+ product: factor * product | factor product | factor
+ factor: element ^ factor | element
+ element: ( expression ) | integer | symbol
+ */
+
+
+//expression: term + expression | term - expression | term
 fileprivate func expression(_ t: inout ExpressionTokenizer) throws -> Number {
     let x = try term(&t)
     if addition(&t) {
-        return try x + expression(&t)
+        return try x + expression(&t) //term + expression
     }
     
     if subtraction(&t) {
-        return try x + expression(&t)
+        return try x + expression(&t) //term - expression
     }
     
-    return x;
+    return x; //term
 }
 
+//term: -term | +term | product / factor | product / factor * term | product
 fileprivate func term(_ t: inout ExpressionTokenizer) throws -> Number {
-    if subtraction(&t) {
+    if subtraction(&t) { //-term
         return try Number.negative_one * term(&t)
     }
     
-    if addition(&t) {
+    if addition(&t) { //+term
         return try term(&t)
     }
     
@@ -40,41 +53,44 @@ fileprivate func term(_ t: inout ExpressionTokenizer) throws -> Number {
     if division(&t) {
         x = try x / factor(&t)
         if multiplication(&t) {
-            return try x * term(&t)
+            return try x * term(&t) //product / factor * term
         } else {
-            return x;
+            return x; //product / factor
         }
     }
     
-    return x;
+    return x; //product
 }
 
+//product: factor * product | factor product | factor
 fileprivate func product(_ t: inout ExpressionTokenizer) throws -> Number {
     let x = try factor(&t)
     
-    if multiplication(&t) {
+    if multiplication(&t) { //factor * product
         return try x * product(&t)
     }
     
     if elementIsNext(t) {
-        return try x * product(&t)
+        return try x * product(&t) //factor product
     }
     
-    return x
+    return x //factor
 }
 
+//factor: element ^ factor | element
 fileprivate func factor(_ t: inout ExpressionTokenizer) throws -> Number {
     let x = try element(&t)
     
-    if power(&t) {
+    if power(&t) {  //element ^ factor
         return try x ^ factor(&t)
     }
     
-    return x;
+    return x;  //element
 }
 
+//element: ( expression ) | integer | symbol
 fileprivate func element(_ t: inout ExpressionTokenizer) throws -> Number {
-    if lparen(&t) {
+    if lparen(&t) { // ( expression )
         let x = try expression(&t)
         if rparen(&t) {
             return x
@@ -83,9 +99,9 @@ fileprivate func element(_ t: inout ExpressionTokenizer) throws -> Number {
         }
     }
     
-    if let n = integer(&t) {
+    if let n = integer(&t) { //integer
         return n;
-    } else if let s = symbol(&t) {
+    } else if let s = symbol(&t) { //symbol
         return s
     } else {
         throw ParseError.ExpectedToken("Integer or Symbol")
