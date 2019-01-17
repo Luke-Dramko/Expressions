@@ -125,5 +125,15 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
-print(try? simplify("2 * (x + y)^(3/2)/(x + y)^(1/2)"))
+var input: String = readLine(strippingNewline: true)!
+while input != "" {
+    if let result = try? simplify(input) {
+        print(result)
+        print(result.LaTeX)
+        print("----------")
+    } else {
+        print("Parse error.")
+    }
+    input = readLine(strippingNewline: true)!
+}
 

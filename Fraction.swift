@@ -217,7 +217,7 @@ public class Fraction: Number {
             */
             numerator = (left.numerator * right.denominator).multiple(coefficient: left.coefficient * right.denominator.coefficient) + (left.denominator * right.numerator).multiple(coefficient: right.coefficient * left.denominator.coefficient)
         } else {
-            numerator = left.numerator + right.numerator;
+            numerator = left.numerator.multiple(coefficient: left.coefficient) + right.numerator.multiple(coefficient: right.coefficient);
         }
         
         //TODO: When the Product and Exponential classes are implemented, put a simplification
