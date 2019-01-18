@@ -39,7 +39,7 @@ fileprivate func expression(_ t: inout ExpressionTokenizer) throws -> Number {
     }
     
     if subtraction(&t) {
-        return try x + expression(&t) //term - expression
+        return try x - expression(&t) //term - expression
     }
     
     return x; //term
