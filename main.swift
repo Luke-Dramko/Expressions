@@ -125,7 +125,16 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
+/*do {
+    let x = try simplify("4^(1/2)")
+    print("result = \(x)")
+} catch {
+    print("Parse Error: \(error)")
+}
 
+exit(0) */
+
+print("Enter expressions:")
 var input: String = readLine(strippingNewline: true)!
 while input != "" {
     if let result = try? simplify(input) {

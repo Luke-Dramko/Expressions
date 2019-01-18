@@ -322,11 +322,21 @@ public func ^ (left: Number, right: Number) -> Number {
             return result;
         }
         
+    } else if (base ~ Number.one) && (exp ~ Number.one) {
+        do {
+            let approximation = try exp.approximate()
+            if let result = Int(exactly: pow(Double(base.coefficient), approximation)) {
+                return Number(result)
+            }
+        } catch {}
+        return Exponential(base: base, exponent: exp)
+        
     } else {
         if exp.coefficient < 0 {
-            return Fraction(Number.one, Exponential(coefficient: base.coefficient, base: base.multiple(coefficient: 1), exponent: exp.multiple(coefficient: -exp.coefficient)))
+            //The negative sign here should cancel out and make a positive.
+            return Fraction(Number.one, Exponential(base: base, exponent: exp.multiple(coefficient: -exp.coefficient)))
         } else {
-            return Exponential(coefficient: base.coefficient, base: base.multiple(coefficient: 1), exponent: exp)
+            return Exponential(base: base, exponent: exp)
         }
     }
 }
