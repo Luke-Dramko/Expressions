@@ -45,6 +45,12 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
             } else {
                 return constant;
             }
+        } else if coefficient == -1 {
+            if constant == "" {
+                return "-1"
+            } else {
+                return "-\(constant)"
+            }
         } else {
             return String(coefficient) + constant;
         }

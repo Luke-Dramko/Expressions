@@ -125,8 +125,6 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
-print(try? simplify("x - 2x"))
-exit(0)
 
 var input: String = readLine(strippingNewline: true)!
 while input != "" {
