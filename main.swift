@@ -125,14 +125,14 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
-/*do {
-    let x = try simplify("4^(1/2)")
-    print("result = \(x)")
+do {
+    let x = try simplify("a - b - b - a")
+    print(x)
+    print(x.LaTeX)
 } catch {
-    print("Parse Error: \(error)")
+    print("Parser error: \(error)")
 }
-
-exit(0) */
+exit(0)
 
 print("Enter expressions:")
 var input: String = readLine(strippingNewline: true)!

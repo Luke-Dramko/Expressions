@@ -215,9 +215,9 @@ public class Sum: Number {
         Sum.simplify(&nt)
         
         //Handle special cases or return the new sum.
-        if terms.count == 0 {
+        if nt.count == 0 {
             return Number(0)
-        } else if terms.count == 1 {
+        } else if nt.count == 1 {
             return nt[0] //If there's only one item in the sum, then we might as well return just that
                          //item, not the item in a Sum 'wrapper'
         } else {
