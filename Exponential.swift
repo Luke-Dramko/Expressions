@@ -29,8 +29,12 @@ public class Exponential: Number {
     }
         
     public override var LaTeX: String {
-        var coeff = "";
-        if self.coefficient != 1 {
+        let coeff: String;
+        if self.coefficient == 1 {
+            coeff = ""
+        } else if coefficient == -1 {
+            coeff = "-"
+        } else {
             coeff = String(self.coefficient)
         }
         
