@@ -21,6 +21,8 @@ public class Exponential: Number {
             } else {
                 return base.description + "^(" + exponent.description + ")";
             }
+        } else if coefficient == -1 {
+            return "-(\(base.description))^(\(exponent.description))"
         } else {
             return "\(self.coefficient)(\(base.description))^(\(exponent.description))"
         }
