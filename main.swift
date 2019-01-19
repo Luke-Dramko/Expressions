@@ -128,13 +128,14 @@ print("after sorting, array = \(array)") */
 print("Enter expressions:")
 var input: String = readLine(strippingNewline: true)!
 while input != "" {
-    if let result = try? simplify(input) {
-        print(result)
-        print(result.LaTeX)
-        print("----------")
-    } else {
-        print("Parse error.")
+    do {
+        let x = try simplify(input)
+        print(x)
+        print(x.LaTeX)
+    } catch {
+        print("Parse error: \(error)")
     }
+    print("--------------")
     input = readLine(strippingNewline: true)!
 }
 

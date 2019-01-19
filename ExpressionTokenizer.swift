@@ -36,9 +36,6 @@ struct ExpressionTokenizer {
     private mutating func next() -> Token? {
         if expression == "" {
             return nil
-        } else if let i = integer.firstMatch(in: expression) {
-            expression = String(expression.dropFirst(i.count))
-            return .integer(Int(i)!) //force-unwrap is okay because regular expression ensures it's an int.
         } else if let _ = add_sign.firstMatch(in: expression) {
             expression.remove(at: expression.startIndex)
             return .addition
@@ -57,6 +54,9 @@ struct ExpressionTokenizer {
         } else if let s = symbol.firstMatch(in: expression) {
             expression = String(expression.dropFirst(s.count))
             return .symbol(s)
+        } else if let i = integer.firstMatch(in: expression) {
+            expression = String(expression.dropFirst(i.count))
+            return .integer(Int(i)!) //force-unwrap is okay because regular expression ensures it's an int.
         } else if let w = whitespace.firstMatch(in: expression) {
             expression = String(expression.dropFirst(w.count))
             return self.next()
