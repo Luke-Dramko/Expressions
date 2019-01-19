@@ -38,8 +38,8 @@ fileprivate func expression(_ t: inout ExpressionTokenizer) throws -> Number {
         return try x + expression(&t) //term + expression
     }
     
-    if subtraction(&t) {
-        return try x - expression(&t) //term - expression
+    if let token = t.peek(), case .subtraction = token {
+        return try x + expression(&t) //term - expression
     }
     
     return x; //term

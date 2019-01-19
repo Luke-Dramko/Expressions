@@ -209,10 +209,18 @@ public class Sum: Number {
      Adds two sets of terms to eachother.
      */
     internal func add(_ right: Sum) -> Number {
+        print("-------- In Sum add -------")
+        print("self = \(self)")
+        print("right = \(right)")
+        
         var nt = self.distribute() + right.distribute(); //New terms
         nt.sort();
         
+        print("nt = \(nt)")
+        
         Sum.simplify(&nt)
+        
+        print("After simplification: nt = \(nt)")
         
         //Handle special cases or return the new sum.
         if nt.count == 0 {
