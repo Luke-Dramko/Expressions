@@ -16,7 +16,7 @@ public class Exponential: Number {
     
     public override var description: String {
         if coefficient == 1 {
-            if base.coefficient < 0 || base is Sum {
+            if base.coefficient != 0 || base is Sum {
                 return "(\(base.description))^(\(exponent.description))"
             } else {
                 return base.description + "^(" + exponent.description + ")";
@@ -41,7 +41,7 @@ public class Exponential: Number {
         if self.exponent == Fraction(Number.one, Number(2)) {
             return "\(coeff)\\sqrt{\(base.LaTeX)}"
         } else {
-            return "\(coeff)\(base is Sum ? "(\(base.LaTeX))" : base.LaTeX)^{\(exponent.LaTeX)}"
+            return "\(coeff)\(base is Sum || base.coefficient != 1 ? "(\(base.LaTeX))" : base.LaTeX)^{\(exponent.LaTeX)}"
         }
     }
     
