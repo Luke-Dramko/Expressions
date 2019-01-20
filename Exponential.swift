@@ -118,7 +118,9 @@ public class Exponential: Number {
             
             //bases are not equal; must return a Product
             return Product(coefficient: self.coefficient * r.coefficient, [self.multiple(coefficient: 1), r.multiple(coefficient: 1)])
-        } else if self.base ~ right {
+        } else if self.base == right {
+            return Exponential(coefficient: self.coefficient, base: self.base, exponent: self.exponent + Number.one)
+        } else if (self.base ~ right) && self.base.coefficient == 1 {
             return Exponential(coefficient: self.coefficient * right.coefficient, base: self.base, exponent: self.exponent + Number.one)
         }
         
