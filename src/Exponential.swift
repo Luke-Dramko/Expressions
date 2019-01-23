@@ -55,6 +55,26 @@ public class Exponential: Number {
         self.init(coefficient: 1, base: base, exponent: exponent);
     }
     
+    //**************** Private helper methods *************
+    private static func generateExponential(coefficient: Int, base: Number, exponent: Number) -> Number{
+        if exponent.coefficient > 0 {
+            if exponent == Number.one {
+                return base.multiple(coefficient: coefficient)
+            } else {
+                return Exponential(coefficient: coefficient, base: base, exponent: exponent)
+            }
+        } else if exponent.coefficient < 0 {
+            if exponent == Number.negative_one {
+                return Fraction(Number.one, base.multiple(coefficient: coefficient))
+            } else {
+                return Exponential(coefficient: coefficient, base: base, exponent: exponent)
+            }
+        } else {
+            return Number(coefficient) //anything to the zero power is one, but the coefficient is not
+            //being raised to the exponent.
+        }
+    }
+    
     //**************** Instance methods *******************
     
     internal override func multiple(coefficient c: Int) -> Number {
@@ -113,15 +133,15 @@ public class Exponential: Number {
             
             //bases are equal, can combine exponents
             if self.base == r.base {
-                return Exponential(coefficient: self.coefficient * r.coefficient, base: self.base, exponent: self.exponent + r.exponent)
+                return Exponential.generateExponential(coefficient: self.coefficient * r.coefficient, base: self.base, exponent: self.exponent + r.exponent)
             }
             
             //bases are not equal; must return a Product
             return Product(coefficient: self.coefficient * r.coefficient, [self.multiple(coefficient: 1), r.multiple(coefficient: 1)])
         } else if self.base == right {
-            return Exponential(coefficient: self.coefficient, base: self.base, exponent: self.exponent + Number.one)
+            return Exponential.generateExponential(coefficient: self.coefficient, base: self.base, exponent: self.exponent + Number.one)
         } else if (self.base ~ right) && self.base.coefficient == 1 {
-            return Exponential(coefficient: self.coefficient * right.coefficient, base: self.base, exponent: self.exponent + Number.one)
+            return Exponential.generateExponential(coefficient: self.coefficient * right.coefficient, base: self.base, exponent: self.exponent + Number.one)
         }
         
         //Bases are not the same.
