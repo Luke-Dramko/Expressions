@@ -22,7 +22,7 @@ expr = expr - Number(4)  //expr is now x.
 Number objects can be converted to a LaTeX String for easy rendering.
 
 ```
-var expr = try! simplify("")
+var expr = try! simplify("(x/2 + y^(1/2))^2")
 
 print(expr.LaTeX)   //prints \frac{4x\sqrt{y}+x^{2}+4y}{4}
 ```
