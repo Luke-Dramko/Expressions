@@ -24,5 +24,8 @@ Number objects can be converted to a LaTeX String for easy rendering.
 ```
 var expr = try! simplify("(x/2 + y^(1/2))^2")
 
-print(expr.LaTeX)   //prints \frac{4x\sqrt{y}+x^{2}+4y}{4}
+print(expr.LaTeX)   //prints \frac{4y+4x\sqrt{y}+x^{2}}{4}
 ```
+This renders to
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\frac{4y&plus;4x\sqrt{y}&plus;x^{2}}{4}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{4y&plus;4x\sqrt{y}&plus;x^{2}}{4}" title="\frac{4y+4x\sqrt{y}+x^{2}}{4}" /></a>
