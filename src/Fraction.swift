@@ -96,7 +96,7 @@ public class Fraction: Number {
                 if let val = nfh[e.base] {
                     nfh[e.base] = val - e.exponent
                 } else {
-                    nfh[e.base] = e.exponent.multiple(coefficient: -e.coefficient)
+                    nfh[e.base] = e.exponent.multiple(coefficient: -e.exponent.coefficient)
                 }
             } else {
                 if let val = nfh[factor] {
