@@ -11,12 +11,12 @@ Number objects can be created in several ways:
 
 `let num3 = try! simplify("(3x + 2)(x + 5)")  //num3 is 3x^2 + 17x + 10`
 
-Numbers can be combined via overloaded operators to create different Numbers.  Numbers are always kept in simplified form.
+Numbers can be combined via overloaded operators to create different Numbers.  Numbers are always kept in simplified form. Operators are overloaded to accept Int parameters that automatically convert the Int to a Number instance for convenience. 
 
 ```
 var expr = try! simplify("(x + 4)^(3/2)/(x + 4)^(1/2)")  //expr is x + 4
 
-expr = expr - Number(4)  //expr is now x.
+expr = expr - 4  //expr is now x.
 ```
 
 Number objects can be converted to a LaTeX String for easy rendering.
