@@ -28,6 +28,12 @@ public func simplify(_ exp: String) throws -> Number {
  product: factor * product | factor product | factor
  factor: element ^ factor | element
  element: ( expression ) | integer | symbol
+ 
+ Note that for expression - term, the negative sign is NOT popped out of the token queue.  This is
+ to preserve order of operations.  As written, term - expression indicates term + -1( expression ),
+ where the intended behavior is -1 times the next term only.  The difference comes when 'expression'
+ is more than one term, as in a - a + b.  The first technique will result in -b, which is incorrect;
+ we want b instead.
  */
 
 
