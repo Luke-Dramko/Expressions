@@ -29,3 +29,11 @@ print(expr.LaTeX)   //prints \frac{4y+4x\sqrt{y}+x^{2}}{4}
 This renders to
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{4y&plus;4x\sqrt{y}&plus;x^{2}}{4}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{4y&plus;4x\sqrt{y}&plus;x^{2}}{4}" title="\frac{4y+4x\sqrt{y}+x^{2}}{4}" /></a>
+
+Finally, if a symbol's numeric value is known, approximations can be calculated for a given Number.
+
+```
+let x: Double = try! Number(2, "\\pi").approximate()  //x is 6.283185307179586
+
+let y: Double? = try? Number(2, "a").approximate()  //y is nil due to an UndefinedConstantError
+```
