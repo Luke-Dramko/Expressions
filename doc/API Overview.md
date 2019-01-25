@@ -22,7 +22,7 @@ Number objects can be combined through several operators that mimic the normal m
 For convenience, these operators are overloaded to accept a single integer argument along with a Number; if `x` is an instance of Number, instead of `x ^ Number(2)`, it's only necessary to use `x ^ 2`.
 
 Examples
-```
+```Swift
 var expr = try! simplify("abc - bca") //expr = 0
 
 expr = try! expr + simplify("(x + 1)^2")  //expr = x^2 + 2x + 1
@@ -33,10 +33,10 @@ expr = expr - Number(2, "x") - 1 //expr = x^2 + 1
 Numbers can be compared with the == operator, which returns true if the left and right are symbolically identical and false otherwise.
 
 Numbers can also be compared with the ~ ("like") infix operator, which returns true if the left and right are like terms.  Like terms differ only in coefficient. 
-```
+```Swift
 Number(4, "x") ~ Number(4, "x) // returns true
 
-try! simplify("2x^3") ~ simplify("5x^3") //returns true
+try! simplify("x ^ 3") ~ simplify("5x ^ 3") //returns true
 
 Number(4, "x") ~ Number(4) //returns false
 ```
