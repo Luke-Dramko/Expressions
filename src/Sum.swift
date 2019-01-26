@@ -143,6 +143,7 @@ public class Sum: Number {
         var common = Set<Number>();
         var termContents = [Set<Number>](repeating: Set<Number>(), count: terms.count);
         var exponents = Dictionary<Number, Number>();
+        var termExponents = [Dictionary<Number, Number>](repeating: Dictionary<Number, Number>(), count: terms.count)
         
         //This SHOULDN'T happen, as the module enforces that terms has zero or more elements.
         if terms.count == 0 {
@@ -162,6 +163,7 @@ public class Sum: Number {
                         } else {
                             exponents[e.base] = e.exponent
                         }
+                        termExponents[i][e.base] = e.exponent
                         termContents[i].insert(e.base)
                     } else {
                         print("    ** factor \(f) is not an Exponential or not the right kind.")
@@ -170,6 +172,7 @@ public class Sum: Number {
                         } else {
                             exponents[f] = Number.one
                         }
+                        termExponents[i][f] = Number.one
                         termContents[i].insert(f)
                     }
                 }
@@ -181,6 +184,7 @@ public class Sum: Number {
                     } else {
                         exponents[e.base] = e.exponent
                     }
+                    termExponents[i][e.base] = e.exponent
                     termContents[i].insert(e.base)
                 } else {
                     if let val = exponents[t] {
@@ -188,6 +192,7 @@ public class Sum: Number {
                     } else {
                         exponents[t] = Number.one
                     }
+                    termExponents[i][t] = Number.one
                     termContents[i].insert(t)
                 }
             }
@@ -200,8 +205,10 @@ public class Sum: Number {
             
         }
         
+        print("terms = \(terms)")
         print("common = \(common)")
         print("exponents = \(exponents)")
+        print("Term exponents = \(termExponents))")
         exit(0)
         
         
