@@ -125,7 +125,7 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
-let x = try! simplify("a^2bc + 3ab + ad^y")
+let x = try! simplify("a^2bc + 3ab + abd^y")
 print(x)
 (x as! Sum).factor()
 exit(0)

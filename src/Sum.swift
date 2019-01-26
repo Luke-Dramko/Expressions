@@ -101,7 +101,7 @@ public class Sum: Number {
                 nt.remove(at: i + 1) //Remove the extra copy after combining terms
                 
                 //If two numbers cancel out, we remove the zero from the sum - keeping an extra zero
-                //term is like righting (1 + e) as (1 + e + 0)
+                //term is like writing (1 + e) as (1 + e + 0)
                 if nt[i] == Number(0) {
                     nt.remove(at: i)
                 }
@@ -157,26 +157,50 @@ public class Sum: Number {
                 for f in p.factors {
                     if let e = f as? Exponential, e.exponent ~ Number.one {
                         print("    ** factor \(f) is the right kind of exponential")
-                        exponents[e.base] = e.exponent
+                        if let val = exponents[e.base] {
+                            exponents[e.base] = val.coefficient < e.exponent.coefficient ? val : e.exponent;
+                        } else {
+                            exponents[e.base] = e.exponent
+                        }
                         termContents[i].insert(e.base)
                     } else {
                         print("    ** factor \(f) is not an Exponential or not the right kind.")
+                        if let val = exponents[f] {
+                            exponents[f] = val.coefficient < f.coefficient ? val : f;
+                        } else {
+                            exponents[f] = Number.one
+                        }
                         termContents[i].insert(f)
                     }
                 }
             } else {
                 print("   t is not a product.")
                 if let e = t as? Exponential, e.base ~ Number.one {
-                    exponents[e.base] = e.exponent
+                    if let val = exponents[e.base] {
+                        exponents[e.base] = val.coefficient < e.exponent.coefficient ? val : e.exponent;
+                    } else {
+                        exponents[e.base] = e.exponent
+                    }
                     termContents[i].insert(e.base)
                 } else {
+                    if let val = exponents[t] {
+                        exponents[t] = val.coefficient < t.coefficient ? val : t;
+                    } else {
+                        exponents[t] = Number.one
+                    }
                     termContents[i].insert(t)
                 }
             }
         }
         
-        print("\(termContents)")
-        print("\(exponents)")
+        //Find the common factors between all terms
+        common = termContents[0]
+        for i in 1..<termContents.count {
+            common = common.intersection(termContents[i])
+            
+        }
+        
+        print("common = \(common)")
         exit(0)
         
         
