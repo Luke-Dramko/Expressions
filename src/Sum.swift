@@ -166,7 +166,7 @@ public class Sum: Number {
                     } else {
                         print("    ** factor \(f) is not an Exponential or not the right kind.")
                         if let val = exponents[f] {
-                            exponents[f] = val.coefficient < f.coefficient ? val : f;
+                            exponents[f] = val.coefficient < f.coefficient ? val : Number.one;
                         } else {
                             exponents[f] = Number.one
                         }
@@ -184,7 +184,7 @@ public class Sum: Number {
                     termContents[i].insert(e.base)
                 } else {
                     if let val = exponents[t] {
-                        exponents[t] = val.coefficient < t.coefficient ? val : t;
+                        exponents[t] = val.coefficient < t.coefficient ? val : Number.one;
                     } else {
                         exponents[t] = Number.one
                     }
@@ -201,6 +201,7 @@ public class Sum: Number {
         }
         
         print("common = \(common)")
+        print("exponents = \(exponents)")
         exit(0)
         
         
