@@ -142,6 +142,10 @@ public class Product: Number {
      -Return: The result of the addition.
      */
     internal override func add(_ right: Number) -> Number {
+        if let r = right as? Sum {
+            return r.add(self)
+        }
+        
         if self ~ right {
             let result = self.multiple(coefficient: self.coefficient + right.coefficient)
             

@@ -124,6 +124,10 @@ public class Exponential: Number {
      -Return: The result of the multiplication
      */
     public override func multiply(_ right: Number) -> Number {
+        if let r = right as? Product {
+            return r.multiply(self)
+        }
+        
         //This will force the fraction's multiply and thus Fraction.reduce() function to be called to handle additional simplification.
         if right is Fraction {
             return right * self;
