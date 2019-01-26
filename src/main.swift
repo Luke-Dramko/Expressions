@@ -125,6 +125,11 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
+let x = try! simplify("a^2bc + 3ab + ad^y")
+print(x)
+(x as! Sum).factor()
+exit(0)
+
 print("Enter expressions:")
 var input: String = readLine(strippingNewline: true)!
 while input != "" {

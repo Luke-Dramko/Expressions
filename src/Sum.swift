@@ -139,34 +139,70 @@ public class Sum: Number {
      3(4ax + x) would be factored as 3x(4a + 1), and returned as a tuple of (3x, (4a + 1)).
      
      */
-    public func factored() -> (Number, Sum) {
+    internal func factor() -> [Number] {
+        var common = Set<Number>();
+        var termContents = [Set<Number>](repeating: Set<Number>(), count: terms.count);
+        var exponents = Dictionary<Number, Number>();
+        
+        //This SHOULDN'T happen, as the module enforces that terms has zero or more elements.
         if terms.count == 0 {
-            return (Number.one, Sum([Number.one]));
+            return []
         }
         
-        var commonFactors: Array<Number>;
-        
-        if let p = terms[0] as? Product {
-            commonFactors = p.factors;
-        } else {
-            commonFactors = [terms[0].multiple(coefficient: 1)]
-        }
-        
-        for i in 1..<terms.count {
-            if let p = terms[i] as? Product { //(Number) throws -> Bool
-                commonFactors = commonFactors.filter({ num in !p.factors.contains(where: { $0 ~ num }) })
+        //Effectively converts the terms array into an array of sets instead, which are easier to work with.
+        for (i, t) in terms.enumerated() {
+            print("Parsing term \(t)")
+            if let p = t as? Product {
+                print("   t is a Product!")
+                for f in p.factors {
+                    if let e = f as? Exponential, e.base ~ Number.one {
+                        print("    ** factor \(f) is the right kind of exponential")
+                        exponents[e.base] = e.exponent
+                        termContents[i].insert(e.base)
+                    } else {
+                        print("    ** factor \(f) is not an Exponential or not the right kind.")
+                        termContents[i].insert(f)
+                    }
+                }
             } else {
-                commonFactors = commonFactors.filter( { $0 ~ terms[i]} )
+                print("   t is not a product.")
+                if let e = t as? Exponential, e.base ~ Number.one {
+                    exponents[e.base] = e.exponent
+                    termContents[i].insert(e.base)
+                } else {
+                    termContents[i].insert(t)
+                }
             }
         }
         
-        if commonFactors.count == 0 {
-            return (Number.one, self)
-        } else if commonFactors.count == 1 {
-            return (commonFactors[0], self)
-        } else {
-            return (Product(coefficient: 1, commonFactors), self)
+        print("\(termContents)")
+        exit(0)
+        
+        
+        //Remove terms that are not in each term.
+        
+        
+        for i in 1..<terms.count {
+            if let p = terms[i] as? Product {
+                for f in p.factors {
+                    if let e = f as? Exponential, e.base ~ Number.one {
+                        exponents[e.base] = e.exponent
+                        common.insert(e.base)
+                    } else {
+                        common.insert(f)
+                    }
+                }
+            } else {
+                if let e = terms[i] as? Exponential, e.base ~ Number.one {
+                    exponents[e.base] = e.exponent
+                    common.insert(e.base)
+                } else {
+                    common.insert(terms[i])
+                }
+            }
         }
+        
+        return [Number.one] //placeholder
     }
     
     /**
