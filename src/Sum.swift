@@ -155,7 +155,7 @@ public class Sum: Number {
             if let p = t as? Product {
                 print("   t is a Product!")
                 for f in p.factors {
-                    if let e = f as? Exponential, e.base ~ Number.one {
+                    if let e = f as? Exponential, e.exponent ~ Number.one {
                         print("    ** factor \(f) is the right kind of exponential")
                         exponents[e.base] = e.exponent
                         termContents[i].insert(e.base)
@@ -176,6 +176,7 @@ public class Sum: Number {
         }
         
         print("\(termContents)")
+        print("\(exponents)")
         exit(0)
         
         
