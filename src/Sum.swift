@@ -178,7 +178,7 @@ public class Sum: Number {
                 }
             } else {
                 print("   t is not a product.")
-                if let e = t as? Exponential, e.base ~ Number.one {
+                if let e = t as? Exponential, e.exponent ~ Number.one {
                     if let val = exponents[e.base] {
                         exponents[e.base] = val.coefficient < e.exponent.coefficient ? val : e.exponent;
                     } else {
