@@ -209,33 +209,46 @@ public class Sum: Number {
         print("common = \(common)")
         print("exponents = \(exponents)")
         print("Term exponents = \(termExponents))")
-        exit(0)
         
-        
-        //Remove terms that are not in each term.
-        
-        
-        for i in 1..<terms.count {
-            if let p = terms[i] as? Product {
-                for f in p.factors {
-                    if let e = f as? Exponential, e.base ~ Number.one {
-                        exponents[e.base] = e.exponent
-                        common.insert(e.base)
-                    } else {
-                        common.insert(f)
-                    }
-                }
-            } else {
-                if let e = terms[i] as? Exponential, e.base ~ Number.one {
-                    exponents[e.base] = e.exponent
-                    common.insert(e.base)
-                } else {
-                    common.insert(terms[i])
-                }
-            }
+        //Nothing can be factored out.
+        if common.count == 0 {
+            return [self]
         }
         
-        return [Number.one] //placeholder
+        var result = [Number]()
+        
+        //This set of if statements determines the Number that's been factored out.
+        if common.count == 1 {
+            //The two force-unwrappings are okay here.  All elements in common are keys in exponents, and
+            //common will have one element to be returned by .first
+            let exp = exponents[common.first!]!
+            if exp == Number.one {
+                result.append(common.first!.multiple(coefficient: self.coefficient))
+            } else {
+                result.append(Exponential(coefficient: self.coefficient, base: common.first!, exponent: exp))
+            }
+        } else {
+            var factoredTerm = [Number]();
+            for factor in common {
+                let exp = exponents[factor]!
+                if exp == Number.one {
+                    factoredTerm.append(factor)
+                } else {
+                    factoredTerm.append(Exponential(base: factor, exponent: exp))
+                }
+            }
+            result.append(Product(coefficient: self.coefficient, factoredTerm))
+        }
+        
+        print("Now, result = \(result)")
+        
+        //forming a new sum with the common factors factored out
+        var newTerms = [Number]();
+        for term in termContents {
+            
+        }
+        
+        return result
     }
     
     /**
