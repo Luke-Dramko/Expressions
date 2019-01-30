@@ -46,7 +46,7 @@ public class Product: Number {
         }
         for factor in factors {
             if factor is Sum {
-                str += "(\(factor.LaTeX))"
+                str += "\\left(\(factor.LaTeX)\\right)"
             } else {
                 str += factor.LaTeX;
             }

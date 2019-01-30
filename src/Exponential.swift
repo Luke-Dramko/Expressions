@@ -22,7 +22,7 @@ public class Exponential: Number {
                 return base.description + "^(" + exponent.description + ")";
             }
         } else if coefficient == -1 {
-            return "-(\(base.description))^(\(exponent.description))"
+            return "-(\(base.description))^\(exponent.description))"
         } else {
             return "\(self.coefficient)(\(base.description))^(\(exponent.description))"
         }
@@ -41,7 +41,7 @@ public class Exponential: Number {
         if self.exponent == Fraction(Number.one, Number(2)) {
             return "\(coeff)\\sqrt{\(base.LaTeX)}"
         } else {
-            return "\(coeff)\(base is Sum || base.coefficient != 1 ? "(\(base.LaTeX))" : base.LaTeX)^{\(exponent.LaTeX)}"
+            return "\(coeff)\(base is Sum || base.coefficient != 1 ? "\\left(\(base.LaTeX)\\right)" : base.LaTeX)^{\(exponent.LaTeX)}"
         }
     }
     

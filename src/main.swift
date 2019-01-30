@@ -127,7 +127,8 @@ print("after sorting, array = \(array)") */
 
 let x = try! simplify("12a^2bc + 16a^4b + 8a^3bd^y")
 print(x)
-print((x as! Sum).factor())
+print(factored(x, mode: .LaTeX))
+print(try! simplify("(a + b)^(c + d)").LaTeX)
 exit(0)
 
 print("Enter expressions:")
