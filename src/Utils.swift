@@ -14,6 +14,29 @@ public enum DisplayMode {
     case LaTeX
 }
 
+/**
+ Returns a string representing the factored form of the argument.  Numbers, including products of sums, are
+ kept fully expanded.  However, sometimes it is desirable to view a sum in its factored form.  This function
+ provides an easy way to see this, without violating the expected internal format for Numbers.
+ 
+ -Parameter n: The number to display
+ -Parameter mode: The type of description to return - the numbers' description or LaTeX property value
+ -Return: A description of the Number.
+ */
+public func factored(_ n: Number, mode: DisplayMode = .description) -> String {
+    if let s = n as? Sum {
+        let p = Product(coefficient: 1, s.factor())
+        switch mode {
+        case .description: return p.description
+        case .LaTeX: return p.LaTeX
+        }
+    }
+    
+    switch mode {
+    case .description: return n.description
+    case .LaTeX: return n.LaTeX
+    }
+}
 
 //the gcd and lcm functions are public as they may be useful outside the package as well.
 
