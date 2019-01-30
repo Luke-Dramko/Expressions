@@ -130,14 +130,10 @@ public class Sum: Number {
     }
     
     /**
-     Returns the sum in its factored form.  A sum in this module is represented by
+     Returns the sum in its factored form.  Only common factors to each term are factored out.
+     (For example, the function returns [x, 3x + 1] for 3x^2 + x, but [x^2 + 2x + 1] for x^2 + 2x + 1).
      
-     c(ax + by), where c is the coefficient, an integer.
-     
-     This function returns the Sum itself factored, including the terms inside of it.
-     The Sum
-     3(4ax + x) would be factored as 3x(4a + 1), and returned as a tuple of (3x, (4a + 1)).
-     
+     -Return: The Sum in factored form.
      */
     internal func factor() -> [Number] {
         var common = Set<Number>();
@@ -152,12 +148,9 @@ public class Sum: Number {
         
         //Effectively converts the terms array into an array of sets instead, which are easier to work with.
         for (i, t) in terms.enumerated() {
-            print("Parsing term \(t)")
             if let p = t as? Product {
-                print("   t is a Product!")
                 for f in p.factors {
                     if let e = f as? Exponential, e.exponent ~ Number.one {
-                        print("    ** factor \(f) is the right kind of exponential")
                         if let val = exponents[e.base] {
                             exponents[e.base] = val.coefficient < e.exponent.coefficient ? val : e.exponent;
                         } else {
@@ -166,7 +159,6 @@ public class Sum: Number {
                         termExponents[i][e.base] = e.exponent
                         termContents[i].insert(e.base)
                     } else {
-                        print("    ** factor \(f) is not an Exponential or not the right kind.")
                         if let val = exponents[f] {
                             exponents[f] = val.coefficient < f.coefficient ? val : Number.one;
                         } else {
@@ -177,7 +169,6 @@ public class Sum: Number {
                     }
                 }
             } else {
-                print("   t is not a product.")
                 if let e = t as? Exponential, e.exponent ~ Number.one {
                     if let val = exponents[e.base] {
                         exponents[e.base] = val.coefficient < e.exponent.coefficient ? val : e.exponent;
@@ -204,11 +195,6 @@ public class Sum: Number {
             common = common.intersection(termContents[i])
             
         }
-        
-        print("terms = \(terms)")
-        print("common = \(common)")
-        print("exponents = \(exponents)")
-        print("Term exponents = \(termExponents))")
         
         //Nothing can be factored out.
         if common.count == 0 {
@@ -240,13 +226,37 @@ public class Sum: Number {
             result.append(Product(coefficient: self.coefficient, factoredTerm))
         }
         
-        print("Now, result = \(result)")
-        
         //forming a new sum with the common factors factored out
         var newTerms = [Number]();
-        for term in termContents {
+        for (i, term) in termContents.enumerated() {
+            var nt: Number = Number(terms[i].coefficient)
+            for factor in term {
+                if let commonExponent = exponents[factor], common.contains(factor) {
+                    //Factoring a terms out involves subtracting exponents.
+                    let newExponent = termExponents[i][factor]! - commonExponent
+                    if newExponent == Number.one {
+                        nt = nt * factor
+                    } else if newExponent != Number.zero {
+                        nt = nt * Exponential(base: factor, exponent: newExponent)
+                    }
+                } else {
+                    let oldExponent = termExponents[i][factor]!
+                    if oldExponent == Number.one {
+                        nt = nt * factor
+                    } else {
+                        nt = nt * Exponential(base: factor, exponent: oldExponent)
+                        
+                        //Note that the numbers' exponent before the factoring could not have been zero.
+                    }
+                }
+            } //End to inside for loop
             
+            newTerms.append(nt)
         }
+        
+        //The factored out portion has already been appended.  Now, the remenants of the sum are being appended
+        //as well.
+        result.append(Sum(newTerms))
         
         return result
     }

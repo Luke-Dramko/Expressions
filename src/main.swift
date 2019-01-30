@@ -125,9 +125,9 @@ print("after sorting, array = \(array)") */
 //}
 //print(Sum(Number("x"), Number.one) ^ Number(-2))
 
-let x = try! simplify("a^(4) + a^(2)b")//simplify("a^2bc + 3a^4b + a^3bd^y")
+let x = try! simplify("a^2bc + 3a^4b + a^3bd^y")
 print(x)
-(x as! Sum).factor()
+print((x as! Sum).factor())
 exit(0)
 
 print("Enter expressions:")
