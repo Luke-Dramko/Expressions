@@ -8,6 +8,13 @@
 
 import Foundation
 
+
+public enum DisplayMode {
+    case description
+    case LaTeX
+}
+
+
 //the gcd and lcm functions are public as they may be useful outside the package as well.
 
 public func gcd(_ num1: Int, _ num2: Int) -> Int {
