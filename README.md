@@ -1,9 +1,9 @@
-# Numbers
-Numbers is a package of swift objects which performs mathematical operations symbolically.
+# Expressions
+Expressions is a Swift framework which performs mathematical operations symbolically.
 
-Numbers objects can represent fractions and complex expressions in terms of multiple variables.  
+Expression objects can represent fractions and complex expressions in terms of multiple variables.  
 
-Number objects can be created in several ways:
+Expression objects can be created in several ways, and are all instances of Number:
 
 `let num1 = Number(4) * Number("x") + Number(2)  //num1 is 4x + 2 `
 
