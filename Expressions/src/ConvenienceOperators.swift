@@ -56,6 +56,15 @@ public func ^ (left: Number, right: Int) -> Number {
     return left ^ Number(right)
 }
 
+//The ** operator aliases to ^
 public func ** (left: Number, right: Number) -> Number {
     return left ^ right;
+}
+
+public func ** (left: Number, right: Int) -> Number {
+    return left ^ Number(right)
+}
+
+public func ** (left: Int, right: Number) -> Number {
+    return Number(left) ^ right
 }
