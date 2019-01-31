@@ -14,6 +14,8 @@ import Foundation
  operator.
  */
 
+infix operator **
+
 public func + (left: Int, right: Number) -> Number {
     return Number(left) + right
 }
@@ -52,4 +54,8 @@ public func ^ (left: Int, right: Number) -> Number {
 
 public func ^ (left: Number, right: Int) -> Number {
     return left ^ Number(right)
+}
+
+public func ** (left: Number, right: Number) -> Number {
+    return left ^ right;
 }
