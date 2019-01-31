@@ -46,6 +46,6 @@ Number objects can be converted back into native data types in three ways: as a 
 
 Number (and its subclasses) implement `CustomStringConvertible`, and thus has a `description` property which describes the Number.  It's automatically called when used in string interpolation.
 
-Number (and its subclasses) have a LaTeX property, which returns a string ready-made to work with a LaTeX rendering engine.
+Number (and its subclasses) have a `LaTeX` property, which returns a string ready-made to work with a LaTeX rendering engine.
 
-The approximate() method returns an approximation of the Number, if possible.  Some values, like 'pi' and 'e', have known approximations, while others, like 'a' or 'lambda', do not.  If a symbol with an unknown approximation is encountered, an UndefinedConstantError is thrown.
+The `approximate()` method returns an approximation of the Number, if possible.  Some values, like 'pi' and 'e', have known approximations, while others, like 'a' or 'lambda', do not.  If a symbol with an unknown approximation is encountered, an UndefinedConstantError is thrown.
