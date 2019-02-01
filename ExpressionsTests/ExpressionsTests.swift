@@ -9,6 +9,8 @@
 import XCTest
 @testable import Expressions
 
+infix operator ^
+
 class ExpressionsTests: XCTestCase {
 
     override func setUp() {
@@ -19,15 +21,21 @@ class ExpressionsTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testDevelopment() {
+        //Test method for continuous testing
+        print(Sum(Number("x"), Number.one) ^ Number(2))
+        print(try! Expressions.simplify("(x + 1)^2"))
+    }
+    
+    func testSimplifyLargeExpression() {
+        let x = try! Expressions.simplify("(3xy^(1/2) + 3x^2y^(1/2))(x + 3)/(3a)")
+        XCTAssert(x.LaTeX == "\\frac{3x\\sqrt{y}+4x^{2}\\sqrt{y}+x^{3}\\sqrt{y}}{a}")
     }
 
-    func testPerformanceExample() {
+    func testPerformanceLargeExpression() {
         // This is an example of a performance test case.
         self.measure {
-            // Put the code you want to measure the time of here.
+            let _ = try! Expressions.simplify("(3xy^(1/2) + 3x^2y^(1/2))(x + 3)/(3a)")
         }
     }
 
