@@ -47,7 +47,7 @@ public func factored(_ n: Number, mode: DisplayMode = .description) -> String {
  */
 public func setApproximation(set key: String, to value: Double, overridingValues override: Bool = false) {
     if Number.approximations[key] == nil || override {
-        Number.approximations[key] = value;
+        Number.approximations[key] = value
     }
 }
 

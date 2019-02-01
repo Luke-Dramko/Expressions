@@ -31,9 +31,18 @@ class ExpressionsTests: XCTestCase {
         let x = try! Expressions.simplify("(3xy^(1/2) + 3x^2y^(1/2))(x + 3)/(3a)")
         XCTAssert(x.LaTeX == "\\frac{3x\\sqrt{y}+4x^{2}\\sqrt{y}+x^{3}\\sqrt{y}}{a}")
     }
+    
+    func testApproximations() {
+        Expressions.setApproximation(set: "a", to: 1.5)
+        print(Number.approximations)
+        let x = try! Expressions.simplify("e^(4^(1/2))*a").approximate();
+        
+        //Testing inside a range due to imprecision of floating point numbers.
+        XCTAssert(x > 11.083584 && x < 11.083585)
+    }
 
     func testPerformanceLargeExpression() {
-        // This is an example of a performance test case.
+        
         self.measure {
             let _ = try! Expressions.simplify("(3xy^(1/2) + 3x^2y^(1/2))(x + 3)/(3a)")
         }
