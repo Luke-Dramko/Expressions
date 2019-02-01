@@ -132,7 +132,7 @@ fileprivate func element(_ t: inout ExpressionTokenizer) throws -> Number {
  */
 fileprivate func symbol(_ t: inout ExpressionTokenizer) -> Number? {
     if let token = t.peek(), case .symbol(let constant) = token {
-        t.pop(); //Unused call is fine here; the result of peek and pop are the same, and so we don't need
+        let _ = t.pop(); //Unused call is fine here; the result of peek and pop are the same, and so we don't need
                  //to do anything else with it.
         return Number(constant);
     } else {
@@ -142,7 +142,7 @@ fileprivate func symbol(_ t: inout ExpressionTokenizer) -> Number? {
 
 fileprivate func integer(_ t: inout ExpressionTokenizer) -> Number? {
     if let token = t.peek(), case .integer(let constant) = token {
-        t.pop()
+        let _ = t.pop()
         return Number(constant)
     } else {
         return nil
@@ -151,7 +151,7 @@ fileprivate func integer(_ t: inout ExpressionTokenizer) -> Number? {
 
 fileprivate func addition(_ t: inout ExpressionTokenizer) -> Bool {
     if let token = t.peek(), case .addition = token {
-        t.pop()
+        let _ = t.pop()
         return true;
     } else {
         return false;
@@ -160,7 +160,7 @@ fileprivate func addition(_ t: inout ExpressionTokenizer) -> Bool {
 
 fileprivate func subtraction(_ t: inout ExpressionTokenizer) -> Bool {
     if let token = t.peek(), case .subtraction = token {
-        t.pop()
+        let _ = t.pop()
         return true;
     } else {
         return false;
@@ -169,7 +169,7 @@ fileprivate func subtraction(_ t: inout ExpressionTokenizer) -> Bool {
 
 fileprivate func multiplication(_ t: inout ExpressionTokenizer) -> Bool {
     if let token = t.peek(), case .multiplication = token {
-        t.pop()
+        let _ = t.pop()
         return true;
     } else {
         return false;
@@ -178,7 +178,7 @@ fileprivate func multiplication(_ t: inout ExpressionTokenizer) -> Bool {
 
 fileprivate func division(_ t: inout ExpressionTokenizer) -> Bool {
     if let token = t.peek(), case .division = token {
-        t.pop()
+        let _ = t.pop()
         return true;
     } else {
         return false;
@@ -187,7 +187,7 @@ fileprivate func division(_ t: inout ExpressionTokenizer) -> Bool {
 
 fileprivate func power(_ t: inout ExpressionTokenizer) -> Bool {
     if let token = t.peek(), case .power = token {
-        t.pop()
+        let _ = t.pop()
         return true;
     } else {
         return false;
@@ -196,7 +196,7 @@ fileprivate func power(_ t: inout ExpressionTokenizer) -> Bool {
 
 fileprivate func lparen(_ t: inout ExpressionTokenizer) -> Bool {
     if let token = t.peek(), case .lparen = token {
-        t.pop()
+        let _ = t.pop()
         return true;
     } else {
         return false;
@@ -205,7 +205,7 @@ fileprivate func lparen(_ t: inout ExpressionTokenizer) -> Bool {
 
 fileprivate func rparen(_ t: inout ExpressionTokenizer) -> Bool {
     if let token = t.peek(), case .rparen = token {
-        t.pop()
+        let _ = t.pop()
         return true;
     } else {
         return false;
