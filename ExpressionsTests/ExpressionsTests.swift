@@ -33,7 +33,7 @@ class ExpressionsTests: XCTestCase {
     }
     
     func testApproximations() {
-        Expressions.setApproximation(set: "a", to: 1.5)
+        Expressions.setApproximation(of: "a", to: 1.5)
         let x = try! Expressions.simplify("e^(4^(1/2))*a").approximate();
         
         //Testing inside a range due to imprecision of floating point numbers.

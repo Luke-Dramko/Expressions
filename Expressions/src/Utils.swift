@@ -45,7 +45,7 @@ public func factored(_ n: Number, mode: DisplayMode = .description) -> String {
  -Parameter to: value the value of the approximation
  -Parameter overridingValues: if there is already an approximation for the given string, set a new one anyway?
  */
-public func setApproximation(set key: String, to value: Double, overridingValues override: Bool = false) {
+public func setApproximation(of key: String, to value: Double, overridingValues override: Bool = false) {
     if Number.approximations[key] == nil || override {
         Number.approximations[key] = value
     }
