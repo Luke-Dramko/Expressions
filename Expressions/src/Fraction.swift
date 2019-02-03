@@ -74,7 +74,14 @@ public class Fraction: Number {
         //To create the hash described above, we must iterate over each factor that makes up the numerator.
         //If the numerator is not of type Product, it's just packaged in an array to it can be processed
         //by the same loop.
-        let numer = fraction.numerator is Product ? (fraction.numerator as! Product).factors : [fraction.numerator];
+        var numer = fraction.numerator is Product ? (fraction.numerator as! Product).factors : [fraction.numerator.coefficient == 1 ? fraction.numerator : fraction.numerator.multiple(coefficient: 1)];
+        
+        for i in 0..<numer.count {
+            if let s = numer[i] as? Sum {
+                numer.remove(at: i)
+                numer += s.factor();
+            }
+        }
         
         //All terms in a Prodduct are unique, and terms are combined with the appropriate exponent.
         //For example, x^5 and x will never both be in the same product; they'll be combined into x^6.
@@ -88,7 +95,14 @@ public class Fraction: Number {
             }
         }
         
-        let denom = fraction.denominator is Product ? (fraction.denominator as! Product).factors : [fraction.denominator];
+        var denom = fraction.denominator is Product ? (fraction.denominator as! Product).factors : [fraction.denominator.coefficient == 1 ? fraction.denominator : fraction.denominator.multiple(coefficient: 1)];
+        
+        for i in 0..<denom.count {
+            if let s = denom[i] as? Sum {
+                denom.remove(at: i)
+                denom += s.factor()
+            }
+        }
         
         //Exponents in the denominator are negative exponents in terms of the numerator.
         for factor in denom {
@@ -107,48 +121,41 @@ public class Fraction: Number {
             }
         }
         
-        var nt: [Number] = []; //numerator terms
-        var dt: [Number] = []; //denominator terms
+        
+        var nt: Number = Number.one
+        var dt: Number = Number.one
         
         for (base, exponent) in nfh {
             //Exponent is negative, so the Number is in the denominator
             if (exponent.coefficient < 0) {
                 if exponent == Number.negative_one {
-                    dt.append(base)
+                    dt = dt * base;
                 } else {
                     //We have to flip the sign on the exponent; putting it in the denominator "erases"
                     //the negative.
-                    dt.append(Exponential(base: base, exponent: exponent.multiple(coefficient: -exponent.coefficient)))
+                    dt = dt * (base ^ exponent.multiple(coefficient: -exponent.coefficient))
                 }
                 
             //Exponent is positive, so Number is in the numerator
             } else if exponent.coefficient > 0 {
                 if exponent == Number.one {
-                    nt.append(base)
+                    nt = nt * base
                 } else {
-                    nt.append(Exponential(base: base, exponent: exponent))
+                    nt = nt * (base ^ exponent)
                 }
             }
             //Note that exponent.coefficient == 0 is excluded, because anything to the zero power is 1,
             //which is redundant.
         }
         
-        let reducedNumer: Number;
-        
-        if nt.count == 0 {
-            reducedNumer = Number.one;
-        } else if nt.count == 1 {
-            reducedNumer = nt[0]
+        if dt == Number.one {
+            if fraction.denominator.coefficient == 1 {
+                return nt.multiple(coefficient: fraction.coefficient)
+            } else {
+                return Fraction(fraction.coefficient, nt, Number(fraction.denominator.coefficient))
+            }
         } else {
-            reducedNumer = Product(coefficient: 1, nt)
-        }
-        
-        if dt.count == 0 {
-            return reducedNumer.multiple(coefficient: fraction.coefficient);
-        } else if dt.count == 1 {
-            return Fraction(fraction.coefficient, reducedNumer, dt[0].multiple(coefficient: fraction.denominator.coefficient))
-        } else {
-            return Fraction(fraction.coefficient, reducedNumer, Product(coefficient: fraction.denominator.coefficient, dt))
+            return Fraction(fraction.coefficient, nt, dt.multiple(coefficient: fraction.denominator.coefficient))
         }
     }
     
