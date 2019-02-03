@@ -8,9 +8,9 @@
 
 import Foundation
 
-public func simplify(_ exp: String) throws -> Number {
-    var tokenizer = try ExpressionTokenizer(exp)
-    let result = try expression(&tokenizer)
+public func simplify(_ expression: String) throws -> Number {
+    var tokenizer = try ExpressionTokenizer(expression)
+    let result = try expr(&tokenizer)
     if tokenizer.peek() == nil {
         return result;
     } else if let err = tokenizer.peek(), case .error(let message) = err {
@@ -23,11 +23,11 @@ public func simplify(_ exp: String) throws -> Number {
 /*
  Grammar used for this parser:
  
- expression: term + expression | term - expression | term
+ expr: term + expr | term - expr | term
  term: -term | +term | product / factor | product / factor * term | product
  product: factor * product | factor product | factor
  factor: element ^ factor | element
- element: ( expression ) | integer | symbol
+ element: ( expr ) | integer | symbol
  
  Note that for expression - term, the negative sign is NOT popped out of the token queue.  This is
  to preserve order of operations.  As written, term - expression indicates term + -1( expression ),
@@ -37,15 +37,15 @@ public func simplify(_ exp: String) throws -> Number {
  */
 
 
-//expression: term + expression | term - expression | term
-fileprivate func expression(_ t: inout ExpressionTokenizer) throws -> Number {
+//expression: term + expr | term - expression | term
+fileprivate func expr(_ t: inout ExpressionTokenizer) throws -> Number {
     let x = try term(&t)
     if addition(&t) {
-        return try x + expression(&t) //term + expression
+        return try x + expr(&t) //term + expr
     }
     
     if let token = t.peek(), case .subtraction = token {
-        return try x + expression(&t) //term - expression
+        return try x + expr(&t) //term - expr
     }
     
     return x; //term
@@ -103,8 +103,8 @@ fileprivate func factor(_ t: inout ExpressionTokenizer) throws -> Number {
 
 //element: ( expression ) | integer | symbol
 fileprivate func element(_ t: inout ExpressionTokenizer) throws -> Number {
-    if lparen(&t) { // ( expression )
-        let x = try expression(&t)
+    if lparen(&t) { // ( expr )
+        let x = try expr(&t)
         if rparen(&t) {
             return x
         } else {
