@@ -91,19 +91,6 @@ public class Number: CustomStringConvertible, Comparable, Hashable {
         self.constant = constant
     }
     
-    //Internal only initializer
-    
-    /**
-     A constructor meant for internal use inside the Numbers package only.  It can initialize the
-     class with nil.
-     
-     This is important if a subclass is delegating to this one and doesn't need to use this class' internal fields.
-     */
-    internal init() {
-        coefficient = 1;
-        constant = "";
-    }
-    
     //************** Instance Methods *********
     internal func multiple(coefficient c: Int) -> Number {
         return Number(c, self.constant);

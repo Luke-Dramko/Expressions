@@ -46,7 +46,7 @@ public class Fraction: Number {
     internal init(_ numerator: Number, _ denominator: Number) {
         self.numerator = numerator;
         self.denominator = denominator;
-        super.init(); //coefficient defaults to 1.
+        super.init(1);
     }
     
     internal init(_ coefficient: Int, _ numerator: Number, _ denominator: Number) {
