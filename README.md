@@ -40,7 +40,7 @@ let y: Double? = try? Number(2, "a").approximate()  //y is nil due to an Undefin
 ```
 Approximations for a given constant value can be set through the setApproximation function
 ```Swift
-Expressions.setApproximation(set: "a", to: 1.5)
+Expressions.setApproximation(of: "a", to: 1.5)
 
 let y: Double = try! Number(2, "a").approximate()  //y is 3.0
 ```
