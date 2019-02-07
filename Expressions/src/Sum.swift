@@ -133,6 +133,8 @@ public class Sum: Number {
      Returns the sum in its factored form.  Only common factors to each term are factored out.
      (For example, the function returns [x, 3x + 1] for 3x^2 + x, but [x^2 + 2x + 1] for x^2 + 2x + 1).
      
+     Note: the first term in the factored sum incorperates the Sum instance's overall coefficient.
+     
      -Return: The Sum in factored form.
      */
     internal func factor() -> [Number] {
@@ -201,7 +203,7 @@ public class Sum: Number {
             return [self]
         }
         
-        var result = [Number]()
+        var result: [Number]
         
         //This set of if statements determines the Number that's been factored out.
         if common.count == 1 {
@@ -209,21 +211,23 @@ public class Sum: Number {
             //common will have one element to be returned by .first
             let exp = exponents[common.first!]!
             if exp == Number.one {
-                result.append(common.first!.multiple(coefficient: self.coefficient))
+                result = [(common.first!.multiple(coefficient: self.coefficient))]
             } else {
-                result.append(Exponential(coefficient: self.coefficient, base: common.first!, exponent: exp))
+                result = [(Exponential(coefficient: self.coefficient, base: common.first!, exponent: exp))]
             }
-        } else {
-            var factoredTerm = [Number]();
+        } else {  //common.count > 1, because we already checked for common.count == 0 above.
+            result = [Number]();
             for factor in common {
                 let exp = exponents[factor]!
                 if exp == Number.one {
-                    factoredTerm.append(factor)
+                    result.append(factor)
                 } else {
-                    factoredTerm.append(Exponential(base: factor, exponent: exp))
+                    result.append(Exponential(base: factor, exponent: exp))
                 }
             }
-            result.append(Product(coefficient: self.coefficient, factoredTerm))
+            
+            //The first term arbitrarily incorperates the Sum instance's coefficient.
+            result[0] = result[0].multiple(coefficient: result[0].coefficient * self.coefficient)
         }
         
         //forming a new sum with the common factors factored out
