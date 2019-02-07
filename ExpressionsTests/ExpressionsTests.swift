@@ -21,8 +21,8 @@ class ExpressionsTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    //Test method for continuous testing
     func testDevelopment() {
-        //Test method for continuous testing
         let x = try! Expressions.simplify("(3xy^(1/2) + 3x^2y^(1/2))(x + 3)/(3a)")
         print(x)
         let y = try! Expressions.simplify("xyz^2/(4x)")

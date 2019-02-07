@@ -288,7 +288,7 @@ public func ^ (left: Number, right: Number) -> Number {
     // (x^2)^3
     if let e = left as? Exponential {
         base = e.base
-        exp = e.base * right
+        exp = e.exponent * right
         
     //This simulates normally raising something to a power (e.g. (x)^3
     } else {
