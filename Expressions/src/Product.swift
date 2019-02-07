@@ -168,6 +168,10 @@ public class Product: Number {
      -Return: The result of the multiplication.
      */
     internal override func multiply(_ right: Number) -> Number {
+        if let r = right as? Sum {
+            return r.multiply(self)
+        }
+        
         //self is a product; right is also a product.
         if let r = right as? Product {
             //dictionary nf relates the base of an exponent to its exponent.
