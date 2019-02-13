@@ -14,6 +14,7 @@
 
 `Number ^ Number`<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Raises the first Number to the power of the second.
+&nbsp;&nbsp;&nbsp;&nbsp;In order to use ^, you must put `infix operator ^` at the file scope.
 
 `Number ** Number`<br>
 &nbsp;&nbsp;&nbsp;&nbsp;An alias for ^, this function raises the first Number to the power of the second.
