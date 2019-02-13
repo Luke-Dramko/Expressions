@@ -48,6 +48,15 @@ class ExpressionsTests: XCTestCase {
         XCTAssert(x.description == "y(z)^(2)/4")
         XCTAssert(y.LaTeX == "\\frac{3+4x+x^{2}}{a}")
     }
+    
+    func testSumPlusFraction() {
+        let x = try! Expressions.simplify("3x + 4")
+        let y = try! Expressions.simplify("a/2")
+        
+        let z = x + y
+        
+        XCTAssert(z == (y + x) && z.description == "(8 + a + 6x)/2")
+    }
 
     func testPerformanceLargeExpression() {
         

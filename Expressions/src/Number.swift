@@ -217,6 +217,11 @@ public func + (left: Number, right: Number) -> Number {
         return left;
     }
     
+    //We want to make sure all Sums are turned into Fractions if combined with a Fraction.
+    if let r = right as? Fraction {
+        return r.add(left)
+    }
+    
     switch left {
     case is Fraction: return (left as! Fraction).add(right)
     case is Product: return (left as! Product).add(right)
