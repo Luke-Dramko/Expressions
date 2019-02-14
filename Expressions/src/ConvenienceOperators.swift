@@ -68,3 +68,11 @@ public func ** (left: Number, right: Int) -> Number {
 public func ** (left: Int, right: Number) -> Number {
     return Number(left) ^ right
 }
+
+public func == (left: Number, right: Int) -> Bool {
+    return left == Number(right)
+}
+
+public func == (left: Int, right: Number) -> Bool {
+    return Number(left) == right
+}
