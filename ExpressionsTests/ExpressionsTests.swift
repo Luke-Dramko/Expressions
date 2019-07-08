@@ -57,6 +57,24 @@ class ExpressionsTests: XCTestCase {
         
         XCTAssert(z == (y + x) && z.description == "(8 + a + 6x)/2")
     }
+    
+    func testExponentiation() {
+        let x = try! Expressions.simplify("(3 * x * y) ** 7")
+        let y = try! Expressions.simplify("(yx3)^7")
+        
+        print(x)
+        print(y)
+        
+        XCTAssert(x == y)
+    }
+    
+    func testTokenization() {
+        var tokenizer = try! ExpressionTokenizer("a +bc ** 2- 1 ^3 ");
+        
+        while let token = tokenizer.pop() {
+            print(token);
+        }
+    }
 
     func testPerformanceLargeExpression() {
         
